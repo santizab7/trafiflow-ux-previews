@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrafiFlow — Signal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+    :root {
+      --bg:     #0A0604;
+      --bg2:    #120C08;
+      --bg3:    #1A1108;
+      --text:   #FFF6EE;
+      --accent: #FF5C28;
+      --acc2:   #FF8455;
+      --muted:  rgba(255,246,238,0.44);
+      --faint:  rgba(255,92,40,0.10);
+      --border: rgba(255,92,40,0.16);
+      --h1:     clamp(36px,9.5vw,84px);
+      --h2:     clamp(26px,4.8vw,50px);
+      --h3:     clamp(17px,2.4vw,21px);
+      --body:   clamp(14px,1.9vw,17px);
+      --small:  clamp(11px,1.4vw,13px);
+    }
+
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;cursor:none;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    ::-webkit-scrollbar{width:2px;}
+    ::-webkit-scrollbar-track{background:var(--bg);}
+    ::-webkit-scrollbar-thumb{background:var(--accent);}
+
+    #cur,#cur2{position:fixed;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);display:none;}
+    @media(hover:hover){#cur,#cur2{display:block;}}
+    #cur{width:7px;height:7px;background:var(--accent);mix-blend-mode:screen;transition:width .08s,height .08s;}
+    #cur2{width:30px;height:30px;border:1px solid rgba(255,92,40,.3);transition:all .15s;}
+    body.hov #cur{width:14px;height:14px;}
+    body.hov #cur2{width:46px;height:46px;border-color:rgba(255,92,40,.7);}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;height:56px;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid transparent;transition:background .35s,border-color .35s,backdrop-filter .35s;}
+    @media(min-width:640px){nav{padding:0 52px;height:60px;}}
+    nav.on{background:rgba(10,6,4,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom-color:var(--border);}
+    .nlogo{font-weight:800;font-size:14px;letter-spacing:.12em;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:8px;}
+    @media(min-width:640px){.nlogo{font-size:15px;}}
+    .nlogo-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);animation:pd 2.4s ease-in-out infinite;}
+    @keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(1.6)}}
+    .ncta{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:8px 16px;text-decoration:none;cursor:none;transition:background .2s,color .2s,box-shadow .2s;}
+    @media(min-width:640px){.ncta{font-size:11px;padding:9px 22px;}}
+    .ncta:hover{background:var(--accent);color:var(--bg);box-shadow:0 0 28px rgba(255,92,40,.4);}
+
+    /* REVEAL */
+    .rv{opacity:0;transform:translateY(22px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+    .rv.in{opacity:1;transform:none;}
+    .d1{transition-delay:.08s}.d2{transition-delay:.17s}.d3{transition-delay:.26s}.d4{transition-delay:.35s}.d5{transition-delay:.44s}
+
+    .wrap{width:100%;padding:0 20px;}
+    @media(min-width:640px){.wrap{max-width:1180px;margin:0 auto;padding:0 52px;}}
+
+    .lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--accent);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+    @media(min-width:640px){.lbl{font-size:10.5px;gap:12px;margin-bottom:24px;}}
+    .lbl::before{content:'';width:20px;height:1px;background:var(--accent);flex-shrink:0;}
+    @media(min-width:640px){.lbl::before{width:24px;}}
+
+    /* ── HERO — Split layout (text left, data right) ── */
+    #hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;padding:0;}
+    .hero-noise{position:absolute;inset:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");background-size:200px;pointer-events:none;}
+    .hero-inner{position:relative;z-index:1;width:100%;padding:100px 20px 130px;}
+    @media(min-width:640px){.hero-inner{display:grid;grid-template-columns:1fr 340px;gap:60px;align-items:center;max-width:1180px;margin:0 auto;padding:120px 52px 140px;}}
+    @media(min-width:900px){.hero-inner{grid-template-columns:1fr 400px;gap:80px;}}
+
+    .hero-left{}
+    .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--acc2);text-transform:uppercase;margin-bottom:24px;border:1px solid rgba(255,92,40,.2);padding:5px 12px;}
+    @media(min-width:640px){.hero-eyebrow{font-size:10.5px;margin-bottom:32px;padding:6px 14px;}}
+    .blink{animation:bl 1.3s step-end infinite;}
+    @keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
+    .hero-h1{font-size:var(--h1);font-weight:800;line-height:1.02;letter-spacing:-.03em;margin-bottom:22px;}
+    @media(min-width:640px){.hero-h1{letter-spacing:-.04em;margin-bottom:28px;}}
+    .hero-h1 .acc{color:var(--accent);}
+    .hero-h1 .ghost{color:rgba(255,246,238,.18);}
+    .hero-sub{font-size:var(--body);color:var(--muted);font-weight:400;max-width:44ch;line-height:1.68;margin-bottom:36px;}
+    @media(min-width:640px){.hero-sub{margin-bottom:44px;}}
+    .hero-form{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
+    @media(min-width:520px){.hero-form{flex-direction:row;gap:0;max-width:480px;}}
+    .hero-input{flex:1;background:rgba(255,92,40,.05);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:15px 18px;outline:none;cursor:none;min-height:52px;transition:border-color .3s,box-shadow .3s;}
+    @media(min-width:520px){.hero-input{border-right:none;}}
+    .hero-input::placeholder{color:rgba(255,246,238,.22);}
+    .hero-input:focus{border-color:var(--accent);box-shadow:0 0 28px rgba(255,92,40,.13),inset 0 0 16px rgba(255,92,40,.04);}
+    .hero-btn{background:var(--accent);color:var(--bg);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border:none;padding:15px 22px;cursor:none;white-space:nowrap;min-height:52px;transition:box-shadow .3s,transform .15s;-webkit-tap-highlight-color:transparent;}
+    .hero-btn:hover{box-shadow:0 0 40px rgba(255,92,40,.5);transform:translateY(-1px);}
+    .hero-btn:active{transform:scale(.97);}
+    .hero-badge{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em;display:flex;align-items:center;gap:8px;}
+    .hero-badge::before{content:'▲';color:var(--accent);font-size:8px;}
+
+    /* Signal panel — data terminal on right */
+    .hero-right{display:none;}
+    @media(min-width:640px){.hero-right{display:block;}}
+    .terminal{border:1px solid var(--border);background:var(--bg2);}
+    .term-bar{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;}
+    .term-dot{width:6px;height:6px;border-radius:50%;}
+    .term-title{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-left:4px;}
+    .term-body{padding:18px 16px;}
+    .term-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,92,40,.07);}
+    .term-row:last-child{border-bottom:none;}
+    .term-key{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.06em;}
+    .term-val{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--text);}
+    .term-val.up{color:var(--accent);}
+    .term-val.warn{color:rgba(255,200,80,.7);}
+    .term-val.bad{color:rgba(255,80,80,.6);}
+    .term-footer{padding:10px 16px;border-top:1px solid var(--border);}
+    .term-status{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px;}
+    .ts-dot{width:4px;height:4px;border-radius:50%;background:var(--accent);animation:pd 1.4s ease-in-out infinite;}
+
+    /* Ticker */
+    .ticker-outer{position:absolute;bottom:0;left:0;right:0;border-top:1px solid var(--border);overflow:hidden;padding:10px 0;}
+    .ticker-t{display:flex;gap:60px;animation:tk 32s linear infinite;white-space:nowrap;}
+    .ticker-t span{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;flex-shrink:0;}
+    .ticker-t span.hi{color:var(--acc2);}
+    @keyframes tk{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* PAIN */
+    #pain{padding:80px 0;}
+    @media(min-width:640px){#pain{padding:120px 0;}}
+    .pain-h2{font-size:var(--h2);font-weight:800;letter-spacing:-.02em;line-height:1.08;margin-bottom:12px;}
+    .pain-sub{font-family:'DM Mono',monospace;font-size:var(--small);color:var(--muted);max-width:38ch;line-height:1.65;margin-bottom:44px;}
+    @media(min-width:640px){.pain-sub{margin-bottom:64px;}}
+    .chaos-wrap{position:relative;width:100%;height:300px;border:1px solid var(--border);background:var(--bg2);overflow:hidden;}
+    @media(min-width:640px){.chaos-wrap{height:380px;}}
+    .chaos-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,92,40,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,92,40,.04) 1px,transparent 1px);background-size:32px 32px;}
+    .chaos-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}
+    .tbadge{position:absolute;font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;border:1px solid rgba(255,246,238,.1);padding:5px 10px;background:rgba(18,12,8,.9);color:rgba(255,246,238,.48);white-space:nowrap;transition:border-color .3s,color .3s;}
+    @media(min-width:640px){.tbadge{font-size:10.5px;padding:7px 13px;}}
+    .tbadge:hover{border-color:rgba(255,246,238,.32);color:var(--text);}
+    .chaos-tag{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,80,80,.5);white-space:nowrap;border:1px solid rgba(255,80,80,.14);padding:5px 14px;background:rgba(10,6,4,.8);}
+    @media(min-width:640px){.chaos-tag{font-size:10.5px;}}
+    .chaos-transition{height:60px;display:flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--bg2),var(--bg3),var(--bg2));border-left:1px solid var(--border);border-right:1px solid var(--border);}
+    @media(min-width:640px){.chaos-transition{height:70px;}}
+    .ct-ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--accent));}
+    .ct-ln.r{background:linear-gradient(90deg,var(--accent),transparent);}
+    .ct-mid{padding:0 20px;display:flex;flex-direction:column;align-items:center;gap:4px;}
+    @media(min-width:640px){.ct-mid{padding:0 32px;}}
+    .ct-lbl{font-family:'DM Mono',monospace;font-size:9.5px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;white-space:nowrap;}
+    @media(min-width:640px){.ct-lbl{font-size:10.5px;}}
+    .ct-arr{color:var(--accent);font-size:18px;}
+    .unified-box{border:1px solid var(--border);background:var(--bg2);border-top:none;padding:32px 20px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;}
+    @media(min-width:640px){.unified-box{flex-direction:row;padding:52px;text-align:left;gap:36px;}}
+    .unified-logo{font-weight:800;font-size:24px;letter-spacing:.1em;color:var(--accent);display:flex;align-items:center;gap:10px;text-shadow:0 0 40px rgba(255,92,40,.4);}
+    @media(min-width:640px){.unified-logo{font-size:28px;}}
+    .udot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);flex-shrink:0;}
+    .unified-desc{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;line-height:1.75;max-width:320px;}
+    @media(min-width:640px){.unified-desc{border-left:1px solid var(--border);padding-left:36px;max-width:360px;}}
+
+    /* VALUE */
+    #value{padding:80px 0;}
+    @media(min-width:640px){#value{padding:120px 0;}}
+    .val-h2{font-size:var(--h2);font-weight:800;letter-spacing:-.02em;line-height:1.1;max-width:20ch;margin-bottom:44px;}
+    @media(min-width:640px){.val-h2{margin-bottom:64px;}}
+    .val-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);}
+    @media(min-width:900px){.val-grid{grid-template-columns:repeat(3,1fr);}}
+    .vcard{background:var(--bg);padding:36px 28px;transition:background .3s;position:relative;overflow:hidden;}
+    @media(min-width:640px){.vcard{padding:52px 44px;}}
+    .vcard::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),transparent);opacity:0;transition:opacity .3s;}
+    .vcard:hover{background:var(--bg3);}
+    .vcard:hover::after{opacity:1;}
+    .vnum{font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);letter-spacing:.12em;margin-bottom:24px;opacity:.5;}
+    @media(min-width:640px){.vnum{margin-bottom:32px;}}
+    .vicon{width:32px;height:32px;color:var(--accent);margin-bottom:18px;}
+    @media(min-width:640px){.vicon{width:36px;height:36px;margin-bottom:22px;}}
+    .vtitle{font-size:var(--h3);font-weight:700;letter-spacing:-.01em;line-height:1.25;margin-bottom:12px;}
+    .vdesc{font-size:14px;color:var(--muted);line-height:1.7;font-weight:400;}
+    @media(min-width:640px){.vdesc{font-size:14.5px;}}
+
+    /* COMPARISON */
+    #comparison{padding:80px 0;}
+    @media(min-width:640px){#comparison{padding:120px 0;}}
+    .comp-h2{font-size:var(--h2);font-weight:800;letter-spacing:-.02em;line-height:1.1;margin-bottom:44px;}
+    @media(min-width:640px){.comp-h2{margin-bottom:64px;}}
+    .comp-wrap{border:1px solid var(--border);overflow-x:auto;background:var(--bg2);-webkit-overflow-scrolling:touch;}
+    table.ct{width:100%;min-width:560px;border-collapse:collapse;font-family:'DM Mono',monospace;font-size:12px;}
+    @media(min-width:640px){table.ct{font-size:12.5px;}}
+    table.ct thead{border-bottom:1px solid var(--border);}
+    table.ct th{padding:14px 18px;font-weight:400;letter-spacing:.1em;text-transform:uppercase;font-size:10px;color:var(--muted);text-align:center;}
+    @media(min-width:640px){table.ct th{padding:18px 30px;font-size:10.5px;}}
+    table.ct th:first-child{text-align:left;}
+    table.ct th.hl{color:var(--accent);}
+    table.ct tbody tr{border-bottom:1px solid var(--border);transition:background .2s;}
+    table.ct tbody tr:last-child{border-bottom:none;}
+    table.ct tbody tr:hover{background:rgba(255,92,40,.03);}
+    table.ct td{padding:14px 18px;vertical-align:middle;text-align:center;}
+    @media(min-width:640px){table.ct td{padding:18px 30px;}}
+    table.ct td:first-child{text-align:left;color:var(--text);}
+    .ck{color:var(--accent);font-size:14px;}
+    .cx{color:rgba(255,80,80,.5);font-size:14px;}
+    .cp{color:rgba(255,200,80,.45);font-size:14px;}
+    .comp-legend{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);margin-top:12px;letter-spacing:.05em;}
+
+    /* URGENCY */
+    #urgency{padding:0 0 80px;}
+    @media(min-width:640px){#urgency{padding:0 0 120px;}}
+    .urg-card{background:var(--bg2);border:1px solid var(--border);padding:40px 28px;position:relative;overflow:hidden;}
+    @media(min-width:640px){.urg-card{padding:80px 84px;}}
+    .urg-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent) 35%,var(--accent) 65%,transparent);}
+    .urg-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 60% at 80% 80%,rgba(255,92,40,.06) 0%,transparent 100%);pointer-events:none;}
+    .urg-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,92,40,.65);margin-bottom:18px;position:relative;z-index:1;display:flex;align-items:center;gap:8px;}
+    @media(min-width:640px){.urg-lbl{font-size:10.5px;margin-bottom:22px;gap:10px;}}
+    .urg-dot{width:5px;height:5px;border-radius:50%;background:var(--accent);box-shadow:0 0 7px var(--accent);animation:pd 1.8s ease-in-out infinite;}
+    .urg-h2{font-size:var(--h2);font-weight:800;letter-spacing:-.02em;line-height:1.08;margin-bottom:18px;max-width:18ch;position:relative;z-index:1;}
+    .urg-body{font-size:var(--body);color:var(--muted);line-height:1.72;max-width:56ch;margin-bottom:36px;font-weight:400;position:relative;z-index:1;}
+    @media(min-width:640px){.urg-body{margin-bottom:44px;}}
+    .urg-body strong{color:var(--text);font-weight:600;}
+    .btn-acc{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:var(--bg);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border:none;padding:16px 28px;cursor:none;text-decoration:none;position:relative;z-index:1;animation:glw 3.5s ease-in-out infinite;transition:transform .15s;-webkit-tap-highlight-color:transparent;}
+    @media(min-width:640px){.btn-acc{font-size:11.5px;padding:18px 34px;}}
+    @keyframes glw{0%,100%{box-shadow:0 0 16px rgba(255,92,40,.2)}50%{box-shadow:0 0 48px rgba(255,92,40,.55)}}
+    .btn-acc:hover{transform:translateY(-2px);animation:none;box-shadow:0 0 64px rgba(255,92,40,.65)!important;}
+    .btn-acc:active{transform:scale(.97);}
+
+    /* PROOF */
+    #proof{padding:80px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+    @media(min-width:640px){#proof{padding:100px 0;}}
+    .proof-lbl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--muted);text-transform:uppercase;text-align:center;margin-bottom:44px;}
+    @media(min-width:640px){.proof-lbl{font-size:10.5px;margin-bottom:52px;}}
+    .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:56px;}
+    @media(min-width:900px){.stats-grid{grid-template-columns:repeat(4,1fr);margin-bottom:72px;}}
+    .stat-cell{background:var(--bg);padding:32px 24px;text-align:center;}
+    @media(min-width:640px){.stat-cell{padding:44px 36px;}}
+    .stat-num{font-size:clamp(34px,7.5vw,52px);font-weight:800;letter-spacing:-.04em;line-height:1;margin-bottom:8px;}
+    .stat-num .u{color:var(--accent);}
+    .stat-lbl{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
+    @media(min-width:640px){.stat-lbl{font-size:10.5px;}}
+    .pull-quote{text-align:center;}
+    .pq-text{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(18px,3vw,27px);color:var(--text);line-height:1.55;max-width:38ch;margin:0 auto 18px;}
+    .pq-attr{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;}
+    @media(min-width:640px){.pq-attr{font-size:10.5px;}}
+
+    /* CAPTURE */
+    #capture{padding:100px 0;text-align:center;}
+    @media(min-width:640px){#capture{padding:160px 0;}}
+    .cap-h2{font-size:clamp(30px,7vw,70px);font-weight:800;letter-spacing:-.03em;line-height:1.02;margin-bottom:16px;}
+    .cap-h2 .acc{color:var(--accent);}
+    .cap-sub{font-size:var(--body);color:var(--muted);margin-bottom:44px;font-weight:400;max-width:38ch;margin-left:auto;margin-right:auto;}
+    @media(min-width:640px){.cap-sub{margin-bottom:52px;}}
+    .cap-form{display:flex;flex-direction:column;gap:10px;max-width:480px;margin:0 auto 14px;}
+    @media(min-width:520px){.cap-form{flex-direction:row;gap:0;}}
+    .cap-input{flex:1;background:rgba(255,92,40,.05);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:13px;padding:17px 20px;outline:none;cursor:none;min-height:52px;transition:border-color .3s,box-shadow .3s;}
+    @media(min-width:520px){.cap-input{border-right:none;}}
+    .cap-input::placeholder{color:rgba(255,246,238,.22);}
+    .cap-input:focus{border-color:var(--accent);box-shadow:0 0 28px rgba(255,92,40,.12),inset 0 0 16px rgba(255,92,40,.04);}
+    .cap-btn{background:var(--accent);color:var(--bg);font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;border:none;padding:17px 26px;cursor:none;white-space:nowrap;min-height:52px;transition:box-shadow .3s;-webkit-tap-highlight-color:transparent;}
+    @media(min-width:640px){.cap-btn{font-size:11.5px;padding:18px 28px;}}
+    .cap-btn:hover{box-shadow:0 0 36px rgba(255,92,40,.5);}
+    .cap-note{font-family:'DM Mono',monospace;font-size:10.5px;color:rgba(255,246,238,.2);letter-spacing:.06em;}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);padding:28px 20px;display:flex;flex-direction:column;gap:20px;text-align:center;}
+    @media(min-width:640px){footer{flex-direction:row;align-items:center;justify-content:space-between;padding:28px 52px;text-align:left;gap:0;}}
+    .flogo{font-weight:800;font-size:13px;letter-spacing:.12em;}
+    .fsub{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,246,238,.22);letter-spacing:.1em;text-transform:uppercase;margin-top:3px;}
+    .flinks{display:flex;gap:24px;justify-content:center;}
+    @media(min-width:640px){.flinks{gap:28px;}}
+    .flinks a{font-family:'DM Mono',monospace;font-size:10.5px;color:var(--muted);text-decoration:none;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;}
+    .flinks a:hover{color:var(--text);}
+    .fcopy{font-family:'DM Mono',monospace;font-size:10px;color:rgba(255,246,238,.18);letter-spacing:.05em;}
+  </style>
+</head>
+<body>
+<div id="cur"></div><div id="cur2"></div>
+
+<nav id="nav">
+  <a class="nlogo" href="#"><div class="nlogo-dot"></div>TRAFIFLOW</a>
+  <a class="ncta" href="#capture">Request Early Access</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow rv"><span class="blink" style="display:inline-block;width:4px;height:4px;border-radius:50%;background:var(--acc2)"></span>Private Beta — Limited Spots</div>
+      <h1 class="hero-h1 rv d1">Your ecommerce<br>stack is <span class="acc">already</span><br><span class="ghost">obsolete.</span></h1>
+      <p class="hero-sub rv d2">While your team stitches together 12 disconnected tools, the world's best operators run a single unified intelligence layer. That's TrafiFlow.</p>
+      <div class="hero-form rv d3">
+        <input type="text" class="hero-input" id="hIn" placeholder="yourstore.com">
+        <button class="hero-btn" id="hBtn" onclick="sub('hIn','hBtn')">See What You're Missing →</button>
+      </div>
+      <div class="hero-badge rv d4">Built by the team that scaled 8-figure DTC brands</div>
+    </div>
+    <!-- Terminal panel -->
+    <div class="hero-right rv d2">
+      <div class="terminal">
+        <div class="term-bar">
+          <div class="term-dot" style="background:#ff5f57"></div>
+          <div class="term-dot" style="background:#febc2e"></div>
+          <div class="term-dot" style="background:#28c840"></div>
+          <div class="term-title">your-stack.sh — live audit</div>
+        </div>
+        <div class="term-body">
+          <div class="term-row"><span class="term-key">Tools connected</span><span class="term-val warn">12 active</span></div>
+          <div class="term-row"><span class="term-key">Data sources</span><span class="term-val bad">Not unified</span></div>
+          <div class="term-row"><span class="term-key">Attribution</span><span class="term-val bad">Fragmented</span></div>
+          <div class="term-row"><span class="term-key">CAC trend</span><span class="term-val bad">↑ 34% YoY</span></div>
+          <div class="term-row"><span class="term-key">Margin pressure</span><span class="term-val bad">Critical</span></div>
+          <div class="term-row"><span class="term-key">AI agents</span><span class="term-val bad">0 deployed</span></div>
+          <div class="term-row"><span class="term-key">Competitor intel</span><span class="term-val bad">Blind</span></div>
+          <div class="term-row"><span class="term-key">TrafiFlow status</span><span class="term-val up">Not activated</span></div>
+        </div>
+        <div class="term-footer">
+          <div class="term-status"><div class="ts-dot"></div>Live audit running · Connect to resolve</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="ticker-outer">
+    <div class="ticker-t" id="tk"></div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section id="pain">
+  <div class="wrap">
+    <div class="lbl rv">02 — The Problem</div>
+    <h2 class="pain-h2 rv d1">The stack killing<br>your margins.</h2>
+    <p class="pain-sub rv d2">Your current operation. Fragmented. Expensive. Completely blind.</p>
+    <div class="chaos-wrap rv d3" id="cWrap">
+      <div class="chaos-bg"></div>
+      <svg class="chaos-svg" id="cSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="tbadge" style="top:8%;left:5%"   id="t0">GA4</div>
+      <div class="tbadge" style="top:8%;left:28%"  id="t1">Klaviyo</div>
+      <div class="tbadge" style="top:8%;left:52%"  id="t2">Triple Whale</div>
+      <div class="tbadge" style="top:8%;left:74%"  id="t3">Shopify</div>
+      <div class="tbadge" style="top:47%;left:3%"  id="t4">Meta Ads</div>
+      <div class="tbadge" style="top:47%;left:72%" id="t5">Northbeam</div>
+      <div class="tbadge" style="bottom:20%;left:18%" id="t6">Gorgias</div>
+      <div class="tbadge" style="bottom:20%;left:52%" id="t7">Recharge</div>
+      <div class="chaos-tag">↑ 8 tools. 8 data models. 8 bills. Zero unified truth. ↑</div>
+    </div>
+    <div class="chaos-transition rv d4">
+      <div class="ct-ln"></div>
+      <div class="ct-mid"><div class="ct-lbl">One platform to replace them all</div><div class="ct-arr">↓</div></div>
+      <div class="ct-ln r"></div>
+    </div>
+    <div class="unified-box rv d5">
+      <div class="unified-logo"><div class="udot"></div>TRAFIFLOW</div>
+      <div class="unified-desc">One platform.<br>Every channel. Every SKU.<br>Every customer touchpoint.<br>Unified. Intelligent. Agentic.</div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE -->
+<section id="value">
+  <div class="wrap">
+    <div class="lbl rv">03 — Why TrafiFlow</div>
+    <h2 class="val-h2 rv d1">Intelligence that compounds.<br>Execution that <span style="color:var(--accent)">never sleeps.</span></h2>
+    <div class="val-grid">
+      <div class="vcard rv d2">
+        <div class="vnum">01</div>
+        <svg class="vicon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="12" height="12" stroke="currentColor" stroke-width="1.2"/><rect x="21" y="3" width="12" height="12" stroke="currentColor" stroke-width="1.2"/><rect x="3" y="21" width="12" height="12" stroke="currentColor" stroke-width="1.2"/><rect x="21" y="21" width="12" height="12" stroke="currentColor" stroke-width="1.2"/><line x1="9" y1="15" x2="9" y2="21" stroke="currentColor" stroke-width="1.2"/><line x1="27" y1="15" x2="27" y2="21" stroke="currentColor" stroke-width="1.2"/><line x1="9" y1="21" x2="27" y2="21" stroke="currentColor" stroke-width="1.2"/><circle cx="18" cy="21" r="2" fill="currentColor"/></svg>
+        <h3 class="vtitle">Unified Data Layer</h3>
+        <p class="vdesc">One source of truth across every channel, SKU, and customer touchpoint. No more exporting CSVs at 11pm for a decision needed at 9am.</p>
+      </div>
+      <div class="vcard rv d3">
+        <div class="vnum">02</div>
+        <svg class="vicon" viewBox="0 0 36 36" fill="none"><path d="M4 28 L12 16 L20 21 L28 6" stroke="currentColor" stroke-width="1.4"/><circle cx="28" cy="6" r="2" fill="currentColor"/><line x1="4" y1="32" x2="32" y2="32" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3" opacity="0.4"/></svg>
+        <h3 class="vtitle">Predictive Intelligence</h3>
+        <p class="vdesc">Know what's going to happen before your competitors see what happened yesterday. AI agents watch 24/7 and surface what matters.</p>
+      </div>
+      <div class="vcard rv d4">
+        <div class="vnum">03</div>
+        <svg class="vicon" viewBox="0 0 36 36" fill="none"><polygon points="18,3 33,30 3,30" stroke="currentColor" stroke-width="1.4" fill="none"/><line x1="18" y1="13" x2="18" y2="21" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="25" r="1.5" fill="currentColor"/></svg>
+        <h3 class="vtitle">Action, Not Dashboards</h3>
+        <p class="vdesc">TrafiFlow doesn't just show you data. It tells you what to do next — and lets AI agents execute while your team focuses on strategy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section id="comparison">
+  <div class="wrap">
+    <div class="lbl rv">04 — The Reality Check</div>
+    <h2 class="comp-h2 rv d1">TrafiFlow vs.<br>Everything else.</h2>
+    <div class="comp-wrap rv d2">
+      <table class="ct">
+        <thead><tr><th>Capability</th><th class="hl">TrafiFlow</th><th>Shopify</th><th>Your Stack</th></tr></thead>
+        <tbody>
+          <tr><td>Real-time cross-channel attribution</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cp">~</span></td></tr>
+          <tr><td>Predictive inventory signals</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>AI-driven media budget allocation</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>Single unified operating UI</td><td><span class="ck">✓</span></td><td><span class="cp">~</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>Agentic execution (not just reporting)</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>Vibe Coding — change anything in plain language</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>Built for scale without agency overhead</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="comp-legend rv d3">✓ Native &nbsp;·&nbsp; ~ Partial / requires workarounds &nbsp;·&nbsp; ✗ Not available</p>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section id="urgency">
+  <div class="wrap">
+    <div class="urg-card rv">
+      <div class="urg-lbl"><div class="urg-dot"></div>Private Beta — Spots Are Limited</div>
+      <h2 class="urg-h2">The brands moving now will own the next 3 years.</h2>
+      <p class="urg-body">Every week you delay, your competitors are compounding an intelligence advantage you can't buy back. <strong>TrafiFlow is in private beta. Spots are limited.</strong><br><br>This is not a pitch. It's a window. When it closes — it closes.</p>
+      <a href="#capture" class="btn-acc">Request Access Before It Closes →</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <p class="proof-lbl rv">Trusted by operators who've seen everything — and built something better</p>
+    <div class="stats-grid rv d1">
+      <div class="stat-cell"><div class="stat-num">$<span class="cnt" data-t="500">0</span><span class="u">M+</span></div><div class="stat-lbl">Media Spend Managed</div></div>
+      <div class="stat-cell"><div class="stat-num"><span class="cnt" data-t="8">0</span><span class="u">+</span></div><div class="stat-lbl">Years DTC Execution</div></div>
+      <div class="stat-cell"><div class="stat-num"><span class="cnt" data-t="12">0</span><span class="u">+</span></div><div class="stat-lbl">Brands Scaled</div></div>
+      <div class="stat-cell"><div class="stat-num">$<span class="cnt" data-t="100">0</span><span class="u">M+</span></div><div class="stat-lbl">Revenue Generated</div></div>
+    </div>
+    <div class="pull-quote rv d2">
+      <p class="pq-text">"It's about giving teams the same flexibility, intelligence, and execution power that world-class operators have — so they can outperform under real market pressure."</p>
+      <div class="pq-attr">— Santiago Zabala, CEO of Trafilea</div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPTURE -->
+<section id="capture">
+  <div class="wrap">
+    <div class="lbl rv" style="justify-content:center">05 — Get Started</div>
+    <h2 class="cap-h2 rv d1">See your store<br>through <span class="acc">TrafiFlow.</span></h2>
+    <p class="cap-sub rv d2">Enter your URL and we'll show you exactly what you're missing.</p>
+    <div class="cap-form rv d3">
+      <input type="text" class="cap-input" id="cIn" placeholder="yourstore.com">
+      <button class="cap-btn" id="cBtn" onclick="sub('cIn','cBtn')">Request Access →</button>
+    </div>
+    <p class="cap-note rv d4">No commitment. No credit card. Just clarity.</p>
+  </div>
+</section>
+
+<footer class="rv">
+  <div><div class="flogo">TRAFIFLOW</div><div class="fsub">A Trafilea Product</div></div>
+  <div class="flinks"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Contact</a></div>
+  <div class="fcopy">© 2026 Trafilea. All rights reserved.</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let mx=0,my=0,fx=0,fy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function a(){fx+=(mx-fx)*.12;fy+=(my-fy)*.12;cur2.style.left=fx+'px';cur2.style.top=fy+'px';requestAnimationFrame(a);})();
+document.querySelectorAll('a,button,input,.tbadge,.vcard,tbody tr').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));});
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('on',scrollY>50));
+const items=['AI-First Commerce OS','Built by Trafilea','Unified Intelligence Layer','Agentic Execution','Vibe Coding','Private Beta Open','Limitless Customization','No Replatforming','Shopify-First','AI-First Commerce OS','Built by Trafilea','Unified Intelligence Layer','Agentic Execution','Vibe Coding','Private Beta Open','Limitless Customization','No Replatforming','Shopify-First'];
+const hl=new Set(['Private Beta Open','AI-First Commerce OS','Vibe Coding']);
+const t=document.getElementById('tk');
+items.forEach(s=>{const el=document.createElement('span');if(hl.has(s))el.className='hi';el.textContent=s;t.appendChild(el);});
+function dl(){const svg=document.getElementById('cSvg'),wrap=document.getElementById('cWrap');svg.innerHTML='';const bs=wrap.querySelectorAll('.tbadge'),wr=wrap.getBoundingClientRect(),pos=Array.from(bs).map(b=>{const r=b.getBoundingClientRect();return{x:r.left-wr.left+r.width/2,y:r.top-wr.top+r.height/2};});[[0,1],[1,2],[2,3],[0,4],[3,5],[4,6],[5,7],[1,4],[2,5],[0,3],[6,7]].forEach(([a,b])=>{if(!pos[a]||!pos[b])return;const p=pos[a],q=pos[b],cx=(p.x+q.x)/2+(Math.random()-.5)*100,cy=(p.y+q.y)/2+(Math.random()-.5)*70,path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d',`M${p.x} ${p.y} Q${cx} ${cy} ${q.x} ${q.y}`);path.setAttribute('stroke','rgba(255,60,60,.15)');path.setAttribute('stroke-width','1');path.setAttribute('fill','none');path.setAttribute('stroke-dasharray','3 4');svg.appendChild(path);});}
+setTimeout(dl,400);window.addEventListener('resize',dl);
+const rvEls=document.querySelectorAll('.rv'),obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in');});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});rvEls.forEach(el=>obs.observe(el));
+const cobs=new IntersectionObserver(e=>{e.forEach(x=>{if(!x.isIntersecting)return;const el=x.target,tgt=+el.dataset.t,dur=1600,st=performance.now();(function u(now){const p=Math.min((now-st)/dur,1),e2=1-Math.pow(1-p,3);el.textContent=Math.round(e2*tgt);if(p<1)requestAnimationFrame(u);})(st);cobs.unobserve(el);});},{threshold:.5});
+document.querySelectorAll('.cnt').forEach(c=>cobs.observe(c));
+function sub(i,b){const inp=document.getElementById(i),btn=document.getElementById(b),v=inp.value.trim();if(!v){inp.style.borderColor='rgba(255,80,80,.5)';inp.placeholder='Enter your store URL';setTimeout(()=>{inp.style.borderColor='';inp.placeholder='yourstore.com';},2200);return;}const o=btn.textContent;btn.textContent='Received ✓';btn.style.background='#ff8455';inp.value='';setTimeout(()=>{btn.textContent=o;btn.style.background='';},3000);}
+[['hIn','hBtn'],['cIn','cBtn']].forEach(([i,b])=>{const el=document.getElementById(i);if(el)el.addEventListener('keypress',e=>{if(e.key==='Enter')sub(i,b);});});
+</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrafiFlow — UX Lab Previews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#0f0f0f; color:#fff; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 20px; }
+    .container { max-width:680px; width:100%; text-align:center; }
+    .eyebrow { font-size:11px; letter-spacing:.15em; text-transform:uppercase; color:#666; margin-bottom:16px; }
+    h1 { font-size:clamp(28px,5vw,44px); font-weight:700; margin-bottom:12px; letter-spacing:-.02em; }
+    .sub { font-size:16px; color:#888; margin-bottom:48px; line-height:1.6; }
+    .grid { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; text-align:left; }
+    @media(max-width:480px) { .grid { grid-template-columns:1fr; } }
+    .card { border-radius:12px; padding:24px; text-decoration:none; color:#fff; border:1px solid rgba(255,255,255,.08); transition:transform .2s, border-color .2s, box-shadow .2s; display:block; }
+    .card:hover { transform:translateY(-3px); border-color:rgba(255,255,255,.2); box-shadow:0 12px 40px rgba(0,0,0,.4); }
+    .card-tag { font-size:10px; letter-spacing:.12em; text-transform:uppercase; font-weight:600; margin-bottom:10px; }
+    .card h2 { font-size:20px; font-weight:700; letter-spacing:-.01em; margin-bottom:6px; }
+    .card p { font-size:13px; color:rgba(255,255,255,.55); line-height:1.5; }
+    .cobalt { background:linear-gradient(135deg,#06080F,#0A0D18); border-color:rgba(0,180,255,.15); }
+    .cobalt .card-tag { color:#00B4FF; }
+    .void   { background:linear-gradient(135deg,#08060F,#0D0A1A); border-color:rgba(168,85,247,.15); }
+    .void .card-tag { color:#A855F7; }
+    .signal { background:linear-gradient(135deg,#010F09,#021A0F); border-color:rgba(0,255,136,.15); }
+    .signal .card-tag { color:#00FF88; }
+    .market { background:linear-gradient(135deg,#f9f9f9,#f0f0ea); border-color:rgba(0,128,96,.2); color:#1a1a1a; }
+    .market .card-tag { color:#008060; }
+    .market p { color:rgba(0,0,0,.5); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="eyebrow">TrafiFlow · UX Lab · March 2026</p>
+    <h1>Landing Page Variants</h1>
+    <p class="sub">4 distinct visual directions for testing brand expression and conversion intent.</p>
+    <div class="grid">
+      <a class="card cobalt" href="cobalt.html">
+        <div class="card-tag">Cobalt</div>
+        <h2>Electric Blue</h2>
+        <p>Bold cyberpunk aesthetic with neon accents and animated data streams.</p>
+      </a>
+      <a class="card void" href="void.html">
+        <div class="card-tag">Void</div>
+        <h2>Deep Purple</h2>
+        <p>Minimal deep-space aesthetic with glowing particle effects.</p>
+      </a>
+      <a class="card signal" href="signal.html">
+        <div class="card-tag">Signal</div>
+        <h2>Electric Teal</h2>
+        <p>Data-signal green aesthetic inspired by terminal UIs and live dashboards.</p>
+      </a>
+      <a class="card market" href="market.html">
+        <div class="card-tag">Market</div>
+        <h2>Clean Commerce</h2>
+        <p>Shopify-inspired light design — readable, trustworthy, conversion-focused.</p>
+      </a>
+    </div>
+  </div>
+</body>
+</html>
