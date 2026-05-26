@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+  <title>TrafiFlow — Mobile</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#06080F">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      --bg:     #06080F;
+      --bg2:    #0A0D18;
+      --bg3:    #0E1220;
+      --text:   #EDF2FF;
+      --accent: #00B4FF;
+      --muted:  rgba(237,242,255,0.45);
+      --faint:  rgba(0,180,255,0.08);
+      --border: rgba(0,180,255,0.14);
+      --safe-b: env(safe-area-inset-bottom, 0px);
+      --safe-t: env(safe-area-inset-top, 0px);
+      --nav-h:  64px;
+    }
+
+    html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+    body {
+      background:var(--bg); color:var(--text);
+      font-family:'Syne',sans-serif; overflow-x:hidden;
+      -webkit-font-smoothing:antialiased;
+      -webkit-tap-highlight-color:transparent;
+      overscroll-behavior-y:contain;
+      min-height:100svh;
+    }
+    ::-webkit-scrollbar { display:none; }
+
+    .rv { opacity:0; transform:translateY(18px); transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1); }
+    .rv.in { opacity:1; transform:translateY(0); }
+    .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}
+    .d4{transition-delay:.24s}.d5{transition-delay:.32s}.d6{transition-delay:.4s}
+
+    .mono { font-family:'DM Mono',monospace; }
+
+    /* ─── TOP BAR ─── */
+    .top-bar {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      padding:var(--safe-t) 0 0;
+      background:rgba(6,8,15,.92); backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+      border-bottom:1px solid transparent;
+      transition:border-color .3s;
+    }
+    .top-bar.scrolled { border-bottom-color:var(--border); }
+    .top-bar-inner {
+      height:52px; padding:0 20px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .tb-logo {
+      font-weight:800; font-size:13px; letter-spacing:.12em;
+      color:var(--text); display:flex; align-items:center; gap:8px;
+    }
+    .tb-dot {
+      width:6px; height:6px; border-radius:50%;
+      background:var(--accent); box-shadow:0 0 8px var(--accent);
+      animation:pdot 2.4s ease-in-out infinite;
+    }
+    @keyframes pdot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(1.7)} }
+    .tb-badge {
+      font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.1em;
+      text-transform:uppercase; color:var(--accent);
+      border:1px solid var(--border); padding:4px 10px;
+      display:flex; align-items:center; gap:6px;
+    }
+    .tb-blink { display:inline-block; width:4px; height:4px; border-radius:50%; background:var(--accent); animation:bl 1.3s step-end infinite; }
+    @keyframes bl { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ─── BOTTOM NAV ─── */
+    .bottom-nav {
+      position:fixed; bottom:0; left:0; right:0; z-index:200;
+      padding:0 0 var(--safe-b);
+      background:rgba(6,8,15,.94); backdrop-filter:blur(24px);
+      -webkit-backdrop-filter:blur(24px);
+      border-top:1px solid var(--border);
+    }
+    .bottom-nav-inner {
+      height:var(--nav-h); display:flex; align-items:center; justify-content:space-around;
+    }
+    .nav-item {
+      display:flex; flex-direction:column; align-items:center; gap:4px;
+      background:none; border:none; color:var(--muted);
+      font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.06em;
+      text-transform:uppercase; padding:6px 12px;
+      transition:color .25s; position:relative;
+      -webkit-tap-highlight-color:transparent;
+    }
+    .nav-item.active { color:var(--accent); }
+    .nav-item.active::before {
+      content:''; position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+      width:24px; height:2px; background:var(--accent);
+      box-shadow:0 0 12px var(--accent);
+    }
+    .nav-item svg { width:22px; height:22px; }
+
+    /* ─── SCREEN CONTAINER ─── */
+    .screens {
+      padding-top:calc(52px + var(--safe-t));
+      padding-bottom:calc(var(--nav-h) + var(--safe-b));
+    }
+    .screen {
+      display:none; min-height:calc(100svh - 52px - var(--nav-h) - var(--safe-t) - var(--safe-b));
+      animation:screenIn .35s ease-out;
+    }
+    .screen.active { display:block; }
+    @keyframes screenIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ─── HOME SCREEN ─── */
+    .home-hero {
+      padding:28px 20px 32px; position:relative; overflow:hidden;
+    }
+    .home-hero::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 120% 80% at 50% 0%, rgba(0,180,255,.08) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-tag {
+      display:inline-flex; align-items:center; gap:7px;
+      font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--accent);
+      border:1px solid var(--border); padding:5px 12px;
+      margin-bottom:20px; position:relative;
+    }
+    .hero-tag-dot { width:4px; height:4px; border-radius:50%; background:var(--accent); animation:bl 1.3s step-end infinite; }
+    .home-h1 {
+      font-size:32px; font-weight:800; line-height:.94;
+      letter-spacing:-.03em; margin-bottom:14px;
+    }
+    .home-h1 .acc { color:var(--accent); text-shadow:0 0 30px rgba(0,180,255,.3); }
+    .home-h1 .ghost { color:rgba(237,242,255,.18); }
+    .home-sub {
+      font-size:14px; font-weight:400; color:var(--muted);
+      line-height:1.6; margin-bottom:24px; max-width:340px;
+    }
+    .home-form {
+      display:flex; flex-direction:column; gap:0; margin-bottom:12px;
+    }
+    .home-input {
+      flex:1; background:rgba(0,180,255,.04); border:1px solid var(--border);
+      border-bottom:none;
+      color:var(--text); font-family:'DM Mono',monospace;
+      font-size:13px; padding:0 18px; outline:none; height:50px;
+      transition:border-color .3s,box-shadow .3s;
+    }
+    .home-input::placeholder { color:rgba(237,242,255,.22); }
+    .home-input:focus { border-color:var(--accent); box-shadow:0 0 20px rgba(0,180,255,.1),inset 0 0 12px rgba(0,180,255,.04); }
+    .home-btn {
+      background:var(--accent); color:var(--bg);
+      font-family:'DM Mono',monospace; font-size:11px; font-weight:500;
+      letter-spacing:.06em; text-transform:uppercase;
+      border:none; height:50px; width:100%;
+      transition:box-shadow .3s; position:relative;
+    }
+    .home-btn:active { box-shadow:0 0 30px rgba(0,180,255,.5); }
+    .home-foot {
+      font-family:'DM Mono',monospace; font-size:9.5px; color:var(--muted);
+      letter-spacing:.04em; display:flex; align-items:center; gap:7px;
+    }
+    .home-foot::before { content:'▲'; color:var(--accent); font-size:7px; }
+
+    /* ─── STAT CARDS (swipeable row) ─── */
+    .stat-scroll {
+      display:flex; gap:10px; padding:0 20px 28px;
+      overflow-x:auto; scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .stat-scroll::-webkit-scrollbar { display:none; }
+    .stat-card {
+      flex:0 0 auto; width:140px; scroll-snap-align:start;
+      border:1px solid var(--border); background:var(--bg2);
+      padding:16px; display:flex; flex-direction:column; gap:6px;
+    }
+    .sc-num { font-size:22px; font-weight:800; letter-spacing:-.02em; }
+    .sc-num .u { color:var(--accent); }
+    .sc-lbl { font-family:'DM Mono',monospace; font-size:9px; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; line-height:1.4; }
+
+    /* ─── SECTION SHARED ─── */
+    .section-pad { padding:0 20px; }
+    .sec-label {
+      font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.16em;
+      color:var(--accent); text-transform:uppercase;
+      display:flex; align-items:center; gap:10px; margin-bottom:16px;
+    }
+    .sec-label::before { content:''; width:20px; height:1px; background:var(--accent); flex-shrink:0; }
+    .sec-h2 {
+      font-size:26px; font-weight:800; letter-spacing:-.03em;
+      line-height:1.05; margin-bottom:10px;
+    }
+    .sec-sub {
+      font-family:'DM Mono',monospace; font-size:12px; color:var(--muted);
+      line-height:1.6; margin-bottom:24px;
+    }
+
+    /* ─── PROBLEM SCREEN ─── */
+    .chaos-mobile {
+      border:1px solid var(--border); background:var(--bg2);
+      padding:24px 16px; margin:0 20px 16px; position:relative; overflow:hidden;
+    }
+    .chaos-mobile::before {
+      content:''; position:absolute; inset:0;
+      background-image:linear-gradient(rgba(255,60,60,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,60,60,.04) 1px,transparent 1px);
+      background-size:28px 28px; pointer-events:none;
+    }
+    .tool-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:8px; position:relative; z-index:1;
+    }
+    .tool-badge {
+      font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.05em;
+      text-transform:uppercase; text-align:center;
+      border:1px solid rgba(237,242,255,.1); padding:10px 8px;
+      background:rgba(10,13,24,.85); color:rgba(237,242,255,.5);
+      transition:border-color .2s,color .2s;
+    }
+    .tool-badge:active { border-color:rgba(255,80,80,.4); color:var(--text); }
+    .chaos-lines {
+      position:absolute; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+    }
+    .chaos-lines svg { width:100%; height:100%; }
+    .chaos-caption {
+      font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:.08em;
+      text-transform:uppercase; color:rgba(255,80,80,.45); text-align:center;
+      margin-top:14px; position:relative; z-index:1;
+    }
+    .transition-strip {
+      margin:0 20px 16px;
+      height:48px; display:flex; align-items:center;
+      background:linear-gradient(90deg,var(--bg2),var(--bg3),var(--bg2));
+      border-left:1px solid var(--border); border-right:1px solid var(--border);
+    }
+    .ts-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--accent)); }
+    .ts-line.r { background:linear-gradient(90deg,var(--accent),transparent); }
+    .ts-mid {
+      padding:0 14px; display:flex; flex-direction:column; align-items:center; gap:2px;
+    }
+    .ts-lbl { font-family:'DM Mono',monospace; font-size:8.5px; letter-spacing:.1em; color:var(--accent); text-transform:uppercase; white-space:nowrap; }
+    .ts-arr { color:var(--accent); font-size:14px; }
+    .unified-strip {
+      margin:0 20px 32px;
+      border:1px solid var(--border); border-top:none; background:var(--bg2);
+      padding:24px 16px; text-align:center;
+      display:flex; flex-direction:column; align-items:center; gap:14px;
+    }
+    .us-logo {
+      font-weight:800; font-size:18px; letter-spacing:.1em; color:var(--accent);
+      display:flex; align-items:center; gap:10px;
+      text-shadow:0 0 30px rgba(0,180,255,.4);
+    }
+    .us-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 12px var(--accent); }
+    .us-desc {
+      font-family:'DM Mono',monospace; font-size:10px; color:var(--muted);
+      letter-spacing:.08em; text-transform:uppercase; line-height:1.7;
+    }
+
+    /* ─── PLATFORM SCREEN — VALUE CARDS ─── */
+    .value-cards { padding:0 20px; display:flex; flex-direction:column; gap:12px; margin-bottom:32px; }
+    .vcard-m {
+      border:1px solid var(--border); background:var(--bg2);
+      padding:24px 20px; position:relative; overflow:hidden;
+      transition:background .3s;
+    }
+    .vcard-m::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg,var(--accent),transparent); opacity:.5;
+    }
+    .vcard-m:active { background:var(--bg3); }
+    .vm-num {
+      font-family:'DM Mono',monospace; font-size:9.5px; color:var(--accent);
+      letter-spacing:.12em; margin-bottom:16px; opacity:.5;
+    }
+    .vm-icon { width:28px; height:28px; color:var(--accent); margin-bottom:12px; }
+    .vm-title { font-size:17px; font-weight:700; letter-spacing:-.01em; margin-bottom:8px; }
+    .vm-desc { font-size:13px; color:var(--muted); line-height:1.6; font-weight:400; }
+
+    /* ─── COMPARE SCREEN ─── */
+    .compare-table-wrap {
+      margin:0 20px 24px; border:1px solid var(--border);
+      overflow-x:auto; background:var(--bg2);
+      -webkit-overflow-scrolling:touch;
+    }
+    .compare-table-wrap::-webkit-scrollbar { display:none; }
+    table.cmp { width:100%; border-collapse:collapse; font-family:'DM Mono',monospace; font-size:10px; min-width:340px; }
+    table.cmp thead { border-bottom:1px solid var(--border); }
+    table.cmp th {
+      padding:12px 10px; font-weight:400; letter-spacing:.08em;
+      text-transform:uppercase; font-size:8.5px; color:var(--muted); text-align:center;
+    }
+    table.cmp th:first-child { text-align:left; }
+    table.cmp th.hl { color:var(--accent); }
+    table.cmp tbody tr { border-bottom:1px solid var(--border); }
+    table.cmp tbody tr:last-child { border-bottom:none; }
+    table.cmp tbody tr:active { background:rgba(0,180,255,.04); }
+    table.cmp td { padding:12px 10px; vertical-align:middle; text-align:center; }
+    table.cmp td:first-child { text-align:left; color:var(--text); font-size:10px; }
+    .ck { color:var(--accent); font-size:12px; }
+    .cx { color:rgba(255,80,80,.5); font-size:12px; }
+    .cp { color:rgba(255,200,80,.45); font-size:12px; }
+    .cmp-legend {
+      font-family:'DM Mono',monospace; font-size:9.5px; color:var(--muted);
+      padding:0 20px; margin-bottom:32px; letter-spacing:.04em;
+    }
+
+    /* ─── URGENCY CARD ─── */
+    .urg-card-m {
+      margin:0 20px 24px; background:var(--bg2);
+      border:1px solid var(--border); padding:28px 20px;
+      position:relative; overflow:hidden;
+    }
+    .urg-card-m::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,transparent,var(--accent) 30%,var(--accent) 70%,transparent);
+    }
+    .urg-card-m::after {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 70% 60% at 80% 90%,rgba(0,180,255,.06) 0%,transparent 100%);
+      pointer-events:none;
+    }
+    .um-lbl {
+      font-family:'DM Mono',monospace; font-size:9.5px; letter-spacing:.14em;
+      text-transform:uppercase; color:rgba(0,180,255,.65);
+      margin-bottom:14px; position:relative; z-index:1;
+      display:flex; align-items:center; gap:8px;
+    }
+    .um-dot { width:5px; height:5px; border-radius:50%; background:var(--accent); box-shadow:0 0 8px var(--accent); animation:pdot 1.8s ease-in-out infinite; }
+    .um-h2 {
+      font-size:22px; font-weight:800; letter-spacing:-.03em;
+      line-height:1.08; margin-bottom:14px; position:relative; z-index:1;
+    }
+    .um-body {
+      font-size:13px; color:var(--muted); line-height:1.65; font-weight:400;
+      margin-bottom:24px; position:relative; z-index:1;
+    }
+    .um-body strong { color:var(--text); font-weight:600; }
+    .btn-access {
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      background:var(--accent); color:var(--bg);
+      font-family:'DM Mono',monospace; font-size:10.5px; font-weight:500;
+      letter-spacing:.06em; text-transform:uppercase;
+      border:none; height:50px; width:100%;
+      position:relative; z-index:1;
+      animation:glow 3.5s ease-in-out infinite;
+    }
+    .btn-access:active { transform:scale(.98); }
+    @keyframes glow { 0%,100%{box-shadow:0 0 12px rgba(0,180,255,.2)} 50%{box-shadow:0 0 36px rgba(0,180,255,.5)} }
+
+    /* ─── PROOF / ACCESS SCREEN ─── */
+    .proof-stats {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:1px; background:var(--border); border:1px solid var(--border);
+      margin:0 20px 28px;
+    }
+    .ps-cell { background:var(--bg); padding:22px 16px; text-align:center; }
+    .ps-num { font-size:28px; font-weight:800; letter-spacing:-.03em; line-height:1; margin-bottom:6px; }
+    .ps-num .u { color:var(--accent); }
+    .ps-lbl { font-family:'DM Mono',monospace; font-size:8.5px; color:var(--muted); letter-spacing:.08em; text-transform:uppercase; }
+
+    .quote-card {
+      margin:0 20px 32px; border:1px solid var(--border);
+      background:var(--bg2); padding:24px 20px; text-align:center;
+    }
+    .qc-text {
+      font-family:'Instrument Serif',serif; font-style:italic;
+      font-size:15px; color:var(--text); line-height:1.5; margin-bottom:14px;
+    }
+    .qc-attr {
+      font-family:'DM Mono',monospace; font-size:9.5px; color:var(--muted);
+      letter-spacing:.1em; text-transform:uppercase;
+    }
+
+    .access-card {
+      margin:0 20px 24px; text-align:center;
+      border:1px solid var(--border); background:var(--bg2);
+      padding:32px 20px; position:relative; overflow:hidden;
+    }
+    .access-card::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse 100% 60% at 50% 0%,rgba(0,180,255,.06) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .ac-h2 {
+      font-size:26px; font-weight:800; letter-spacing:-.03em;
+      line-height:.98; margin-bottom:10px; position:relative;
+    }
+    .ac-h2 .acc { color:var(--accent); }
+    .ac-sub {
+      font-size:13px; color:var(--muted); margin-bottom:24px;
+      font-weight:400; position:relative;
+    }
+    .ac-form { display:flex; flex-direction:column; gap:0; position:relative; }
+    .ac-input {
+      background:rgba(0,180,255,.04); border:1px solid var(--border);
+      border-bottom:none;
+      color:var(--text); font-family:'DM Mono',monospace;
+      font-size:13px; padding:0 18px; outline:none; height:50px;
+      transition:border-color .3s;
+    }
+    .ac-input::placeholder { color:rgba(237,242,255,.22); }
+    .ac-input:focus { border-color:var(--accent); }
+    .ac-btn {
+      background:var(--accent); color:var(--bg);
+      font-family:'DM Mono',monospace; font-size:11px; font-weight:500;
+      letter-spacing:.06em; text-transform:uppercase;
+      border:none; height:50px; width:100%; transition:box-shadow .3s;
+    }
+    .ac-btn:active { box-shadow:0 0 30px rgba(0,180,255,.5); }
+    .ac-note {
+      font-family:'DM Mono',monospace; font-size:9.5px; color:rgba(237,242,255,.2);
+      letter-spacing:.04em; margin-top:12px; position:relative;
+    }
+
+    /* ─── FOOTER (inside access screen) ─── */
+    .mob-footer {
+      padding:20px 20px 12px; text-align:center;
+      border-top:1px solid var(--border);
+    }
+    .mf-logo { font-weight:800; font-size:12px; letter-spacing:.12em; margin-bottom:3px; }
+    .mf-sub {
+      font-family:'DM Mono',monospace; font-size:9px; color:rgba(237,242,255,.2);
+      letter-spacing:.08em; text-transform:uppercase; margin-bottom:14px;
+    }
+    .mf-links { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:14px; }
+    .mf-links a {
+      font-family:'DM Mono',monospace; font-size:9.5px; color:var(--muted);
+      text-decoration:none; letter-spacing:.06em; text-transform:uppercase;
+    }
+    .mf-links a:active { color:var(--text); }
+    .mf-copy { font-family:'DM Mono',monospace; font-size:9px; color:rgba(237,242,255,.15); letter-spacing:.04em; }
+
+    /* ─── SWIPE HINT ─── */
+    .swipe-hint {
+      display:flex; align-items:center; justify-content:center; gap:6px;
+      padding:14px 20px; font-family:'DM Mono',monospace;
+      font-size:9px; color:rgba(237,242,255,.15); letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .swipe-hint svg { width:14px; height:14px; opacity:.3; }
+
+    /* ─── TOAST ─── */
+    .toast {
+      position:fixed; top:calc(52px + var(--safe-t) + 8px);
+      left:16px; right:16px; z-index:300;
+      background:rgba(0,201,117,.95); color:var(--bg);
+      font-family:'DM Mono',monospace; font-size:11px; font-weight:500;
+      letter-spacing:.04em; text-align:center;
+      padding:14px 20px; transform:translateY(-120%);
+      transition:transform .35s cubic-bezier(.16,1,.3,1);
+    }
+    .toast.show { transform:translateY(0); }
+
+    /* Grid overlay for home hero */
+    .hero-grid-m {
+      position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(0,180,255,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(0,180,255,.04) 1px,transparent 1px);
+      background-size:48px 48px;
+      mask-image:radial-gradient(ellipse 90% 80% at 50% 30%,black 0%,transparent 100%);
+      -webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 30%,black 0%,transparent 100%);
+      pointer-events:none;
+    }
+    .hero-scan-m {
+      position:absolute; left:0; right:0; height:1px;
+      background:linear-gradient(90deg,transparent,rgba(0,180,255,.4),transparent);
+      animation:scanM 5s linear infinite; top:0; pointer-events:none;
+    }
+    @keyframes scanM { 0%{top:0%} 100%{top:100%} }
+
+    /* ─── PULL INDICATOR ─── */
+    .pull-indicator {
+      width:36px; height:4px; border-radius:2px;
+      background:rgba(237,242,255,.12); margin:10px auto 0;
+    }
+
+    @media (min-width:420px) {
+      .home-h1 { font-size:38px; }
+      .sec-h2 { font-size:30px; }
+      .stat-card { width:160px; }
+      .tool-grid { grid-template-columns:1fr 1fr 1fr 1fr; }
+    }
+
+    @media (min-width:520px) {
+      .home-form { flex-direction:row; }
+      .home-input { border-bottom:1px solid var(--border); border-right:none; }
+      .home-btn { width:auto; padding:0 24px; white-space:nowrap; }
+      .ac-form { flex-direction:row; }
+      .ac-input { border-bottom:1px solid var(--border); border-right:none; flex:1; }
+      .ac-btn { width:auto; padding:0 24px; white-space:nowrap; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast" id="toast">You're on the list ✓</div>
+
+<!-- TOP BAR -->
+<div class="top-bar" id="topBar">
+  <div class="top-bar-inner">
+    <div class="tb-logo"><div class="tb-dot"></div>TRAFIFLOW</div>
+    <div class="tb-badge"><span class="tb-blink"></span>Beta</div>
+  </div>
+</div>
+
+<!-- SCREENS -->
+<div class="screens" id="screens">
+
+  <!-- ===== HOME ===== -->
+  <div class="screen active" id="screen-home">
+    <div class="home-hero">
+      <div class="hero-grid-m"></div>
+      <div class="hero-scan-m"></div>
+      <div class="pull-indicator rv"></div>
+      <div style="height:16px"></div>
+      <div class="hero-tag rv d1"><span class="hero-tag-dot"></span>Private Beta — Limited Spots</div>
+      <h1 class="home-h1 rv d2">
+        Your ecommerce<br>stack is <span class="acc">already</span><br><span class="ghost">obsolete.</span>
+      </h1>
+      <p class="home-sub rv d3">While your team stitches together 12 tools, the sharpest operators run on a single intelligence layer.</p>
+      <div class="home-form rv d4">
+        <input type="text" class="home-input" id="hInput" placeholder="yourstore.com">
+        <button class="home-btn" id="hBtn" onclick="submitForm('hInput','hBtn')">See What You're Missing →</button>
+      </div>
+      <div class="home-foot rv d5">Built by the team that scaled 8-figure DTC brands</div>
+    </div>
+    <div class="stat-scroll rv d6">
+      <div class="stat-card">
+        <div class="sc-num">$<span class="cnt" data-t="500">0</span><span class="u">M+</span></div>
+        <div class="sc-lbl">Media Spend<br>Managed</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-num"><span class="cnt" data-t="8">0</span><span class="u">+</span></div>
+        <div class="sc-lbl">Years DTC<br>Execution</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-num"><span class="cnt" data-t="12">0</span><span class="u">+</span></div>
+        <div class="sc-lbl">Brands<br>Scaled</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-num">$<span class="cnt" data-t="100">0</span><span class="u">M+</span></div>
+        <div class="sc-lbl">Revenue<br>Generated</div>
+      </div>
+    </div>
+    <div class="swipe-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+      Scroll to explore
+    </div>
+  </div>
+
+  <!-- ===== PROBLEM ===== -->
+  <div class="screen" id="screen-problem">
+    <div style="padding-top:24px"></div>
+    <div class="section-pad">
+      <div class="sec-label rv">02 — The Problem</div>
+      <h2 class="sec-h2 rv d1">The stack killing<br>your margins.</h2>
+      <p class="sec-sub rv d2">Your current operation. Fragmented. Expensive. Completely blind.</p>
+    </div>
+    <div class="chaos-mobile rv d3" id="chaosWrap">
+      <div class="chaos-lines" id="chaosLines">
+        <svg id="chaosSvg" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="tool-grid">
+        <div class="tool-badge" id="tb0">GA4</div>
+        <div class="tool-badge" id="tb1">Klaviyo</div>
+        <div class="tool-badge" id="tb2">Triple Whale</div>
+        <div class="tool-badge" id="tb3">Shopify Plus</div>
+        <div class="tool-badge" id="tb4">Meta Ads</div>
+        <div class="tool-badge" id="tb5">Northbeam</div>
+        <div class="tool-badge" id="tb6">Gorgias</div>
+        <div class="tool-badge" id="tb7">Recharge</div>
+      </div>
+      <div class="chaos-caption">↑ 8 tools. 8 data models. Zero unified truth. ↑</div>
+    </div>
+    <div class="transition-strip rv d4">
+      <div class="ts-line"></div>
+      <div class="ts-mid"><div class="ts-lbl">One platform to replace them all</div><div class="ts-arr">↓</div></div>
+      <div class="ts-line r"></div>
+    </div>
+    <div class="unified-strip rv d5">
+      <div class="us-logo"><div class="us-dot"></div>TRAFIFLOW</div>
+      <div class="us-desc">One platform. Every channel.<br>Every SKU. Every touchpoint.<br>Unified. Intelligent. Agentic.</div>
+    </div>
+  </div>
+
+  <!-- ===== PLATFORM ===== -->
+  <div class="screen" id="screen-platform">
+    <div style="padding-top:24px"></div>
+    <div class="section-pad">
+      <div class="sec-label rv">03 — Why TrafiFlow</div>
+      <h2 class="sec-h2 rv d1">Intelligence that compounds. Execution that <span style="color:var(--accent)">never sleeps.</span></h2>
+    </div>
+    <div style="height:8px"></div>
+    <div class="value-cards">
+      <div class="vcard-m rv d2">
+        <div class="vm-num">01</div>
+        <svg class="vm-icon" viewBox="0 0 36 36" fill="none"><rect x="3" y="3" width="12" height="12" stroke="currentColor" stroke-width="1.2"/><rect x="21" y="3" width="12" height="12" stroke="currentColor" stroke-width="1.2"/><rect x="3" y="21" width="12" height="12" stroke="currentColor" stroke-width="1.2"/><rect x="21" y="21" width="12" height="12" stroke="currentColor" stroke-width="1.2"/><line x1="9" y1="15" x2="9" y2="21" stroke="currentColor" stroke-width="1.2"/><line x1="27" y1="15" x2="27" y2="21" stroke="currentColor" stroke-width="1.2"/><line x1="9" y1="21" x2="27" y2="21" stroke="currentColor" stroke-width="1.2"/><circle cx="18" cy="21" r="2" fill="currentColor"/></svg>
+        <h3 class="vm-title">Unified Data Layer</h3>
+        <p class="vm-desc">One source of truth across every channel, SKU, and customer touchpoint. No more exporting CSVs at 11pm to make a decision that needed to happen at 9am.</p>
+      </div>
+      <div class="vcard-m rv d3">
+        <div class="vm-num">02</div>
+        <svg class="vm-icon" viewBox="0 0 36 36" fill="none"><path d="M4 28 L12 16 L20 21 L28 6" stroke="currentColor" stroke-width="1.4"/><circle cx="28" cy="6" r="2" fill="currentColor"/><line x1="4" y1="32" x2="32" y2="32" stroke="currentColor" stroke-width="1" stroke-dasharray="2 3" opacity="0.4"/></svg>
+        <h3 class="vm-title">Predictive Intelligence</h3>
+        <p class="vm-desc">Know what's going to happen before your competitors see what happened yesterday. AI agents monitor your business 24/7 and surface the signals that matter.</p>
+      </div>
+      <div class="vcard-m rv d4">
+        <div class="vm-num">03</div>
+        <svg class="vm-icon" viewBox="0 0 36 36" fill="none"><polygon points="18,3 33,30 3,30" stroke="currentColor" stroke-width="1.4" fill="none"/><line x1="18" y1="13" x2="18" y2="21" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="25" r="1.5" fill="currentColor"/></svg>
+        <h3 class="vm-title">Action, Not Dashboards</h3>
+        <p class="vm-desc">TrafiFlow doesn't just show you data. It tells you what to do next — and lets AI agents execute it while your team focuses on strategy.</p>
+      </div>
+    </div>
+
+    <div class="section-pad">
+      <div class="sec-label rv">04 — The Reality Check</div>
+      <h2 class="sec-h2 rv d1">TrafiFlow vs.<br>Everything else.</h2>
+    </div>
+    <div class="compare-table-wrap rv d2">
+      <table class="cmp">
+        <thead><tr><th>Capability</th><th class="hl">TrafiFlow</th><th>Shopify</th><th>Stack</th></tr></thead>
+        <tbody>
+          <tr><td>Cross-channel attribution</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cp">~</span></td></tr>
+          <tr><td>Predictive inventory</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>AI media allocation</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>Unified operating UI</td><td><span class="ck">✓</span></td><td><span class="cp">~</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>Storefront customization</td><td><span class="ck">✓</span></td><td><span class="cp">~</span></td><td><span class="cp">~</span></td></tr>
+          <tr><td>Agentic execution</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>Scale without agency</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+          <tr><td>Vibe Coding</td><td><span class="ck">✓</span></td><td><span class="cx">✗</span></td><td><span class="cx">✗</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="cmp-legend rv d3">✓ Native · ~ Partial · ✗ Not available</p>
+  </div>
+
+  <!-- ===== ACCESS ===== -->
+  <div class="screen" id="screen-access">
+    <div style="padding-top:24px"></div>
+    <div class="urg-card-m rv">
+      <div class="um-lbl"><div class="um-dot"></div>Private Beta — Spots Limited</div>
+      <h2 class="um-h2">The brands moving now will own the next 3 years.</h2>
+      <p class="um-body">Every week you delay, your competitors are compounding an intelligence advantage you can't buy back. <strong>TrafiFlow is in private beta. Spots are limited.</strong></p>
+      <button class="btn-access" onclick="switchTab('screen-access');document.getElementById('acInput').focus()">Request Access Before It Closes →</button>
+    </div>
+
+    <div class="section-pad">
+      <div class="sec-label rv">Proof</div>
+    </div>
+    <div class="proof-stats rv d1">
+      <div class="ps-cell"><div class="ps-num">$<span class="cnt2" data-t="500">0</span><span class="u">M+</span></div><div class="ps-lbl">Media Spend</div></div>
+      <div class="ps-cell"><div class="ps-num"><span class="cnt2" data-t="8">0</span><span class="u">+</span></div><div class="ps-lbl">Years DTC</div></div>
+      <div class="ps-cell"><div class="ps-num"><span class="cnt2" data-t="12">0</span><span class="u">+</span></div><div class="ps-lbl">Brands Scaled</div></div>
+      <div class="ps-cell"><div class="ps-num">$<span class="cnt2" data-t="100">0</span><span class="u">M+</span></div><div class="ps-lbl">Revenue</div></div>
+    </div>
+
+    <div class="quote-card rv d2">
+      <p class="qc-text">"TrafiFlow is not about prescribing how brands should operate. It's about giving teams the same flexibility, intelligence, and execution power that world-class operators have."</p>
+      <div class="qc-attr">— Santiago Zabala, CEO of Trafilea</div>
+    </div>
+
+    <div class="access-card rv d3">
+      <h2 class="ac-h2">See your store through <span class="acc">TrafiFlow.</span></h2>
+      <p class="ac-sub">Enter your URL and we'll show you what you're missing.</p>
+      <div class="ac-form">
+        <input type="text" class="ac-input" id="acInput" placeholder="yourstore.com">
+        <button class="ac-btn" id="acBtn" onclick="submitForm('acInput','acBtn')">Request Access →</button>
+      </div>
+      <p class="ac-note">No pitch. No obligation. Just clarity.</p>
+    </div>
+
+    <div class="mob-footer">
+      <div class="mf-logo">TRAFIFLOW</div>
+      <div class="mf-sub">The Agentic Commerce OS</div>
+      <div class="mf-links">
+        <a href="#" onclick="switchTab('screen-problem');return false">Problem</a>
+        <a href="#" onclick="switchTab('screen-platform');return false">Platform</a>
+        <a href="#" onclick="switchTab('screen-access');return false">Access</a>
+      </div>
+      <div class="mf-copy">© 2025 Trafilea. All rights reserved.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <button class="nav-item active" data-screen="screen-home" onclick="switchTab('screen-home')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l9-8 9 8"/><path d="M5 10v9a1 1 0 001 1h3v-5h6v5h3a1 1 0 001-1v-9"/></svg>
+      Home
+    </button>
+    <button class="nav-item" data-screen="screen-problem" onclick="switchTab('screen-problem')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      Problem
+    </button>
+    <button class="nav-item" data-screen="screen-platform" onclick="switchTab('screen-platform')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Platform
+    </button>
+    <button class="nav-item" data-screen="screen-access" onclick="switchTab('screen-access')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      Access
+    </button>
+  </div>
+</div>
+
+<script>
+  /* ── Tab Navigation ── */
+  function switchTab(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const screen = document.getElementById(screenId);
+    if (screen) {
+      screen.classList.add('active');
+      screen.querySelectorAll('.rv:not(.in)').forEach(el => revealObs.observe(el));
+      window.scrollTo({top: 0, behavior: 'instant'});
+    }
+    const navBtn = document.querySelector(`.nav-item[data-screen="${screenId}"]`);
+    if (navBtn) navBtn.classList.add('active');
+
+    if (screenId === 'screen-home') runCounters('.cnt');
+    if (screenId === 'screen-access') runCounters('.cnt2');
+    if (screenId === 'screen-problem') requestAnimationFrame(drawChaosLines);
+  }
+
+  /* ── Scroll → top bar border ── */
+  const topBar = document.getElementById('topBar');
+  window.addEventListener('scroll', () => {
+    topBar.classList.toggle('scrolled', window.scrollY > 10);
+  }, {passive: true});
+
+  /* ── Scroll Reveal ── */
+  const revealObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+    });
+  }, {threshold: .1});
+  document.querySelectorAll('.rv').forEach(el => revealObs.observe(el));
+
+  /* ── Counter Animation ── */
+  function runCounter(el) {
+    const target = parseInt(el.dataset.t);
+    const dur = 1400;
+    const start = performance.now();
+    function step(now) {
+      const p = Math.min((now - start) / dur, 1);
+      el.textContent = Math.round((1 - Math.pow(1 - p, 3)) * target);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  function runCounters(selector) {
+    document.querySelectorAll(selector).forEach(el => {
+      if (!el._counted) { el._counted = true; runCounter(el); }
+    });
+  }
+  const counterObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.cnt,.cnt2').forEach(c => {
+          if (!c._counted) { c._counted = true; runCounter(c); }
+        });
+        counterObs.unobserve(e.target);
+      }
+    });
+  }, {threshold: .2});
+  document.querySelectorAll('.stat-scroll,.proof-stats').forEach(el => counterObs.observe(el));
+
+  /* ── Chaos SVG Lines ── */
+  function drawChaosLines() {
+    const svg = document.getElementById('chaosSvg');
+    const wrap = document.getElementById('chaosWrap');
+    if (!svg || !wrap) return;
+    svg.innerHTML = '';
+    const badges = wrap.querySelectorAll('.tool-badge');
+    const wr = wrap.getBoundingClientRect();
+    svg.setAttribute('width', wr.width);
+    svg.setAttribute('height', wr.height);
+    const pts = Array.from(badges).map(b => {
+      const r = b.getBoundingClientRect();
+      return { x: r.left - wr.left + r.width / 2, y: r.top - wr.top + r.height / 2 };
+    });
+    const pairs = [[0,4],[0,6],[1,5],[1,7],[2,4],[2,6],[3,5],[3,7],[4,7],[5,6]];
+    pairs.forEach(([a, b]) => {
+      if (!pts[a] || !pts[b]) return;
+      const mx = (pts[a].x + pts[b].x) / 2 + (Math.random() - .5) * 50;
+      const my = (pts[a].y + pts[b].y) / 2 + (Math.random() - .5) * 40;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M${pts[a].x},${pts[a].y} Q${mx},${my} ${pts[b].x},${pts[b].y}`);
+      path.setAttribute('stroke', 'rgba(255,80,80,0.15)');
+      path.setAttribute('stroke-width', '1');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke-dasharray', '3 5');
+      svg.appendChild(path);
+    });
+  }
+  window.addEventListener('load', () => requestAnimationFrame(drawChaosLines));
+  window.addEventListener('resize', () => requestAnimationFrame(drawChaosLines), {passive: true});
+
+  /* ── Form Submit ── */
+  function submitForm(inputId, btnId) {
+    const input = document.getElementById(inputId);
+    const btn = document.getElementById(btnId);
+    if (!input.value.trim()) { input.focus(); return; }
+    btn.textContent = "You're on the list ✓";
+    btn.style.background = '#00c975';
+    input.disabled = true;
+    btn.disabled = true;
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  /* ── Swipe Navigation ── */
+  const screenOrder = ['screen-home', 'screen-problem', 'screen-platform', 'screen-access'];
+  let touchStartX = 0;
+  let touchStartY = 0;
+  let touchStartTime = 0;
+  document.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+    touchStartTime = Date.now();
+  }, {passive: true});
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    const dt = Date.now() - touchStartTime;
+    if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.8 || dt > 400) return;
+    const active = document.querySelector('.screen.active');
+    if (!active) return;
+    const idx = screenOrder.indexOf(active.id);
+    if (dx < 0 && idx < screenOrder.length - 1) switchTab(screenOrder[idx + 1]);
+    else if (dx > 0 && idx > 0) switchTab(screenOrder[idx - 1]);
+  }, {passive: true});
+</script>
+</body>
+</html>
