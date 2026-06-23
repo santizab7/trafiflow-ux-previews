@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TrafiFlow — Market</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Bricolage+Grotesque:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:       #FFFFFF;
+      --bg2:      #F6F6F1;
+      --bg3:      #EDECE8;
+      --text:     #1A1A1A;
+      --text2:    #404040;
+      --muted:    #6B6B6B;
+      --accent:   #008060;
+      --accent2:  #004C3F;
+      --accent-l: #E8F5F1;
+      --border:   #E3E3DE;
+      --shadow:   rgba(0,0,0,0.08);
+
+      --h1:   clamp(40px, 7vw, 80px);
+      --h2:   clamp(28px, 4.5vw, 52px);
+      --h3:   clamp(20px, 2.8vw, 28px);
+      --body: clamp(15px, 1.6vw, 17px);
+      --sm:   clamp(13px, 1.2vw, 14px);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* SCROLL REVEAL */
+    .rv { opacity:0; transform:translateY(24px); transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1); }
+    .rv.in { opacity:1; transform:none; }
+    .d1{transition-delay:.06s}.d2{transition-delay:.12s}.d3{transition-delay:.18s}
+    .d4{transition-delay:.24s}.d5{transition-delay:.30s}.d6{transition-delay:.36s}
+
+    /* LAYOUT */
+    .wrap { width:100%; padding:0 20px; }
+    @media(min-width:640px)  { .wrap { max-width:1200px; margin:0 auto; padding:0 40px; } }
+    @media(min-width:1024px) { .wrap { padding:0 60px; } }
+
+    /* ─── NAV ─── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:200;
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+      height:60px;
+    }
+    .nav-inner {
+      height:100%; display:flex; align-items:center;
+      justify-content:space-between; gap:24px;
+      max-width:1200px; margin:0 auto; padding:0 20px;
+    }
+    @media(min-width:640px) { .nav-inner { padding:0 40px; } }
+    @media(min-width:1024px) { .nav-inner { padding:0 60px; } }
+
+    .nlogo {
+      font-family:'Bricolage Grotesque', sans-serif;
+      font-weight:700; font-size:18px; color:var(--text);
+      text-decoration:none; letter-spacing:-.01em;
+      display:flex; align-items:center; gap:8px;
+    }
+    .nlogo-mark {
+      width:28px; height:28px; background:var(--accent);
+      border-radius:6px; display:flex; align-items:center;
+      justify-content:center;
+    }
+    .nlogo-mark svg { width:16px; height:16px; fill:#fff; }
+
+    .nav-links {
+      display:none; list-style:none; gap:32px; align-items:center;
+    }
+    @media(min-width:768px) { .nav-links { display:flex; } }
+    .nav-links a {
+      font-size:14px; font-weight:500; color:var(--text2);
+      text-decoration:none; transition:color .2s;
+    }
+    .nav-links a:hover { color:var(--accent); }
+
+    .nav-cta {
+      display:flex; align-items:center; gap:12px;
+    }
+    .btn-ghost {
+      font-size:14px; font-weight:500; color:var(--text);
+      text-decoration:none; padding:8px 16px; border-radius:6px;
+      transition:background .2s;
+    }
+    .btn-ghost:hover { background:var(--bg2); }
+    .btn-primary {
+      font-size:14px; font-weight:600; color:#fff;
+      background:var(--accent); text-decoration:none;
+      padding:9px 18px; border-radius:6px;
+      transition:background .2s, box-shadow .2s;
+    }
+    .btn-primary:hover { background:var(--accent2); box-shadow:0 4px 14px rgba(0,128,96,.25); }
+
+    /* ─── HERO ─── */
+    #hero {
+      padding:140px 0 100px;
+      text-align:center;
+      position:relative; overflow:hidden;
+    }
+    #hero::before {
+      content:'';
+      position:absolute; inset:0;
+      background:
+        linear-gradient(to bottom, transparent 70%, var(--bg) 100%),
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,128,96,.06) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-inner {
+      position:relative; z-index:1;
+      max-width:760px; margin:0 auto; padding:0 20px;
+    }
+    .badge {
+      display:inline-flex; align-items:center; gap:8px;
+      background:var(--accent-l); border:1px solid rgba(0,128,96,.2);
+      border-radius:100px; padding:5px 14px;
+      font-size:12px; font-weight:600; color:var(--accent);
+      letter-spacing:.04em; margin-bottom:28px;
+    }
+    .badge-dot {
+      width:6px; height:6px; border-radius:50%;
+      background:var(--accent);
+      animation:blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .hero-h1 {
+      font-family:'Bricolage Grotesque', sans-serif;
+      font-size:var(--h1); font-weight:800;
+      line-height:1.05; letter-spacing:-.03em;
+      color:var(--text); margin-bottom:24px;
+    }
+    .hero-h1 .gr { color:var(--accent); }
+    .hero-sub {
+      font-size:clamp(17px,2.2vw,20px); color:var(--muted);
+      line-height:1.65; max-width:580px; margin:0 auto 36px;
+    }
+    .hero-form {
+      display:flex; flex-direction:column; gap:10px;
+      max-width:480px; margin:0 auto;
+    }
+    @media(min-width:480px) {
+      .hero-form { flex-direction:row; gap:0; }
+    }
+    .hero-input {
+      flex:1; padding:13px 18px; font-size:15px;
+      border:1.5px solid var(--border); border-radius:8px;
+      outline:none; font-family:inherit; color:var(--text);
+      background:var(--bg);
+      transition:border-color .2s;
+    }
+    @media(min-width:480px) {
+      .hero-input { border-right:1.5px solid var(--border); border-radius:8px; }
+    }
+    .hero-input::placeholder { color:var(--muted); }
+    .hero-input:focus { border-color:var(--accent); }
+    .hero-btn {
+      padding:13px 24px; font-size:15px; font-weight:600;
+      background:var(--accent); color:#fff; border:none; cursor:pointer;
+      border-radius:8px; font-family:inherit; white-space:nowrap;
+      transition:background .2s;
+    }
+    @media(max-width:479px) { .hero-btn { border-radius:8px; } }
+    .hero-btn:hover { background:var(--accent2); }
+
+    .hero-trust {
+      display:flex; align-items:center; justify-content:center;
+      gap:6px; flex-wrap:wrap;
+      font-size:13px; color:var(--muted);
+      margin-top:20px;
+    }
+
+    /* ─── LOGOS ─── */
+    #logos {
+      padding:48px 0; border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      background:var(--bg2);
+    }
+    .logos-label {
+      text-align:center; font-size:12px; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--muted); margin-bottom:28px;
+    }
+    .logos-row {
+      display:flex; align-items:center; justify-content:center;
+      flex-wrap:wrap; gap:32px 48px;
+    }
+    .logo-item {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-weight:700; font-size:16px; color:var(--bg3);
+      letter-spacing:-.01em;
+      filter:grayscale(1) opacity(0.4);
+      transition:filter .2s;
+    }
+    .logo-item:hover { filter:grayscale(0) opacity(1); color:var(--text); }
+
+    /* ─── STATS ─── */
+    #stats { padding:80px 0; }
+    .stats-grid {
+      display:grid; grid-template-columns:repeat(2,1fr);
+      gap:1px; background:var(--border);
+      border:1px solid var(--border); border-radius:16px; overflow:hidden;
+    }
+    @media(min-width:768px) { .stats-grid { grid-template-columns:repeat(4,1fr); } }
+    .stat-card {
+      background:var(--bg); padding:36px 28px;
+      text-align:center;
+    }
+    .stat-val {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:clamp(32px,5vw,52px); font-weight:800;
+      color:var(--text); line-height:1; margin-bottom:8px;
+      letter-spacing:-.02em;
+    }
+    .stat-val span { color:var(--accent); }
+    .stat-label {
+      font-size:13px; font-weight:500; color:var(--muted);
+      letter-spacing:.01em;
+    }
+
+    /* ─── FEATURES / PAIN ─── */
+    #features { padding:100px 0; background:var(--bg); }
+    .section-header { text-align:center; max-width:680px; margin:0 auto 64px; }
+    .section-label {
+      display:inline-block; font-size:12px; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--accent); margin-bottom:16px;
+    }
+    .section-h2 {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:var(--h2); font-weight:800;
+      line-height:1.1; letter-spacing:-.025em;
+      color:var(--text); margin-bottom:16px;
+    }
+    .section-sub {
+      font-size:var(--body); color:var(--muted); line-height:1.7;
+    }
+
+    .features-grid {
+      display:grid; grid-template-columns:1fr;
+      gap:16px;
+    }
+    @media(min-width:640px)  { .features-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:1024px) { .features-grid { grid-template-columns:repeat(3,1fr); } }
+
+    .feat-card {
+      padding:32px; border-radius:12px;
+      border:1px solid var(--border);
+      background:var(--bg);
+      transition:border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .feat-card:hover {
+      border-color:rgba(0,128,96,.3);
+      box-shadow:0 8px 32px rgba(0,128,96,.08);
+      transform:translateY(-2px);
+    }
+    .feat-card.pain-card {
+      background:var(--bg2);
+    }
+    .feat-card.pain-card:hover {
+      border-color:rgba(200,50,50,.2);
+      box-shadow:0 8px 32px rgba(200,50,50,.05);
+    }
+    .feat-icon {
+      width:44px; height:44px; background:var(--accent-l);
+      border-radius:10px; display:flex; align-items:center;
+      justify-content:center; margin-bottom:20px;
+    }
+    .feat-icon svg { width:22px; height:22px; stroke:var(--accent); fill:none; stroke-width:1.8; }
+    .feat-icon.pain-icon { background:#FEF2F2; }
+    .feat-icon.pain-icon svg { stroke:#DC2626; }
+    .feat-h3 {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:18px; font-weight:700; color:var(--text);
+      margin-bottom:10px; letter-spacing:-.01em;
+    }
+    .feat-p { font-size:14px; color:var(--muted); line-height:1.7; }
+
+    /* Pain callout box */
+    .chaos-callout {
+      margin-top:40px; padding:32px 36px;
+      background:var(--bg2); border:1px solid var(--border);
+      border-radius:12px; text-align:center;
+    }
+    .chaos-stat {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:clamp(17px,2vw,22px); font-weight:700;
+      color:var(--text); margin-bottom:10px;
+    }
+    .chaos-sub {
+      font-size:15px; color:var(--muted);
+    }
+    .chaos-arrow {
+      display:block; margin:16px auto 0;
+      font-size:20px; color:var(--accent); font-weight:700;
+    }
+
+    /* ─── HOW IT WORKS / VALUE ─── */
+    #how { padding:100px 0; background:var(--bg2); }
+    .steps { display:flex; flex-direction:column; gap:0; max-width:680px; margin:0 auto; }
+    .step {
+      display:flex; gap:24px; padding:32px 0;
+      border-bottom:1px solid var(--border);
+    }
+    .step:last-child { border-bottom:none; }
+    .step-num {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:13px; font-weight:700; color:var(--accent);
+      min-width:32px; padding-top:3px;
+    }
+    .step-body {}
+    .step-h3 {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:20px; font-weight:700; color:var(--text);
+      margin-bottom:8px; letter-spacing:-.01em;
+    }
+    .step-p { font-size:15px; color:var(--muted); line-height:1.7; }
+
+    /* ─── COMPARISON ─── */
+    #comparison { padding:100px 0; background:var(--bg); }
+    .compare-table-wrap {
+      overflow-x:auto; margin-top:52px;
+      border:1px solid var(--border); border-radius:12px; overflow:hidden;
+    }
+    .compare-table {
+      width:100%; border-collapse:collapse; min-width:560px;
+    }
+    .compare-table thead tr {
+      background:var(--bg2);
+    }
+    .compare-table th {
+      padding:18px 24px;
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:14px; font-weight:700;
+      text-align:center; color:var(--muted);
+      border-bottom:1px solid var(--border);
+    }
+    .compare-table th:first-child { text-align:left; }
+    .compare-table th.col-traf {
+      color:var(--accent);
+      background:var(--accent-l);
+    }
+    .compare-table td {
+      padding:15px 24px; font-size:14px; color:var(--text2);
+      border-bottom:1px solid var(--border); text-align:center;
+    }
+    .compare-table td:first-child {
+      text-align:left; font-weight:500; color:var(--text);
+    }
+    .compare-table td.col-traf {
+      background:rgba(232,245,241,.4);
+    }
+    .compare-table tr:last-child td { border-bottom:none; }
+    .compare-table tr:hover td { background:rgba(0,128,96,.03); }
+    .compare-table tr:hover td.col-traf { background:rgba(232,245,241,.7); }
+    .c-yes  { color:var(--accent); font-weight:700; font-size:16px; }
+    .c-part { color:#D97706; font-size:13px; font-weight:500; }
+    .c-no   { color:#DC2626; font-weight:700; font-size:16px; }
+
+    /* ─── URGENCY ─── */
+    #urgency {
+      padding:80px 0; background:var(--accent); text-align:center;
+    }
+    .urg-label {
+      display:inline-block;
+      font-size:11px; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase;
+      color:rgba(255,255,255,.7); margin-bottom:20px;
+    }
+    .urg-h2 {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:var(--h2); font-weight:800; color:#fff;
+      line-height:1.1; letter-spacing:-.025em;
+      max-width:620px; margin:0 auto 20px;
+    }
+    .urg-p {
+      font-size:var(--body); color:rgba(255,255,255,.78);
+      max-width:520px; margin:0 auto 36px; line-height:1.7;
+    }
+    .btn-urg {
+      display:inline-flex; align-items:center;
+      background:#fff; color:var(--accent);
+      font-size:15px; font-weight:700;
+      padding:14px 32px; border-radius:8px;
+      text-decoration:none;
+      transition:box-shadow .2s, transform .2s;
+    }
+    .btn-urg:hover { box-shadow:0 8px 28px rgba(0,0,0,.18); transform:translateY(-1px); }
+
+    /* ─── PROOF ─── */
+    #proof { padding:100px 0; background:var(--bg); }
+    .proof-featured {
+      max-width:760px; margin:0 auto;
+      border:1px solid var(--border); border-radius:16px;
+      padding:48px 52px; background:var(--bg2);
+    }
+    @media(max-width:640px) { .proof-featured { padding:32px 24px; } }
+    .proof-ql {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:clamp(18px,2.8vw,24px); font-weight:600;
+      color:var(--text); line-height:1.45;
+      margin-bottom:32px;
+    }
+    .proof-ql::before { content:'"'; color:var(--accent); font-size:1.2em; }
+    .proof-ql::after  { content:'"'; color:var(--accent); font-size:1.2em; }
+    .proof-attr {
+      display:flex; align-items:center; gap:16px;
+      border-top:1px solid var(--border); padding-top:24px;
+    }
+    .proof-av2 {
+      width:48px; height:48px; border-radius:50%;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:flex; align-items:center; justify-content:center;
+      font-size:16px; font-weight:800; color:#fff; flex-shrink:0;
+    }
+    .proof-nm2 { font-size:15px; font-weight:700; color:var(--text); }
+    .proof-rl2 { font-size:13px; color:var(--muted); }
+    .proof-stats {
+      display:flex; gap:32px; flex-wrap:wrap;
+      margin-top:36px; padding-top:32px;
+      border-top:1px solid var(--border);
+    }
+    .proof-stat-item { text-align:center; flex:1; min-width:100px; }
+    .proof-stat-val {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:28px; font-weight:800; color:var(--accent);
+      letter-spacing:-.02em;
+    }
+    .proof-stat-lbl { font-size:12px; color:var(--muted); margin-top:4px; }
+
+    /* ─── FAQ ─── */
+    #faq { padding:100px 0; background:var(--bg2); }
+    .faq-list { max-width:680px; margin:0 auto; }
+    .faq-item {
+      border-bottom:1px solid var(--border); overflow:hidden;
+    }
+    .faq-q {
+      width:100%; background:none; border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:22px 0; text-align:left;
+      font-size:16px; font-weight:600; color:var(--text);
+      font-family:inherit; transition:color .2s;
+    }
+    .faq-q:hover { color:var(--accent); }
+    .faq-icon {
+      width:22px; height:22px; border:1.5px solid var(--border);
+      border-radius:50%; display:flex; align-items:center;
+      justify-content:center; flex-shrink:0;
+      transition:transform .3s, background .2s, border-color .2s;
+    }
+    .faq-item.open .faq-icon { transform:rotate(45deg); background:var(--accent); border-color:var(--accent); }
+    .faq-icon svg { width:10px; height:10px; stroke:currentColor; fill:none; stroke-width:2; }
+    .faq-item.open .faq-icon svg { stroke:#fff; }
+    .faq-a {
+      font-size:15px; color:var(--muted); line-height:1.75;
+      max-height:0; overflow:hidden;
+      transition:max-height .35s cubic-bezier(.22,1,.36,1), padding .35s;
+    }
+    .faq-item.open .faq-a { max-height:300px; padding-bottom:20px; }
+
+    /* ─── CTA / CAPTURE ─── */
+    #cta-section {
+      padding:100px 0; background:var(--text);
+      text-align:center;
+    }
+    .cta-label {
+      display:block; margin-bottom:16px;
+      font-size:11px; font-weight:700;
+      letter-spacing:.14em; text-transform:uppercase;
+      color:rgba(255,255,255,.45);
+    }
+    .cta-h2 {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-size:var(--h2); font-weight:800; color:#fff;
+      line-height:1.1; letter-spacing:-.025em;
+      margin-bottom:16px; max-width:560px; margin-left:auto; margin-right:auto;
+    }
+    .cta-sub {
+      font-size:var(--body); color:rgba(255,255,255,.6);
+      max-width:420px; margin:0 auto 40px; line-height:1.7;
+    }
+    .cta-form {
+      display:flex; flex-direction:column; align-items:center;
+      gap:10px; max-width:460px; margin:0 auto;
+    }
+    @media(min-width:480px) { .cta-form { flex-direction:row; gap:0; } }
+    .cta-input {
+      flex:1; width:100%; padding:13px 18px; font-size:15px;
+      border:1.5px solid rgba(255,255,255,.2); border-radius:8px;
+      outline:none; font-family:inherit;
+      background:rgba(255,255,255,.08); color:#fff;
+      transition:border-color .2s;
+    }
+    .cta-input::placeholder { color:rgba(255,255,255,.4); }
+    .cta-input:focus { border-color:rgba(255,255,255,.5); }
+    .btn-white {
+      font-size:15px; font-weight:600; color:var(--text);
+      background:#fff; text-decoration:none; border:none; cursor:pointer;
+      padding:13px 24px; border-radius:8px; font-family:inherit;
+      white-space:nowrap;
+      transition:box-shadow .2s, transform .2s;
+    }
+    .btn-white:hover { box-shadow:0 6px 24px rgba(0,0,0,.2); transform:translateY(-1px); }
+    .cta-fine {
+      font-size:13px; color:rgba(255,255,255,.4);
+      margin-top:16px;
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background:var(--bg2); border-top:1px solid var(--border);
+      padding:60px 0 40px;
+    }
+    .footer-top {
+      display:grid; grid-template-columns:1fr;
+      gap:48px; margin-bottom:48px;
+    }
+    @media(min-width:768px) {
+      .footer-top { grid-template-columns:2fr 1fr 1fr 1fr; gap:32px; }
+    }
+    .footer-brand { }
+    .footer-logo {
+      font-family:'Bricolage Grotesque',sans-serif;
+      font-weight:700; font-size:17px; color:var(--text);
+      display:flex; align-items:center; gap:8px;
+      text-decoration:none; margin-bottom:14px;
+    }
+    .footer-logo-mark {
+      width:24px; height:24px; background:var(--accent);
+      border-radius:5px;
+    }
+    .footer-tagline { font-size:14px; color:var(--muted); line-height:1.6; max-width:240px; }
+    .footer-col h4 {
+      font-size:13px; font-weight:600; letter-spacing:.04em;
+      text-transform:uppercase; color:var(--text); margin-bottom:16px;
+    }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .footer-col a {
+      font-size:14px; color:var(--muted); text-decoration:none;
+      transition:color .2s;
+    }
+    .footer-col a:hover { color:var(--accent); }
+    .footer-bottom {
+      border-top:1px solid var(--border); padding-top:28px;
+      display:flex; flex-wrap:wrap; gap:12px;
+      align-items:center; justify-content:space-between;
+    }
+    .footer-copy { font-size:13px; color:var(--muted); }
+    .footer-links { display:flex; gap:20px; }
+    .footer-links a { font-size:13px; color:var(--muted); text-decoration:none; transition:color .2s; }
+    .footer-links a:hover { color:var(--text); }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <div class="nav-inner">
+      <a class="nlogo" href="#">
+        <span class="nlogo-mark">
+          <svg viewBox="0 0 16 16"><path d="M8 2L2 5.5v5L8 14l6-3.5v-5L8 2z"/></svg>
+        </span>
+        TrafiFlow
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">The Problem</a></li>
+        <li><a href="#how">Platform</a></li>
+        <li><a href="#comparison">vs. Others</a></li>
+        <li><a href="#cta-section">Early Access</a></li>
+      </ul>
+      <div class="nav-cta">
+        <a class="btn-primary" href="#cta-section">Request Early Access</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ─── HERO ─── -->
+  <section id="hero">
+    <div class="hero-inner">
+      <div class="badge rv">
+        <span class="badge-dot"></span>
+        Private Beta — Limited Spots
+      </div>
+      <h1 class="hero-h1 rv d1">
+        Your ecommerce stack<br>
+        is <span class="gr">already</span> obsolete.
+      </h1>
+      <p class="hero-sub rv d2">
+        While your team stitches together 12 disconnected tools, the world's sharpest operators run on a single unified intelligence layer. That's TrafiFlow.
+      </p>
+      <form class="hero-form rv d3" onsubmit="return false">
+        <input class="hero-input" type="url" placeholder="yourstore.com">
+        <button class="hero-btn">See What You're Missing →</button>
+      </form>
+      <div class="hero-trust rv d4">
+        Built by the team that scaled 8-figure DTC brands from the ground up
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── LOGOS / REPLACING TOOLS ─── -->
+  <section id="logos">
+    <div class="wrap">
+      <p class="logos-label rv">Replacing the 8 tools your team stitches together today</p>
+      <div class="logos-row">
+        <span class="logo-item rv d1">GA4</span>
+        <span class="logo-item rv d2">Klaviyo</span>
+        <span class="logo-item rv d3">Triple Whale</span>
+        <span class="logo-item rv d4">Shopify Plus</span>
+        <span class="logo-item rv d5">Meta Ads</span>
+        <span class="logo-item rv d6">Northbeam</span>
+        <span class="logo-item rv d1">Gorgias</span>
+        <span class="logo-item rv d2">Recharge</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── STATS ─── -->
+  <section id="stats">
+    <div class="wrap">
+      <div class="stats-grid">
+        <div class="stat-card rv">
+          <div class="stat-val">$500<span>M+</span></div>
+          <div class="stat-label">Media Spend</div>
+        </div>
+        <div class="stat-card rv d1">
+          <div class="stat-val">8<span>+</span></div>
+          <div class="stat-label">Years DTC</div>
+        </div>
+        <div class="stat-card rv d2">
+          <div class="stat-val">12<span>+</span></div>
+          <div class="stat-label">Brands Scaled</div>
+        </div>
+        <div class="stat-card rv d3">
+          <div class="stat-val">$100<span>M+</span></div>
+          <div class="stat-label">Revenue Generated</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PAIN / THE PROBLEM (02) ─── -->
+  <section id="features">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label rv">02 — The Problem</span>
+        <h2 class="section-h2 rv d1">The stack killing your margins.</h2>
+        <p class="section-sub rv d2">Your current operation. Fragmented. Expensive. Completely blind.</p>
+      </div>
+      <div class="features-grid">
+        <!-- tool 1 -->
+        <div class="feat-card pain-card rv">
+          <div class="feat-icon pain-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 3h7v7H3z"/><path d="M14 3h7v7h-7z"/><path d="M3 14h7v7H3z"/><path d="M14 14h7v7h-7z"/></svg>
+          </div>
+          <h3 class="feat-h3">GA4</h3>
+          <p class="feat-p">Traffic data that cannot talk to your revenue. Sampled, delayed, and disconnected from what actually happened in your store.</p>
+        </div>
+        <!-- tool 2 -->
+        <div class="feat-card pain-card rv d1">
+          <div class="feat-icon pain-icon">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3 class="feat-h3">Klaviyo</h3>
+          <p class="feat-p">Email insights siloed from your paid media. You can't see how a flow subscriber converts after a Meta retargeting hit.</p>
+        </div>
+        <!-- tool 3 -->
+        <div class="feat-card pain-card rv d2">
+          <div class="feat-icon pain-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 0 4.93 19.07"/><path d="M4.93 4.93A10 10 0 0 1 19.07 19.07"/></svg>
+          </div>
+          <h3 class="feat-h3">Triple Whale</h3>
+          <p class="feat-p">Attribution that lags 24–48 hours and forces manual decisions. Another dashboard to check, another model to debate.</p>
+        </div>
+        <!-- tool 4 -->
+        <div class="feat-card pain-card rv d3">
+          <div class="feat-icon pain-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3 class="feat-h3">Meta Ads</h3>
+          <p class="feat-p">Budget shifts based on last week's data and gut feel. You're flying blind every night when no one's watching the accounts.</p>
+        </div>
+        <!-- tool 5 -->
+        <div class="feat-card pain-card rv d4">
+          <div class="feat-icon pain-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="feat-h3">Northbeam</h3>
+          <p class="feat-p">Another tab. Another data model. Another bill. Northbeam shows you what happened — it can't tell you what to do next.</p>
+        </div>
+        <!-- tool 6 -->
+        <div class="feat-card pain-card rv d5">
+          <div class="feat-icon pain-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="feat-h3">Shopify Plus</h3>
+          <p class="feat-p">Great for transactions. Completely blind to your full customer journey, multi-channel attribution, and margin by SKU.</p>
+        </div>
+      </div>
+      <!-- chaos callout -->
+      <div class="chaos-callout rv">
+        <div class="chaos-stat">8 tools. 8 data models. 8 bills. Zero unified truth.</div>
+        <div class="chaos-sub">Every operator at scale is stuck in the same trap. Until now.</div>
+        <span class="chaos-arrow">↓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── WHY TRAFIFLOW (03) ─── -->
+  <section id="how">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label rv">03 — Why TrafiFlow</span>
+        <h2 class="section-h2 rv d1">Intelligence that compounds.<br>Execution that never sleeps.</h2>
+        <p class="section-sub rv d2">One platform. Every channel. Every SKU. Every customer touchpoint. Unified. Intelligent. Agentic.</p>
+      </div>
+      <div class="steps">
+        <div class="step rv">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3 class="step-h3">Unified Data Layer</h3>
+            <p class="step-p">One source of truth across every channel, SKU, and customer touchpoint. No more reconciling 8 dashboards. No more version debates in Slack. TrafiFlow ingests everything and normalises it in real time.</p>
+          </div>
+        </div>
+        <div class="step rv d1">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3 class="step-h3">Predictive Intelligence</h3>
+            <p class="step-p">Know what's going to happen before your competitors know what happened yesterday. TrafiFlow's models surface anomalies, forecast revenue, and flag creative fatigue — before they hit your ROAS.</p>
+          </div>
+        </div>
+        <div class="step rv d2">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h3 class="step-h3">Action, Not Dashboards</h3>
+            <p class="step-p">TrafiFlow doesn't just show you data. It tells you what to do next — and executes autonomously when you let it. Budget reallocations, audience adjustments, creative rotations. While you sleep.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── COMPARISON (04) ─── -->
+  <section id="comparison">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label rv">04 — The Reality Check</span>
+        <h2 class="section-h2 rv d1">TrafiFlow vs. Everything else.</h2>
+        <p class="section-sub rv d2">See exactly where your current stack — and even Shopify — falls short.</p>
+      </div>
+      <div class="compare-table-wrap rv">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th class="col-traf">TrafiFlow</th>
+              <th>Shopify Plus</th>
+              <th>Your Current Stack</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Unified cross-channel data</td>
+              <td class="col-traf"><span class="c-yes">✓</span></td>
+              <td><span class="c-no">✗</span></td>
+              <td><span class="c-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Real-time attribution</td>
+              <td class="col-traf"><span class="c-yes">✓</span></td>
+              <td><span class="c-part">Partial</span></td>
+              <td><span class="c-part">Delayed</span></td>
+            </tr>
+            <tr>
+              <td>Autonomous budget optimisation</td>
+              <td class="col-traf"><span class="c-yes">✓</span></td>
+              <td><span class="c-no">✗</span></td>
+              <td><span class="c-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Predictive revenue forecasting</td>
+              <td class="col-traf"><span class="c-yes">✓</span></td>
+              <td><span class="c-no">✗</span></td>
+              <td><span class="c-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Margin visibility by SKU</td>
+              <td class="col-traf"><span class="c-yes">✓</span></td>
+              <td><span class="c-part">Basic</span></td>
+              <td><span class="c-part">Manual</span></td>
+            </tr>
+            <tr>
+              <td>Agentic execution layer</td>
+              <td class="col-traf"><span class="c-yes">✓</span></td>
+              <td><span class="c-no">✗</span></td>
+              <td><span class="c-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Single monthly cost</td>
+              <td class="col-traf"><span class="c-yes">✓</span></td>
+              <td><span class="c-part">+Apps</span></td>
+              <td><span class="c-no">8 bills</span></td>
+            </tr>
+            <tr>
+              <td>Built for 8-figure DTC operators</td>
+              <td class="col-traf"><span class="c-yes">✓</span></td>
+              <td><span class="c-part">Partial</span></td>
+              <td><span class="c-no">✗</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── URGENCY ─── -->
+  <section id="urgency">
+    <div class="wrap" style="text-align:center">
+      <p class="urg-label rv">Private Beta — Spots Are Limited</p>
+      <h2 class="urg-h2 rv d1">The brands moving now will own the next 3 years.</h2>
+      <p class="urg-p rv d2">Every week you delay, a competitor locks in the intelligence advantage. TrafiFlow is in private beta. Spots are limited. This is not a pitch. It's a window — and it closes.</p>
+      <a class="btn-urg rv d3" href="#cta-section">Request Access Before It Closes →</a>
+    </div>
+  </section>
+
+  <!-- ─── PROOF / CEO QUOTE ─── -->
+  <section id="proof">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label rv">Proof</span>
+        <h2 class="section-h2 rv d1">Built by operators.<br>For operators.</h2>
+      </div>
+      <div class="proof-featured rv">
+        <p class="proof-ql">TrafiFlow is not about prescribing how brands should operate. It's about giving teams the same flexibility, intelligence, and execution power that world-class operators have.</p>
+        <div class="proof-attr">
+          <div class="proof-av2">SZ</div>
+          <div>
+            <div class="proof-nm2">Santiago Zabala</div>
+            <div class="proof-rl2">CEO, Trafilea</div>
+          </div>
+        </div>
+        <div class="proof-stats">
+          <div class="proof-stat-item">
+            <div class="proof-stat-val">$500M+</div>
+            <div class="proof-stat-lbl">Media spend managed</div>
+          </div>
+          <div class="proof-stat-item">
+            <div class="proof-stat-val">8+</div>
+            <div class="proof-stat-lbl">Years in DTC</div>
+          </div>
+          <div class="proof-stat-item">
+            <div class="proof-stat-val">12+</div>
+            <div class="proof-stat-lbl">Brands scaled</div>
+          </div>
+          <div class="proof-stat-item">
+            <div class="proof-stat-val">$100M+</div>
+            <div class="proof-stat-lbl">Revenue generated</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ─── -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-header">
+        <span class="section-label rv">FAQ</span>
+        <h2 class="section-h2 rv d1">Common questions.</h2>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item rv">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What exactly does TrafiFlow replace?
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+          </button>
+          <div class="faq-a">TrafiFlow is designed to consolidate the fragmented stack most 8-figure DTC brands run — replacing or deeply integrating GA4, Triple Whale, Northbeam, manual budget management, and attribution tools into one unified intelligence and execution layer.</div>
+        </div>
+        <div class="faq-item rv d1">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Is this just another analytics dashboard?
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+          </button>
+          <div class="faq-a">No. TrafiFlow is an agentic commerce OS — it doesn't just show you data, it acts on it. It autonomously reallocates budgets, rotates creatives, surfaces anomalies, and executes decisions while your team sleeps. Think of it as an AI operator running alongside your team.</div>
+        </div>
+        <div class="faq-item rv d2">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Who is TrafiFlow built for?
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+          </button>
+          <div class="faq-a">TrafiFlow is built for DTC and ecommerce operators at scale — brands doing $5M–$500M+ in annual revenue across multiple channels. If your team is managing meaningful paid spend and you're tired of stitching tools together, TrafiFlow was designed for you.</div>
+        </div>
+        <div class="faq-item rv d3">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How is TrafiFlow different from Shopify?
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+          </button>
+          <div class="faq-a">Shopify is a great commerce infrastructure layer. TrafiFlow is the intelligence and execution layer above it. Shopify processes transactions — TrafiFlow tells you where your next dollar should go, which creative is fatiguing, which cohort is worth acquiring, and acts on that in real time.</div>
+        </div>
+        <div class="faq-item rv d4">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What does the private beta look like?
+            <span class="faq-icon"><svg viewBox="0 0 10 10"><line x1="5" y1="1" x2="5" y2="9"/><line x1="1" y1="5" x2="9" y2="5"/></svg></span>
+          </button>
+          <div class="faq-a">Beta brands get direct access to the founding team, a white-glove onboarding, and heavily discounted lifetime rates. In exchange, we ask for honest feedback and a willingness to push the product. Spots are limited — we keep the cohort small intentionally so every brand gets proper attention.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── CTA / CAPTURE (05) ─── -->
+  <section id="cta-section">
+    <div class="wrap">
+      <span class="cta-label rv">05 — Get Started</span>
+      <h2 class="cta-h2 rv">See your store through TrafiFlow.</h2>
+      <p class="cta-sub rv d1">Enter your URL and we'll show you exactly what you're missing.</p>
+      <form class="cta-form rv d2" onsubmit="return false">
+        <input class="cta-input" type="url" placeholder="yourstore.com">
+        <button class="btn-white" type="submit">Request Access →</button>
+      </form>
+      <p class="cta-fine rv d3">No pitch. No obligation. Just clarity.</p>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a class="footer-logo" href="#">
+            <span class="footer-logo-mark"></span>
+            TrafiFlow
+          </a>
+          <p class="footer-tagline">The Agentic Commerce OS. Built by the team that scaled 8-figure DTC brands.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <ul>
+            <li><a href="#features">The Problem</a></li>
+            <li><a href="#how">Why TrafiFlow</a></li>
+            <li><a href="#comparison">vs. Others</a></li>
+            <li><a href="#cta-section">Early Access</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Trafilea</a></li>
+            <li><a href="#">Our Brands</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">Security</a></li>
+            <li><a href="#">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2025 Trafilea. All rights reserved.</p>
+        <div class="footer-links">
+          <a href="#">Status</a>
+          <a href="#faq">FAQ</a>
+          <a href="#cta-section">Get Access</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+    }, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('.rv').forEach(el => observer.observe(el));
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    }
+
+    // Nav shadow on scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.style.boxShadow = window.scrollY > 20 ? '0 1px 16px rgba(0,0,0,.06)' : 'none';
+    }, { passive:true });
+  </script>
+</body>
+</html>
