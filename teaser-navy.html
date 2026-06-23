@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trafilea — Investor Teaser 2026 (Navy)</title>
+  <meta name="description" content="Trafilea — a $405M tech-driven house of brands, now building the B2B AI Agentic Commerce OS.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    :root {
+      /* Navy brand palette — matches the existing Trafilea deck */
+      --navy:     #081726;
+      --navy-2:   #0C2238;
+      --navy-3:   #11304C;
+      --panel:    #0E2841;
+      --ink:      #EAF2FA;
+      --ink-2:    #B7C8DA;
+      --muted:    #7C93AB;
+      --line:     rgba(255,255,255,.10);
+      --line-2:   rgba(255,255,255,.16);
+      --green:    #00C389;
+      --green-2:  #19E39E;
+      --green-deep:#00875E;
+      --green-soft:rgba(0,195,137,.12);
+
+      --h1:   clamp(44px, 8vw, 104px);
+      --h2:   clamp(30px, 5vw, 60px);
+      --h3:   clamp(19px, 2.6vw, 26px);
+      --body: clamp(16px, 1.55vw, 19px);
+      --sm:   clamp(13px, 1.1vw, 14px);
+      --maxw: 1180px;
+    }
+
+    html { scroll-behavior:smooth; }
+    body {
+      background:var(--navy); color:var(--ink);
+      font-family:'Inter', system-ui, sans-serif; line-height:1.6;
+      overflow-x:hidden; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    ::selection { background:var(--green); color:var(--navy); }
+    ::-webkit-scrollbar { width:4px; }
+    ::-webkit-scrollbar-track { background:var(--navy-2); }
+    ::-webkit-scrollbar-thumb { background:var(--green); }
+
+    .display { font-family:'Bricolage Grotesque', sans-serif; letter-spacing:-.03em; line-height:1.03; }
+    .mono { font-family:'IBM Plex Mono', monospace; }
+    .eyebrow { font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.22em; text-transform:uppercase; color:var(--green); font-weight:500; }
+    .num { font-feature-settings:"tnum" 1; }
+
+    .wrap { width:100%; max-width:var(--maxw); margin:0 auto; padding:0 24px; }
+    @media(min-width:768px){ .wrap { padding:0 48px; } }
+    section { position:relative; }
+
+    .rv { opacity:0; transform:translateY(22px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+    .rv.in { opacity:1; transform:none; }
+    .d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}
+    .d4{transition-delay:.28s}.d5{transition-delay:.35s}.d6{transition-delay:.42s}
+
+    .ph { background:rgba(0,195,137,.14); border-bottom:1.5px dotted var(--green); cursor:help; border-radius:2px; padding:0 2px; }
+
+    /* logo ring mark */
+    .ring { width:30px; height:30px; flex-shrink:0; }
+    .ring circle { fill:none; stroke:var(--green); stroke-width:2.4; }
+    .ring path { fill:none; stroke:var(--green); stroke-width:2.4; stroke-linecap:round; }
+
+    /* TOP BAR */
+    .topbar { position:sticky; top:0; z-index:100; background:rgba(8,23,38,.82); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-bottom:1px solid var(--line); }
+    .topbar-inner { max-width:var(--maxw); margin:0 auto; padding:14px 24px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    @media(min-width:768px){ .topbar-inner { padding:16px 48px; } }
+    .brand { display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--ink); }
+    .brand-name { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:19px; letter-spacing:-.01em; }
+    .topbar-tag { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; gap:8px; }
+    .topbar-tag .dot { width:6px; height:6px; border-radius:50%; background:var(--green); }
+
+    /* HERO */
+    #hero { padding:88px 0 64px; overflow:hidden; }
+    #hero::before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 70% 60% at 85% -10%, rgba(0,195,137,.16), transparent 60%); }
+    .hero-grid { display:grid; gap:48px; position:relative; z-index:1; }
+    @media(min-width:980px){ .hero-grid { grid-template-columns:1.15fr .85fr; align-items:end; gap:56px; } }
+    .hero-eyebrow { margin-bottom:26px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .conf-chip { font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-2); border:1px solid var(--line-2); border-radius:100px; padding:4px 11px; background:var(--navy-2); }
+    .hero-h1 { font-size:var(--h1); font-weight:800; margin-bottom:26px; color:#fff; }
+    .hero-h1 .g { color:var(--green); }
+    .hero-sub { font-size:var(--body); color:var(--ink-2); max-width:560px; margin-bottom:32px; }
+    .hero-sub strong { color:#fff; font-weight:600; }
+    .hero-meta { display:flex; flex-wrap:wrap; gap:10px; }
+    .pill { font-size:13px; font-weight:500; color:var(--ink-2); background:var(--navy-2); border:1px solid var(--line-2); border-radius:100px; padding:7px 15px; }
+
+    .hero-stat { border:1px solid var(--line-2); border-radius:20px; background:linear-gradient(160deg, var(--panel), var(--navy-2)); padding:34px 34px 30px; position:relative; overflow:hidden; box-shadow:0 30px 70px -34px rgba(0,0,0,.7); }
+    .hero-stat::after { content:''; position:absolute; right:-30px; top:-30px; width:180px; height:180px; background:radial-gradient(circle, rgba(0,195,137,.22), transparent 70%); }
+    .hero-stat-label { font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+    .hero-stat-val { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(56px,9vw,92px); line-height:.92; letter-spacing:-.04em; color:#fff; display:flex; align-items:baseline; gap:2px; }
+    .hero-stat-val .cur { font-size:.5em; color:var(--green); font-weight:700; transform:translateY(-.15em); }
+    .hero-stat-val .suf { color:var(--green); }
+    .hero-stat-foot { margin-top:18px; padding-top:18px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .hero-stat-foot .y { font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--ink-2); }
+    .delta { display:inline-flex; align-items:center; gap:6px; font-weight:600; font-size:14px; color:var(--green); }
+    .delta svg { width:14px; height:14px; }
+
+    /* SNAPSHOT */
+    #snapshot { padding:24px 0 72px; }
+    .snap-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:18px; overflow:hidden; }
+    @media(min-width:760px){ .snap-grid { grid-template-columns:repeat(3,1fr); } }
+    @media(min-width:1040px){ .snap-grid { grid-template-columns:repeat(6,1fr); } }
+    .snap-cell { background:var(--navy-2); padding:26px 20px; }
+    .snap-val { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(26px,3vw,34px); letter-spacing:-.02em; line-height:1; color:#fff; }
+    .snap-val .u { color:var(--green); }
+    .snap-lbl { font-size:12px; color:var(--muted); margin-top:9px; line-height:1.4; }
+
+    /* SECTION */
+    .sec { padding:84px 0; }
+    .sec-head { max-width:760px; margin-bottom:52px; }
+    .sec-num { font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--green); letter-spacing:.1em; margin-bottom:18px; display:block; }
+    .sec-h2 { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:var(--h2); letter-spacing:-.03em; line-height:1.05; margin-bottom:18px; color:#fff; }
+    .sec-lead { font-size:var(--body); color:var(--ink-2); }
+
+    /* WHO */
+    #who { background:var(--navy-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .who-grid { display:grid; gap:40px; }
+    @media(min-width:920px){ .who-grid { grid-template-columns:1fr 1fr; gap:64px; align-items:center; } }
+    .who-body p { color:var(--ink-2); font-size:var(--body); margin-bottom:18px; }
+    .who-body p:last-child { margin-bottom:0; }
+    .who-body strong { color:#fff; font-weight:600; }
+    .brand-chips { display:flex; flex-wrap:wrap; gap:10px; }
+    .brand-chip { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:16px; background:var(--panel); border:1px solid var(--line-2); border-radius:10px; padding:14px 18px; color:#fff; letter-spacing:-.01em; }
+    .brand-chip span { display:block; font-family:'Inter',sans-serif; font-weight:400; font-size:11px; color:var(--muted); margin-top:3px; letter-spacing:0; }
+
+    /* TRAJECTORY */
+    .traj { display:grid; grid-template-columns:repeat(var(--cols,5),1fr); gap:14px; align-items:end; height:280px; margin-top:8px; padding:24px; border:1px solid var(--line); border-radius:18px; background:var(--navy-2); }
+    .bar-col { display:flex; flex-direction:column; align-items:center; gap:12px; height:100%; justify-content:flex-end; }
+    .bar { width:100%; max-width:74px; border-radius:8px 8px 0 0; background:var(--navy-3); transition:height 1.1s cubic-bezier(.22,1,.36,1); height:0; }
+    .bar.is-now { background:linear-gradient(180deg, var(--green-2), var(--green-deep)); }
+    .bar-val { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:15px; color:#fff; }
+    .bar-yr { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted); }
+    .traj-note { margin-top:16px; font-size:13px; color:var(--muted); }
+
+    /* WHY NOW */
+    .cards3 { display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:760px){ .cards3 { grid-template-columns:repeat(3,1fr); } }
+    .card { border:1px solid var(--line); border-radius:16px; background:var(--panel); padding:30px; transition:transform .25s, box-shadow .25s, border-color .25s; }
+    .card:hover { transform:translateY(-3px); border-color:rgba(0,195,137,.5); box-shadow:0 18px 44px -24px rgba(0,0,0,.6); }
+    .card-k { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(30px,4vw,42px); color:var(--green); letter-spacing:-.03em; line-height:1; margin-bottom:14px; }
+    .card-h { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:19px; margin-bottom:9px; letter-spacing:-.01em; color:#fff; }
+    .card-p { font-size:14.5px; color:var(--ink-2); line-height:1.65; }
+
+    /* LEVER */
+    #lever { background:#050E18; border-top:1px solid var(--line); overflow:hidden; }
+    .lever-glow { position:absolute; inset:0; pointer-events:none; background: radial-gradient(ellipse 60% 50% at 80% 0%, rgba(0,195,137,.16), transparent 60%), radial-gradient(ellipse 50% 40% at 5% 100%, rgba(25,227,158,.10), transparent 60%); }
+    .lever-badge { display:inline-flex; align-items:center; gap:9px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:#9af2d2; background:var(--green-soft); border:1px solid rgba(0,195,137,.4); border-radius:100px; padding:6px 14px; margin-bottom:24px; }
+    .lever-badge .dot { width:6px; height:6px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1; box-shadow:0 0 0 0 rgba(0,195,137,.6);} 50%{opacity:.5; box-shadow:0 0 0 6px rgba(0,195,137,0);} }
+    .lever-lead { font-size:clamp(17px,2vw,21px); color:var(--ink-2); max-width:640px; margin-bottom:48px; }
+    .lever-lead b { color:#fff; font-weight:600; }
+    .os-grid { display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:680px){ .os-grid { grid-template-columns:repeat(2,1fr); } }
+    @media(min-width:1040px){ .os-grid { grid-template-columns:repeat(4,1fr); } }
+    .os-card { border:1px solid var(--line-2); border-radius:16px; padding:26px; background:linear-gradient(160deg, var(--panel), var(--navy)); transition:border-color .25s, transform .25s; }
+    .os-card:hover { border-color:rgba(0,195,137,.55); transform:translateY(-3px); }
+    .os-icn { width:42px; height:42px; border-radius:11px; background:var(--green-soft); border:1px solid rgba(0,195,137,.35); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+    .os-icn svg { width:21px; height:21px; stroke:var(--green-2); fill:none; stroke-width:1.7; }
+    .os-h { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:17px; color:#fff; margin-bottom:9px; }
+    .os-p { font-size:14px; color:var(--ink-2); line-height:1.6; }
+    .wedge { margin-top:30px; display:grid; gap:0; grid-template-columns:1fr; border:1px solid var(--line-2); border-radius:18px; overflow:hidden; }
+    @media(min-width:820px){ .wedge { grid-template-columns:repeat(3,1fr); } }
+    .wedge-cell { padding:30px; border-bottom:1px solid var(--line-2); }
+    @media(min-width:820px){ .wedge-cell { border-bottom:none; border-right:1px solid var(--line-2); } .wedge-cell:last-child { border-right:none; } }
+    .wedge-step { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--green); letter-spacing:.12em; margin-bottom:14px; }
+    .wedge-h { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:18px; color:#fff; margin-bottom:9px; }
+    .wedge-p { font-size:14px; color:var(--ink-2); line-height:1.6; }
+    .tam { margin-top:30px; display:flex; flex-wrap:wrap; gap:14px; }
+    .tam-card { flex:1; min-width:200px; border:1px solid var(--line-2); border-radius:16px; padding:26px 28px; background:linear-gradient(160deg, var(--panel), var(--navy)); }
+    .tam-v { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(30px,4vw,44px); letter-spacing:-.03em; color:#fff; line-height:1; }
+    .tam-v .u { color:var(--green); }
+    .tam-l { font-size:13px; color:var(--muted); margin-top:10px; }
+
+    /* MOAT */
+    .moat-list { display:grid; gap:0; max-width:900px; }
+    .moat { display:grid; grid-template-columns:auto 1fr; gap:22px; align-items:start; padding:30px 0; border-bottom:1px solid var(--line); }
+    .moat:last-child { border-bottom:none; }
+    .moat-n { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(22px,3vw,30px); color:var(--green); letter-spacing:-.02em; min-width:44px; }
+    .moat-h { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:clamp(20px,2.5vw,24px); margin-bottom:8px; letter-spacing:-.01em; color:#fff; }
+    .moat-p { font-size:var(--body); color:var(--ink-2); line-height:1.6; }
+
+    /* TEAM */
+    #team { background:var(--navy-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+    .team-grid { display:grid; gap:18px; grid-template-columns:1fr; }
+    @media(min-width:680px){ .team-grid { grid-template-columns:repeat(2,1fr); } }
+    .leader { display:flex; gap:18px; align-items:center; border:1px solid var(--line-2); border-radius:16px; background:var(--panel); padding:24px; }
+    .leader-av { width:60px; height:60px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg, var(--green-2), var(--green-deep)); display:flex; align-items:center; justify-content:center; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:20px; color:var(--navy); }
+    .leader-nm { font-family:'Bricolage Grotesque',sans-serif; font-weight:700; font-size:18px; letter-spacing:-.01em; color:#fff; }
+    .leader-rl { font-size:14px; color:var(--muted); margin-top:3px; }
+    .quote { max-width:840px; margin:48px auto 0; text-align:center; }
+    .quote-q { font-family:'Bricolage Grotesque',sans-serif; font-weight:600; font-size:clamp(22px,3.2vw,32px); letter-spacing:-.02em; line-height:1.3; color:#fff; }
+    .quote-q .g { color:var(--green); }
+    .quote-a { margin-top:24px; font-size:14px; color:var(--muted); font-family:'IBM Plex Mono',monospace; letter-spacing:.04em; }
+
+    /* CLOSE */
+    #close { background:linear-gradient(180deg, var(--green-deep), #00603f); text-align:center; }
+    #close .sec-num { color:rgba(255,255,255,.7); }
+    .close-h { font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:var(--h2); letter-spacing:-.03em; line-height:1.05; color:#fff; max-width:760px; margin:0 auto 22px; }
+    .close-p { font-size:var(--body); color:rgba(255,255,255,.8); max-width:540px; margin:0 auto 40px; }
+    .close-p .ph { background:rgba(255,255,255,.2); border-bottom-color:#fff; color:#fff; }
+    .close-actions { display:flex; flex-wrap:wrap; gap:14px; justify-content:center; }
+    .btn-primary { display:inline-flex; align-items:center; gap:9px; background:#fff; color:var(--green-deep); font-weight:700; font-size:15px; padding:15px 28px; border-radius:10px; text-decoration:none; transition:transform .2s, box-shadow .2s; }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow:0 14px 36px -12px rgba(0,0,0,.45); }
+    .btn-ghost { display:inline-flex; align-items:center; gap:9px; border:1px solid rgba(255,255,255,.5); color:#fff; font-weight:500; font-size:15px; padding:15px 28px; border-radius:10px; text-decoration:none; transition:background .2s; }
+    .btn-ghost:hover { background:rgba(255,255,255,.12); }
+    .close-fine { margin-top:36px; font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.1em; color:rgba(255,255,255,.6); text-transform:uppercase; }
+
+    footer { background:var(--navy); padding:40px 0; border-top:1px solid var(--line); }
+    .foot-inner { display:flex; flex-wrap:wrap; gap:14px; align-items:center; justify-content:space-between; }
+    .foot-brand { display:flex; align-items:center; gap:10px; color:var(--ink); }
+    .foot-copy { font-size:13px; color:var(--muted); }
+
+    @media print {
+      :root { --maxw:100%; }
+      * { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; }
+      .topbar { position:static; }
+      .rv { opacity:1 !important; transform:none !important; }
+      .sec, #hero, #snapshot { padding:34px 0; }
+      section, .card, .os-card, .leader, .moat, .tam-card, .wedge { break-inside:avoid; page-break-inside:avoid; }
+      #who, #lever, #team, #close { break-before:page; page-break-before:always; }
+      .bar { height:var(--print-h,40%) !important; transition:none !important; }
+      .card:hover, .os-card:hover, .leader:hover { transform:none; box-shadow:none; }
+      @page { margin:14mm; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .rv { transition:none; } .bar { transition:none; } .lever-badge .dot { animation:none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#hero">
+        <svg class="ring" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path d="M16 8a8 8 0 0 1 0 16"/></svg>
+        <span class="brand-name">Trafilea</span>
+      </a>
+      <div class="topbar-tag"><span class="dot"></span> Investor Teaser · 2026 · Confidential</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="hero-eyebrow rv">
+            <span class="eyebrow">Strictly Confidential</span>
+            <span class="conf-chip">Investor Teaser — 2026</span>
+          </div>
+          <h1 class="hero-h1 display rv d1">
+            A proven <span class="g">$405M</span> operator,<br>
+            building the OS for<br>
+            agentic commerce.
+          </h1>
+          <p class="hero-sub rv d2">
+            Trafilea is a tech-driven house of consumer brands. In 2025 we crossed
+            <strong>$405M in revenue</strong> — profitably, at scale, across dozens of markets.
+            This year we turn a decade of operator infrastructure into a product the whole
+            industry can run on.
+          </p>
+          <div class="hero-meta rv d3">
+            <span class="pill">Tech-driven house of brands</span>
+            <span class="pill">Profitable &amp; scaled</span>
+            <span class="pill">AI-native, remote-first</span>
+          </div>
+        </div>
+        <div class="hero-stat rv d2">
+          <div class="hero-stat-label">2025 Revenue</div>
+          <div class="hero-stat-val num"><span class="cur">$</span><span data-count="405">0</span><span class="suf">M</span></div>
+          <div class="hero-stat-foot">
+            <span class="y">FY2025 · audited</span>
+            <span class="delta ph" title="Replace with the YoY growth figure from the deck">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+              +XX% YoY
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SNAPSHOT -->
+  <section id="snapshot">
+    <div class="wrap">
+      <div class="snap-grid">
+        <div class="snap-cell rv"><div class="snap-val num">$405<span class="u">M</span></div><div class="snap-lbl">2025 revenue</div></div>
+        <div class="snap-cell rv d1"><div class="snap-val num ph" title="Replace with cumulative customers served from the deck">XM<span class="u">+</span></div><div class="snap-lbl">Customers served</div></div>
+        <div class="snap-cell rv d2"><div class="snap-val num ph" title="Replace with media-spend figure from the deck">$XXX<span class="u">M+</span></div><div class="snap-lbl">Media deployed</div></div>
+        <div class="snap-cell rv d3"><div class="snap-val num ph" title="Replace with number of countries / markets">XX<span class="u">+</span></div><div class="snap-lbl">Markets</div></div>
+        <div class="snap-cell rv d4"><div class="snap-val num ph" title="Replace with team size">X,XXX</div><div class="snap-lbl">Team members</div></div>
+        <div class="snap-cell rv d5"><div class="snap-val num ph" title="Replace with years operating">X<span class="u">+</span></div><div class="snap-lbl">Years compounding</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO -->
+  <section id="who" class="sec">
+    <div class="wrap">
+      <div class="who-grid">
+        <div class="who-body">
+          <span class="sec-num rv">01 — Who we are</span>
+          <h2 class="sec-h2 rv d1">We build, scale, and operate consumer brands as software.</h2>
+          <p class="rv d2">Trafilea is a <strong>tech-driven house of brands</strong>. We design products, acquire customers, and run the entire commerce stack ourselves — creative, media, data, supply chain, and retention — on infrastructure we built in-house.</p>
+          <p class="rv d3">That vertical integration is the point. Every brand runs on the same operating system, so each new launch compounds the data, the playbooks, and the margin of the last one. The result in 2025: <strong>$405M in revenue</strong>, profitably.</p>
+        </div>
+        <div class="rv d3">
+          <div class="brand-chips">
+            <div class="brand-chip">Shapermint<span>Flagship · intimates</span></div>
+            <div class="brand-chip">Truekind<span>Everyday comfort</span></div>
+            <div class="brand-chip">Shapermint Essentials<span>Apparel</span></div>
+            <div class="brand-chip ph" title="Confirm / add the current brand portfolio from the deck">+ portfolio<span>Add brands here</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAJECTORY -->
+  <section id="traj" class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-num rv">02 — The trajectory</span>
+        <h2 class="sec-h2 rv d1">A decade of compounding, not a spike.</h2>
+        <p class="sec-lead rv d2">2025 didn't happen overnight. <span class="ph" title="Replace the bars below with real revenue per year from the deck">Replace the figures below with the revenue history from the teaser deck</span> — the shape is what matters to investors.</p>
+      </div>
+      <div class="traj rv d2" style="--cols:5">
+        <div class="bar-col"><div class="bar-val ph num" title="prior year">$XXM</div><div class="bar" data-h="34" style="--print-h:34%"></div><div class="bar-yr">20XX</div></div>
+        <div class="bar-col"><div class="bar-val ph num" title="prior year">$XXM</div><div class="bar" data-h="48" style="--print-h:48%"></div><div class="bar-yr">20XX</div></div>
+        <div class="bar-col"><div class="bar-val ph num" title="prior year">$XXXM</div><div class="bar" data-h="64" style="--print-h:64%"></div><div class="bar-yr">20XX</div></div>
+        <div class="bar-col"><div class="bar-val ph num" title="prior year">$XXXM</div><div class="bar" data-h="82" style="--print-h:82%"></div><div class="bar-yr">2024</div></div>
+        <div class="bar-col"><div class="bar-val num">$405M</div><div class="bar is-now" data-h="100" style="--print-h:100%"></div><div class="bar-yr">2025</div></div>
+      </div>
+      <p class="traj-note rv">Bars are illustrative placeholders — swap in the audited revenue per year and they will scale automatically.</p>
+    </div>
+  </section>
+
+  <!-- WHY NOW -->
+  <section id="whynow" class="sec" style="background:var(--navy-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="sec-num">03 — Why now</span>
+        <h2 class="sec-h2">Commerce is being rebuilt around AI agents. We are early — and we have the data.</h2>
+      </div>
+      <div class="cards3">
+        <div class="card rv"><div class="card-k">$7T+</div><div class="card-h">The market in motion</div><p class="card-p">Global ecommerce is a multi-trillion-dollar market still run on fragmented, manual tooling. The operating layer is up for grabs.</p></div>
+        <div class="card rv d1"><div class="card-k">Agentic</div><div class="card-h">A platform shift</div><p class="card-p">AI agents are moving from answering questions to taking actions — buying media, pricing SKUs, running retention. Commerce needs an OS built for that.</p></div>
+        <div class="card rv d2"><div class="card-k">10 yrs</div><div class="card-h">Our unfair head start</div><p class="card-p">We've spent a decade and <span class="ph" title="insert media-spend figure">hundreds of millions</span> in real spend generating the proprietary commerce data agents need to act well.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVER -->
+  <section id="lever" class="sec">
+    <div class="lever-glow"></div>
+    <div class="wrap" style="position:relative; z-index:1;">
+      <span class="lever-badge"><span class="dot"></span> The 2026 Lever · Launching this year</span>
+      <span class="sec-num rv">04 — The platform</span>
+      <h2 class="sec-h2 display rv d1">TrafiFlow — the B2B AI<br>Agentic Commerce OS.</h2>
+      <p class="lever-lead rv d2">We are productizing the operating system that runs Trafilea and opening it to the market. <b>TrafiFlow</b> turns the unified data, media intelligence, and autonomous execution we built for ourselves into a platform any commerce operator can run on — moving from <b>dashboards that report</b> to <b>agents that act</b>.</p>
+      <div class="os-grid">
+        <div class="os-card rv"><div class="os-icn"><svg viewBox="0 0 24 24"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg></div><div class="os-h">Unified data layer</div><p class="os-p">One source of truth across every channel, SKU, and customer — normalized in real time.</p></div>
+        <div class="os-card rv d1"><div class="os-icn"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div><div class="os-h">Predictive intelligence</div><p class="os-p">Forecast revenue, flag fatigue, and surface the next best action before competitors react.</p></div>
+        <div class="os-card rv d2"><div class="os-icn"><svg viewBox="0 0 24 24"><path d="M5 3v18M5 6h11l-2 3 2 3H5"/></svg></div><div class="os-h">Agentic execution</div><p class="os-p">Agents reallocate budgets, rotate creative, and adjust pricing autonomously — with guardrails.</p></div>
+        <div class="os-card rv d3"><div class="os-icn"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3"/></svg></div><div class="os-h">Operator-grade UX</div><p class="os-p">Built by people who run an 8-figure operation daily — not a dashboard bolted onto an API.</p></div>
+      </div>
+      <div class="wedge rv">
+        <div class="wedge-cell"><div class="wedge-step">01 — Proof</div><div class="wedge-h">We run on it</div><p class="wedge-p">TrafiFlow already powers a $405M business. The product is validated by our own P&amp;L before a single external customer.</p></div>
+        <div class="wedge-cell"><div class="wedge-step">02 — Wedge</div><div class="wedge-h">Sell what works</div><p class="wedge-p">We open the platform to operators facing the same fragmented stack — with playbooks proven across our portfolio.</p></div>
+        <div class="wedge-cell"><div class="wedge-step">03 — Flywheel</div><div class="wedge-h">Data compounds</div><p class="wedge-p">Every brand on TrafiFlow makes the agents smarter — a data moat that widens with each customer.</p></div>
+      </div>
+      <div class="tam">
+        <div class="tam-card rv"><div class="tam-v num ph" title="Insert SAM / target software spend from the deck">$XXB<span class="u">+</span></div><div class="tam-l">Commerce software &amp; ad-ops spend addressable</div></div>
+        <div class="tam-card rv d1"><div class="tam-v num">2026</div><div class="tam-l">First external customers go live</div></div>
+        <div class="tam-card rv d2"><div class="tam-v num">SaaS</div><div class="tam-l">Recurring, high-margin revenue layered on a profitable base</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOAT -->
+  <section id="moat" class="sec">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="sec-num">05 — Why we win</span>
+        <h2 class="sec-h2">Most AI-commerce startups have a model. We have the business that proves it.</h2>
+      </div>
+      <div class="moat-list">
+        <div class="moat rv"><div class="moat-n num">01</div><div><div class="moat-h">Proprietary data at scale</div><p class="moat-p">A decade of real customer, creative, and media-performance data across markets — the fuel agents need to act, not just advise.</p></div></div>
+        <div class="moat rv d1"><div class="moat-n num">02</div><div><div class="moat-h">Operator DNA</div><p class="moat-p">We're not selling theory. We've deployed <span class="ph" title="insert cumulative media spend">$XXXM+</span> in media and scaled multiple brands — the product is shaped by daily operation.</p></div></div>
+        <div class="moat rv d2"><div class="moat-n num">03</div><div><div class="moat-h">Profitable foundation</div><p class="moat-p">TrafiFlow is funded by a $405M profitable base — we can build a category platform without betting the company on it.</p></div></div>
+        <div class="moat rv d3"><div class="moat-n num">04</div><div><div class="moat-h">AI-native &amp; remote-first</div><p class="moat-p">An organization built around AI and distributed talent — structurally faster and leaner than incumbents retrofitting agents onto legacy stacks.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team" class="sec">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="sec-num">06 — Leadership</span>
+        <h2 class="sec-h2">Founder-led. Operator-built.</h2>
+      </div>
+      <div class="team-grid">
+        <div class="leader rv"><div class="leader-av">SZ</div><div><div class="leader-nm">Santiago Zabala</div><div class="leader-rl">Co-Founder &amp; CEO</div></div></div>
+        <div class="leader rv d1"><div class="leader-av ph" title="Confirm co-founder / leadership from the deck">··</div><div><div class="leader-nm ph" title="Add co-founder / key executive">Co-Founder</div><div class="leader-rl">Add leadership from the deck</div></div></div>
+      </div>
+      <div class="quote rv">
+        <p class="quote-q">"We're not prescribing how brands should operate. We're giving every team the <span class="g">intelligence and execution power</span> world-class operators have — by productizing our own."</p>
+        <div class="quote-a">— Santiago Zabala, CEO, Trafilea</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSE -->
+  <section id="close" class="sec">
+    <div class="wrap">
+      <span class="sec-num rv">07 — The opportunity</span>
+      <h2 class="close-h rv d1">Back a profitable operator at the moment it becomes a platform.</h2>
+      <p class="close-p rv d2">We're raising <span class="ph" title="Insert round size / use of funds from the deck">$XX M</span> to accelerate the launch of TrafiFlow. Full deck, financials, and data room available on request.</p>
+      <div class="close-actions rv d3">
+        <a class="btn-primary" href="mailto:santiago@trafilea.com?subject=Trafilea%20%E2%80%94%20Investor%20Deck%20Request">Request the full deck <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn-ghost" href="mailto:santiago@trafilea.com">Talk to the founder</a>
+      </div>
+      <p class="close-fine rv">Confidential — do not distribute</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap foot-inner">
+      <div class="foot-brand">
+        <svg class="ring" viewBox="0 0 32 32"><circle cx="16" cy="16" r="12"/><path d="M16 8a8 8 0 0 1 0 16"/></svg>
+        <span class="brand-name">Trafilea</span>
+      </div>
+      <div class="foot-copy">© 2026 Trafilea. Strictly confidential investor teaser.</div>
+    </div>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const countIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target; countIO.unobserve(el);
+        const target = parseFloat(el.dataset.count);
+        if (reduce) { el.textContent = target; return; }
+        const dur = 1400; const start = performance.now();
+        const tick = (now) => { const p = Math.min((now-start)/dur,1); const eased = 1-Math.pow(1-p,3); el.textContent = Math.round(target*eased); if (p<1) requestAnimationFrame(tick); };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold:0.6 });
+    document.querySelectorAll('[data-count]').forEach(el => countIO.observe(el));
+
+    const barIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const bar = e.target; barIO.unobserve(bar);
+        const h = bar.dataset.h + '%';
+        if (reduce) { bar.style.height = h; return; }
+        requestAnimationFrame(() => { bar.style.height = h; });
+      });
+    }, { threshold:0.3 });
+    document.querySelectorAll('.bar[data-h]').forEach(b => barIO.observe(b));
+  </script>
+</body>
+</html>
