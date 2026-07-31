@@ -89,7 +89,7 @@
   .hero p.lede strong{color:var(--ink)}
 
   /* console status line,replaces the hero-metric card template */
-  .readout{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:14px;overflow:hidden;max-width:620px}
+  .readout{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line-2);border:1px solid var(--line-2);border-radius:14px;overflow:hidden;max-width:780px}
   @media(min-width:680px){.readout{grid-template-columns:repeat(4,1fr)}}
   .readout .seg{background:#07192a;padding:16px 20px;display:flex;flex-direction:column;gap:5px}
   .readout .seg .k{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -290,7 +290,6 @@
     </a>
     <div class="bar-status data">
       <span class="bar-conf">CONFIDENTIAL · 2026</span>
-      <span class="live"><span class="blip"></span> FY2025 LIVE</span>
     </div>
   </div>
 </header>
@@ -304,11 +303,15 @@
     <h1>A profitable <em>$405M</em> consumer platform — now opening its engine to the industry.</h1>
     <p class="lede">Trafilea is a next-generation AI-consumer tech platform that builds and scales category-defining brands in women's intimates, beauty, and wellness. In 2025 we reached <strong>$405M in revenue</strong> — profitably, free-cashflow positive, with 12M+ customers. This year we productize the engine behind it into a <strong>B2B Agentic Commerce OS</strong>.</p>
 
-    <div class="readout data" role="group" aria-label="Fiscal year 2025 snapshot">
+    <div class="readout data" role="group" aria-label="Fiscal year 2025 key metrics">
       <div class="seg hero-rev"><span class="k">FY2025 Revenue</span><span class="v"><span data-count="405" data-prefix="$" data-suffix="M">$0M</span></span></div>
       <div class="seg"><span class="k">YoY Growth</span><span class="v">+25%</span></div>
+      <div class="seg"><span class="k">CAGR '15–'24</span><span class="v">82%</span></div>
       <div class="seg"><span class="k">Profitability</span><span class="v">FCF+</span></div>
       <div class="seg"><span class="k">Customers</span><span class="v">12M+</span></div>
+      <div class="seg"><span class="k">Owned-brand sales</span><span class="v">98%</span></div>
+      <div class="seg"><span class="k">Subscribers · $12M ARR</span><span class="v">200K+</span></div>
+      <div class="seg"><span class="k">Team · 24 countries</span><span class="v">500+</span></div>
     </div>
   </div>
 </section>
@@ -321,27 +324,6 @@
     <span class="co">Globant</span><span class="co">Macy's</span><span class="co">Torrid</span>
   </div>
 </div>
-
-<!-- ═══ SNAPSHOT (bento) ═══ -->
-<section data-sec id="snapshot">
-  <div class="shell">
-    <h2 class="lead-h r">The numbers behind the platform.</h2>
-    <div class="bento" style="margin-top:38px">
-      <div class="tile feature r r-scale">
-        <span class="lab data">FY2025 Revenue</span>
-        <div>
-          <div class="v data"><span data-count="405" data-prefix="$" data-suffix="M">$0M</span></div>
-          <div class="k">Profitable and free-cashflow positive, up from $323M in 2024.</div>
-        </div>
-      </div>
-      <div class="tile r" data-delay="1"><div class="v data">82<u>%</u></div><div class="k">Revenue CAGR '15–'24</div></div>
-      <div class="tile r" data-delay="2"><div class="v data">12<u>M+</u></div><div class="k">Customers served</div></div>
-      <div class="tile r" data-delay="2"><div class="v data">98<u>%</u></div><div class="k">Sales from owned brands</div></div>
-      <div class="tile r" data-delay="3"><div class="v data">200<u>K+</u></div><div class="k">Paid subscribers · $12M+ ARR</div></div>
-      <div class="tile wide r" data-delay="3"><div class="v data">500<u>+</u></div><div class="k">Team across 24 countries, fully remote since day one · Forbes Top 25</div></div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══ WHO WE ARE ═══ -->
 <section data-sec id="who" style="background:var(--navy-2);border-block:1px solid var(--line)">
@@ -372,7 +354,7 @@
 <section data-sec id="trajectory">
   <div class="shell">
     <h2 class="lead-h r">A decade of disciplined growth, not a spike.</h2>
-    <p class="lead-p r" data-delay="2">From $7M in 2016 to $405M in 2025, bootstrapped past $100M before a single priced round, and profitable the whole way.</p>
+    <p class="lead-p r" data-delay="2">From $7M in 2016 to $405M in 2025, bootstrapped past $100M before a single priced round.</p>
     <div class="traj-wrap r r-scale" data-delay="2">
       <div class="traj-grid" aria-hidden="true"></div>
       <div class="chart" role="img" aria-label="Revenue from 2016 to 2025 growing from $7M to $405M">
@@ -387,11 +369,6 @@
         <div class="col"><div class="track"><span class="stem" style="height:80%"></span><span class="bv data" style="bottom:80%">$323M</span></div><span class="yr data">'24</span></div>
         <div class="col peak"><div class="track"><span class="stem" style="height:100%"></span><span class="bv data" style="bottom:100%">$405M</span></div><span class="yr data">'25</span></div>
       </div>
-    </div>
-    <div class="traj-foot r" data-delay="1">
-      <div class="m"><div class="mv data">82%</div><div class="ml">Revenue CAGR ('15–'24)</div></div>
-      <div class="m"><div class="mv data">$10M</div><div class="ml">Only external capital (2020 SAFE)</div></div>
-      <div class="m"><div class="mv data">FCF+</div><div class="ml">Profitable &amp; free-cashflow positive</div></div>
     </div>
   </div>
 </section>
@@ -410,7 +387,7 @@
       </div>
       <div class="why-points">
         <div class="wp r" data-delay="2"><h3>Commerce is going agentic</h3><p>AI is moving from answering questions to doing the work: acquiring customers, pricing, retaining. Winning takes agents that execute with real operating expertise and guardrails, not another dashboard.</p></div>
-        <div class="wp r" data-delay="3"><span class="big data">10 yrs</span><h3>We know how to operate</h3><p>A decade building and scaling DTC brands from zero. That operator expertise, now encoded into governed agents, is the edge software alone can't buy.</p></div>
+        <div class="wp r" data-delay="3"><span class="big data">10 yrs</span><h3>We've already learned to operate</h3><p>Everyone else is training models. We've spent a decade running the playbooks, the head start that makes the agents actually work.</p></div>
       </div>
     </div>
   </div>
@@ -421,7 +398,7 @@
   <div class="shell" style="position:relative;z-index:1">
     <span class="reveal-badge data"><span class="blip"></span> The 2026 lever · launching this year</span>
     <h2>TrafiFlow, the B2B AI Agentic Commerce OS.</h2>
-    <p class="lede">Our strongest growth lever is already in the plan: <b>productize the way we operate.</b> TrafiFlow (our internal name for Trafilea's AI Agentic Commerce OS) lets other consumer brands run on the same expert-trained, well-orchestrated agents we use to operate Trafilea, governed by human guardrails. The difference isn't a smarter dashboard; it's <b>agents that do the work</b>.</p>
+    <p class="lede">Our <b>10x growth lever</b> is already in the plan: <b>productize the way we operate.</b> TrafiFlow (our internal name for Trafilea's AI Agentic Commerce OS) will let other consumer brands run on the same expert-trained, well-orchestrated agents we use to operate Trafilea, governed by human guardrails. <b>Agents that really do the work.</b></p>
 
     <div class="caps">
       <div class="caps-art r r-scale">
@@ -450,7 +427,7 @@
     <div class="wedge">
       <div class="step r" data-delay="1"><h3>We run on it</h3><p>The platform already powers a $405M, profitable business, validated by our own P&amp;L before a single external customer.</p><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
       <div class="step r" data-delay="2"><h3>We sell what works</h3><p>Open it to vertical consumer brands facing the same fragmented stack, with playbooks proven across our portfolio.</p><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="step r" data-delay="3"><h3>Expertise, productized</h3><p>We package a decade of operator playbooks into governed agents other brands can run: a high-margin SaaS layer on top of a profitable business.</p></div>
+      <div class="step r" data-delay="3"><h3>Expertise, productized</h3><p>We package a decade of operator playbooks into governed agents other brands can run: a high-margin, recurring SaaS layer.</p></div>
     </div>
   </div>
 </section>
@@ -462,7 +439,7 @@
     <div class="moat" style="margin-top:30px">
       <div class="m r"><span class="lab data">CRAFT</span><div><h3>Operating expertise</h3><p>A decade building and scaling DTC brands from zero: creative, media, pricing, retention, supply chain. The hard-won domain knowledge most teams never get, and what actually makes the difference at scale.</p></div></div>
       <div class="m r"><span class="lab data">AGENTS</span><div><h3>Agentic execution, governed</h3><p>We encode that expertise into expert-trained, well-orchestrated agents run with human guardrails, so the system does the work, not just reports on it.</p></div></div>
-      <div class="m r"><span class="lab data">P&amp;L</span><div><h3>Profitable foundation</h3><p>Bootstrapped to $100M+ on a single $10M SAFE and free-cashflow positive at $405M. We can build a category platform without betting the company on it.</p></div></div>
+      <div class="m r"><span class="lab data">P&amp;L</span><div><h3>Profitable foundation</h3><p>Free-cashflow positive at scale on just $10M of external capital. We can build a category platform without betting the company on it.</p></div></div>
       <div class="m r"><span class="lab data">PROOF</span><div><h3>Proven in production</h3><p>We run the entire stack on this ourselves before selling it. The product is shaped by daily operation, sharpened by real customer feedback at scale.</p></div></div>
     </div>
   </div>
@@ -472,7 +449,7 @@
 <section data-sec id="team" style="background:var(--navy-2);border-block:1px solid var(--line)">
   <div class="shell">
     <h2 class="lead-h r">Founder-led. Operator-built.</h2>
-    <p class="lead-p r" data-delay="2">A founding team leading 500+ talents across 24 countries.</p>
+    <p class="lead-p r" data-delay="2">The four founders who have led the company from day one.</p>
     <div class="team" style="margin-top:36px">
       <div class="member r" data-delay="1"><div class="av">SZ</div><div class="nm">Santiago Zabala</div><div class="rl">Founder &amp; CEO</div><div class="lo data">Uruguay</div></div>
       <div class="member r" data-delay="2"><div class="av">MT</div><div class="nm">Massimiliano Tirocchi</div><div class="rl">Founder &amp; CMO</div><div class="lo data">Italy</div></div>
