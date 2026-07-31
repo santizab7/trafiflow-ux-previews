@@ -228,6 +228,10 @@
   .member .nm{font-family:var(--display);font-weight:700;color:var(--ink);font-size:1.05rem;letter-spacing:-.01em}
   .member .rl{color:var(--green);font-size:var(--step--1);font-weight:500;margin-top:3px}
   .member .lo{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:8px}
+  .creds{margin-top:clamp(30px,4vw,44px);padding-top:clamp(26px,3.5vw,38px);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:16px 30px}
+  .creds .creds-lab{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .creds .cred{font-family:var(--display);font-weight:700;font-size:clamp(.95rem,.82rem + .55vw,1.2rem);letter-spacing:-.01em;color:rgba(183,200,218,.5);transition:color .3s}
+  .creds .cred:hover{color:var(--ink)}
   .pull{margin-top:clamp(48px,7vw,84px);max-width:24ch}
   .pull blockquote{font-family:var(--display);font-weight:600;font-size:var(--step-3);color:var(--ink);letter-spacing:-.03em;line-height:1.08;max-width:18ch}
   .pull blockquote span{color:var(--green)}
@@ -475,6 +479,14 @@
       <div class="member r" data-delay="3"><div class="av">LV</div><div class="nm">Lucas Vera</div><div class="rl">Founder &amp; R+D</div><div class="lo data">Argentina</div></div>
       <div class="member r" data-delay="4"><div class="av">JS</div><div class="nm">Juan Pablo Silvera</div><div class="rl">Founder &amp; VP Operations</div><div class="lo data">Uruguay</div></div>
     </div>
+    <div class="creds r">
+      <span class="creds-lab">Recognized by</span>
+      <span class="cred">Endeavor</span>
+      <span class="cred">YPO</span>
+      <span class="cred">Forbes 30 Under 30</span>
+      <span class="cred">Genius Network</span>
+      <span class="cred">Rocket Internet</span>
+    </div>
     <div class="pull r">
       <blockquote>"We're building the next iconic story in consumer tech, and giving every brand the <span>execution power</span> the best operators have."</blockquote>
       <cite>Santiago Zabala · Founder &amp; CEO</cite>
@@ -491,11 +503,6 @@
       <div class="h r" data-delay="1"><div class="yr data">3–5 years</div><div class="tx">Top 3 AI-tech consumer platform for women's essentials in tier-1 markets.</div></div>
       <div class="h r" data-delay="2"><div class="yr data">By 2035</div><div class="tx">Top 10 most valuable AI-consumer platform.</div></div>
       <div class="h r" data-delay="3"><div class="yr data">By 2045</div><div class="tx">Top 100 most influential tech companies, impacting billions.</div></div>
-    </div>
-    <div class="cta r" data-delay="2">
-      <a class="btn btn-solid" href="mailto:santiago@trafilea.com?subject=Trafilea%20%E2%80%94%20Investor%20Deck%20Request">Request the full deck
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      <a class="btn btn-line" href="mailto:santiago@trafilea.com">Talk to the founders</a>
     </div>
     <p class="fine">Confidential · do not distribute</p>
   </div>
