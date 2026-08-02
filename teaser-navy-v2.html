@@ -600,8 +600,58 @@
     var rt; window.addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(function(){ resize(); if(reduce) staticFrame(); }, 180); });
   }
 
+  /* ── lever: orchestration diagram (hub dispatches tasks to specialised agents) ── */
+  function orchestrator(canvas){
+    var ctx=canvas.getContext('2d'), dpr=Math.min(window.devicePixelRatio||1,2);
+    var W=0,H=0,raf=0,running=false,t=0,lastSpawn=0;
+    var AGENTS=[{n:'Media'},{n:'Pricing'},{n:'Creative'},{n:'Retention'},{n:'Loyalty'},{n:'Guardrails'}];
+    var pulses=[];
+    var LABEL="500 11px 'Geist Mono', ui-monospace, monospace";
+    var HUBLABEL="600 11px 'Geist Mono', ui-monospace, monospace";
+    function resize(){var r=canvas.getBoundingClientRect();W=r.width;H=r.height;canvas.width=Math.max(1,W*dpr);canvas.height=Math.max(1,H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);}
+    function pos(i){var cx=W/2,cy=H/2,R=Math.min(W,H)*0.31,a=-Math.PI/2+i*(Math.PI*2/AGENTS.length);return{x:cx+Math.cos(a)*R,y:cy+Math.sin(a)*R};}
+    function node(x,y,r,fill){ctx.fillStyle=fill;ctx.beginPath();ctx.arc(x,y,r,0,6.2832);ctx.fill();}
+    function draw(){
+      t++;var cx=W/2,cy=H/2;ctx.clearRect(0,0,W,H);
+      for(var i=0;i<AGENTS.length;i++){var p=pos(i);ctx.strokeStyle='rgba(0,195,137,0.16)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.stroke();}
+      ctx.textAlign='center';ctx.textBaseline='alphabetic';
+      for(var i=0;i<AGENTS.length;i++){
+        var p=pos(i),ag=AGENTS[i];if(ag.act>0)ag.act-=0.018;var act=ag.act||0;
+        if(act>0){ctx.strokeStyle='rgba(25,227,158,'+(act*0.55)+')';ctx.lineWidth=1;ctx.beginPath();ctx.arc(p.x,p.y,4+((1-act)*9),0,6.2832);ctx.stroke();}
+        node(p.x,p.y,3.4+act*2,act>0?'rgba(25,227,158,0.95)':'rgba(125,205,175,0.72)');
+        ctx.font=LABEL;ctx.fillStyle='rgba(165,205,190,'+(0.5+act*0.45)+')';
+        ctx.fillText(ag.n,p.x,p.y<cy?p.y-11:p.y+18);
+      }
+      var hp=1+0.14*Math.sin(t*0.045);
+      ctx.strokeStyle='rgba(0,195,137,0.45)';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx,cy,10*hp,0,6.2832);ctx.stroke();
+      node(cx,cy,6,'rgba(25,227,158,0.98)');
+      ctx.font=HUBLABEL;ctx.fillStyle='rgba(205,240,225,0.9)';ctx.fillText('TrafiFlow',cx,cy+26);
+      if(t-lastSpawn>22){lastSpawn=t;pulses.push({i:(Math.floor(t/22))%AGENTS.length,dir:1,t:0});}
+      for(var k=pulses.length-1;k>=0;k--){
+        var pu=pulses[k],p=pos(pu.i);pu.t+=0.028;
+        var fx=pu.dir>0?cx:p.x,fy=pu.dir>0?cy:p.y,tx=pu.dir>0?p.x:cx,ty=pu.dir>0?p.y:cy;
+        var x=fx+(tx-fx)*pu.t,y=fy+(ty-fy)*pu.t;
+        var g=ctx.createRadialGradient(x,y,0,x,y,4.5);g.addColorStop(0,'rgba(25,227,158,1)');g.addColorStop(1,'rgba(25,227,158,0)');
+        ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,4.5,0,6.2832);ctx.fill();
+        if(pu.t>=1){if(pu.dir>0){AGENTS[pu.i].act=1;pu.dir=-1;pu.t=0;}else{pulses.splice(k,1);}}
+      }
+      raf=requestAnimationFrame(draw);
+    }
+    function staticFrame(){
+      var cx=W/2,cy=H/2;ctx.clearRect(0,0,W,H);ctx.textAlign='center';
+      for(var i=0;i<AGENTS.length;i++){var p=pos(i);ctx.strokeStyle='rgba(0,195,137,0.16)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.stroke();node(p.x,p.y,3.4,'rgba(125,205,175,0.72)');ctx.font=LABEL;ctx.fillStyle='rgba(165,205,190,0.55)';ctx.fillText(AGENTS[i].n,p.x,p.y<cy?p.y-11:p.y+18);}
+      node(cx,cy,6,'rgba(25,227,158,0.98)');ctx.font=HUBLABEL;ctx.fillStyle='rgba(205,240,225,0.9)';ctx.fillText('TrafiFlow',cx,cy+26);
+    }
+    function start(){if(running||reduce)return;running=true;raf=requestAnimationFrame(draw);}
+    function stop(){running=false;cancelAnimationFrame(raf);}
+    resize();
+    if(reduce){staticFrame();}
+    else{start();var vis=new IntersectionObserver(function(es){es.forEach(function(e){e.isIntersecting?start():stop();});},{threshold:0});vis.observe(canvas);document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});}
+    var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){resize();if(reduce)staticFrame();},180);});
+  }
+
   var hero = document.getElementById('net'); if(hero) agentNetwork(hero,{link:140});
-  var stack = document.getElementById('stack'); if(stack) agentNetwork(stack,{link:96,count:30});
+  var stack = document.getElementById('stack'); if(stack) orchestrator(stack);
 })();
 </script>
 </body>
