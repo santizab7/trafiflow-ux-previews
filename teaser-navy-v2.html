@@ -67,6 +67,9 @@
   .ring{width:26px;height:26px}
   .ring circle,.ring path{fill:none;stroke:var(--green);stroke-width:2.6;stroke-linecap:round}
   .logo b{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--ink);letter-spacing:-.02em}
+  /* Trafilea wordmark — placeholder recreation, swap for official SVG when available */
+  .logo .wm{font-family:var(--display);font-weight:800;font-style:italic;font-size:1.36rem;letter-spacing:-.05em;color:var(--ink);line-height:1;white-space:nowrap;display:inline-block}
+  .logo .wm i{font-style:inherit;color:var(--green)}
   .bar-status{margin-left:auto;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.02em}
   .bar-status .live{display:inline-flex;align-items:center;gap:7px;color:var(--green)}
   .blip{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(0,195,137,.6);animation:blip 2.4s infinite}
@@ -302,9 +305,8 @@
 <!-- ═══ MENUBAR ═══ -->
 <header class="bar">
   <div class="bar-in">
-    <a class="logo" href="#top">
-      <svg class="ring" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 8a8 8 0 0 1 0 16"/></svg>
-      <b>Trafilea</b>
+    <a class="logo" href="#top" aria-label="Trafilea">
+      <span class="wm">Trafilea</span>
     </a>
     <div class="bar-status data">
       <span class="bar-conf">CONFIDENTIAL · 2026</span>
@@ -503,7 +505,7 @@
 
 <footer>
   <div class="shell foot">
-    <a class="logo" href="#top" style="gap:9px"><svg class="ring" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 8a8 8 0 0 1 0 16"/></svg><b style="font-family:var(--display);font-weight:700;color:var(--ink)">Trafilea</b></a>
+    <a class="logo" href="#top" aria-label="Trafilea"><span class="wm" style="font-size:1.22rem">Trafilea</span></a>
     <div class="c">© 2026 Trafilea Tech Consumer Group · Strictly confidential investor teaser</div>
   </div>
 </footer>
