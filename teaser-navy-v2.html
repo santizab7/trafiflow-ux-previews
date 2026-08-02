@@ -409,12 +409,12 @@
 <section data-sec class="reveal" id="lever">
   <div class="shell" style="position:relative;z-index:1">
     <span class="reveal-badge data"><span class="blip"></span> The 2026 lever · launching this year</span>
-    <h2>TrafiFlow, the B2B AI Agentic Commerce OS.</h2>
-    <p class="lede">Trafilea's <b>10x growth lever</b>. TrafiFlow (the internal name for Trafilea's AI Agentic Commerce OS) will let other consumer brands run on the same expert-trained, well-orchestrated agents that operate Trafilea, governed by human guardrails. <b>Agents that really do the work and compound industry expertise for an unparalleled moat.</b></p>
+    <h2>Trafiflow, the B2B AI Agentic Commerce OS.</h2>
+    <p class="lede">Trafilea's <b>10x growth lever</b>. Trafiflow (the internal name for Trafilea's AI Agentic Commerce OS) will let other consumer brands run on the same expert-trained, well-orchestrated agents that operate Trafilea, governed by human guardrails. <b>Agents that really do the work and compound industry expertise for an unparalleled moat.</b></p>
 
     <div class="caps">
       <div class="caps-art shot r r-scale">
-        <img class="lever-shot" src="trafiflow-ui.png?v=orig" alt="TrafiFlow — the Agentic Commerce OS: business pulse and agent decisions awaiting approval" loading="lazy" width="1600" height="889">
+        <img class="lever-shot" src="trafiflow-ui.png?v=orig" alt="Trafiflow — the Agentic Commerce OS: business pulse and agent decisions awaiting approval" loading="lazy" width="1600" height="889">
       </div>
       <div class="caps-list">
         <div class="cap r" data-delay="1">
@@ -643,7 +643,7 @@
       var hp=1+0.14*Math.sin(t*0.045);
       ctx.strokeStyle='rgba(0,195,137,0.45)';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(cx,cy,10*hp,0,6.2832);ctx.stroke();
       node(cx,cy,6,'rgba(25,227,158,0.98)');
-      ctx.font=HUBLABEL;ctx.fillStyle='rgba(205,240,225,0.9)';ctx.fillText('TrafiFlow',cx,cy+26);
+      ctx.font=HUBLABEL;ctx.fillStyle='rgba(205,240,225,0.9)';ctx.fillText('Trafiflow',cx,cy+26);
       if(t-lastSpawn>22){lastSpawn=t;pulses.push({i:(Math.floor(t/22))%AGENTS.length,dir:1,t:0});}
       for(var k=pulses.length-1;k>=0;k--){
         var pu=pulses[k],p=pos(pu.i);pu.t+=0.028;
@@ -658,7 +658,7 @@
     function staticFrame(){
       var cx=W/2,cy=H/2;ctx.clearRect(0,0,W,H);ctx.textAlign='center';
       for(var i=0;i<AGENTS.length;i++){var p=pos(i);ctx.strokeStyle='rgba(0,195,137,0.16)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(p.x,p.y);ctx.stroke();node(p.x,p.y,3.4,'rgba(125,205,175,0.72)');ctx.font=LABEL;ctx.fillStyle='rgba(165,205,190,0.55)';ctx.fillText(AGENTS[i].n,p.x,p.y<cy?p.y-11:p.y+18);}
-      node(cx,cy,6,'rgba(25,227,158,0.98)');ctx.font=HUBLABEL;ctx.fillStyle='rgba(205,240,225,0.9)';ctx.fillText('TrafiFlow',cx,cy+26);
+      node(cx,cy,6,'rgba(25,227,158,0.98)');ctx.font=HUBLABEL;ctx.fillStyle='rgba(205,240,225,0.9)';ctx.fillText('Trafiflow',cx,cy+26);
     }
     function start(){if(running||reduce)return;running=true;raf=requestAnimationFrame(draw);}
     function stop(){running=false;cancelAnimationFrame(raf);}
