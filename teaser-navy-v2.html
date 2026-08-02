@@ -196,6 +196,8 @@
   .caps{display:grid;gap:clamp(20px,3vw,40px)}
   @media(min-width:900px){.caps{grid-template-columns:.95fr 1.05fr;align-items:center}}
   .caps-art{position:relative;border:1px solid var(--line-2);border-radius:18px;background:linear-gradient(160deg,var(--panel),var(--well));aspect-ratio:5/4;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .caps-art.shot{aspect-ratio:auto;background:var(--well)}
+  .caps-art .lever-shot{width:100%;height:auto;display:block;border-radius:17px}
   .console{position:absolute;inset:0;padding:clamp(16px,2.4vw,28px);display:flex;flex-direction:column;font-family:var(--mono);text-align:left}
   .con-head{display:flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:2px}
   .con-head .con-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blip 2.4s infinite}
@@ -412,18 +414,8 @@
     <p class="lede">Trafilea's <b>10x growth lever</b>. TrafiFlow (the internal name for Trafilea's AI Agentic Commerce OS) will let other consumer brands run on the same expert-trained, well-orchestrated agents that operate Trafilea, governed by human guardrails. <b>Agents that really do the work and compound industry expertise for an unparalleled moat.</b></p>
 
     <div class="caps">
-      <div class="caps-art r r-scale">
-        <div class="console" aria-hidden="true">
-          <div class="con-head"><span class="con-dot"></span> TrafiFlow · agents live</div>
-          <ul class="con-list">
-            <li><span class="ag">Media</span><span class="act">reallocated $12k to top-ROAS set</span><span class="st done">✓</span></li>
-            <li><span class="ag">Pricing</span><span class="act">repriced 214 SKUs to margin target</span><span class="st done">✓</span></li>
-            <li><span class="ag">Creative</span><span class="act">rotated 3 fatigued ads</span><span class="st done">✓</span></li>
-            <li><span class="ag">Retention</span><span class="act">recovered 1,340 carts</span><span class="st done">✓</span></li>
-            <li><span class="ag">Loyalty</span><span class="act">win-back sent to 8.2k members</span><span class="st done">✓</span></li>
-            <li><span class="ag">Guardrails</span><span class="act">1 change held for approval</span><span class="st hold">hold</span></li>
-          </ul>
-        </div>
+      <div class="caps-art shot r r-scale">
+        <img class="lever-shot" src="trafiflow-ui.png" alt="TrafiFlow — the Agentic Commerce OS: business pulse and agent decisions awaiting approval" loading="lazy" width="1600" height="889">
       </div>
       <div class="caps-list">
         <div class="cap r" data-delay="1">
