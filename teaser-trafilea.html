@@ -7,7 +7,7 @@
 <meta name="description" content="Trafilea, a profitable $405M AI-consumer platform, now opening its engine to the industry as a B2B Agentic Commerce OS.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 
@@ -15,7 +15,7 @@
     --deep:#00000a;
     --midnight:#11113a;
     --cobalt:#3b5bff;
-    --coral:#f54732;
+    --coral:#e8614d;
     --white:#ffffff;
     --body:#ebebeb;
     --muted:#a0a0b0;
@@ -30,11 +30,11 @@
     --muted-light:#6b6b7e;
     --border-light:rgba(17,17,58,.18);
 
-    --display:'Playfair Display',Georgia,serif;
+    --display:'Montserrat',system-ui,sans-serif;
     --sans:'DM Sans',system-ui,sans-serif;
 
-    --h1:clamp(2.3rem,1.4rem + 3.6vw,4.5rem);
-    --h2:clamp(1.9rem,1.3rem + 2.6vw,3.4rem);
+    --h1:clamp(2.1rem,1.45rem + 2.8vw,3.7rem);
+    --h2:clamp(1.7rem,1.3rem + 1.9vw,2.8rem);
     --stat:clamp(2rem,1.4rem + 2.4vw,3.1rem);
     --lede:clamp(1.05rem,.98rem + .5vw,1.3rem);
     --body-size:clamp(1rem,.96rem + .2vw,1.06rem);
@@ -63,9 +63,9 @@
   .pad{padding-block:clamp(3.4rem,7vw,6.5rem)}
 
   /* type */
-  h1,h2{font-family:var(--display);font-weight:400;letter-spacing:-.015em;line-height:1.04;color:var(--white)}
+  h1,h2{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.08;color:var(--white)}
   .light h1,.light h2{color:var(--title-light)}
-  h1 em,h2 em{font-style:italic;color:inherit}
+  h1 em,h2 em{font-style:normal;color:inherit}
   h1{font-size:var(--h1)}
   h2{font-size:var(--h2)}
   .eyebrow{font-family:var(--sans);font-weight:500;font-size:var(--eyebrow);letter-spacing:.09em;color:var(--cobalt);margin-bottom:1.2rem;display:block}
@@ -75,7 +75,7 @@
   .light .lede strong{color:var(--title-light)}
   .muted{color:var(--muted)}
   .light .muted{color:var(--muted-light)}
-  .stat{font-family:var(--display);font-weight:400;font-size:var(--stat);line-height:1;color:var(--white);letter-spacing:-.01em}
+  .stat{font-family:var(--display);font-weight:600;font-size:var(--stat);line-height:1;color:var(--white);letter-spacing:-.02em}
   .light .stat{color:var(--title-light)}
   .coral{color:var(--coral)}
 
@@ -92,7 +92,7 @@
   .tag{display:inline-block;border:.5px solid var(--cobalt);color:var(--cobalt);border-radius:3px;padding:4px 10px;font-size:13px;font-weight:500;font-family:var(--sans)}
 
   /* topbar */
-  .bar{position:sticky;top:0;z-index:40;background:rgba(0,0,10,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:.5px solid var(--border)}
+  .bar{position:sticky;top:0;z-index:40;background:var(--deep);border-bottom:.5px solid var(--border)}
   .bar-in{max-width:var(--page);margin:0 auto;padding:.85rem var(--gut);display:flex;align-items:center;justify-content:space-between;gap:1rem}
   .brand{display:flex;align-items:center;gap:.55rem;color:var(--white)}
   .ring{width:22px;height:22px}
@@ -108,7 +108,7 @@
   /* kpis */
   .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-items:start}
   @media(min-width:720px){.kpis{grid-template-columns:repeat(4,1fr)}}
-  .kpi .v{font-family:var(--display);font-size:clamp(1.7rem,1.2rem + 1.6vw,2.3rem);line-height:1;color:var(--white);letter-spacing:-.01em}
+  .kpi .v{font-family:var(--display);font-weight:600;font-size:clamp(1.7rem,1.2rem + 1.6vw,2.3rem);line-height:1;color:var(--white);letter-spacing:-.02em}
   .kpi.accent .v{color:var(--coral)}
   .kpi .k{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.4}
 
@@ -152,7 +152,7 @@
   .tam .tb .fill.grown{transform:scaleY(1)}
   .tam .tb.now .fill{background:rgba(255,255,255,.16)}
   .tam .tb.future .fill{background:var(--cobalt)}
-  .tam .tb .amt{position:absolute;left:0;right:0;text-align:center;transform:translateY(-8px);font-family:var(--display);font-size:clamp(1.3rem,1rem + 1.2vw,1.9rem);color:var(--white)}
+  .tam .tb .amt{position:absolute;left:0;right:0;text-align:center;transform:translateY(-8px);font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,1rem + 1.2vw,1.9rem);color:var(--white);letter-spacing:-.02em}
   .midnight .tam .tb .amt{color:var(--white)}
   .tam .tb .yl{flex:0 0 auto;text-align:center;margin-top:.7rem;font-size:.75rem;color:var(--muted)}
   .tam-cap{font-size:.9rem;color:var(--muted);margin-top:1.2rem;border-top:.5px solid var(--border);padding-top:1rem}
@@ -160,7 +160,7 @@
   .wp+.wp{margin-top:1.6rem}
   .wp h3{font-family:var(--display);font-size:clamp(1.3rem,1rem + 1.2vw,1.7rem);color:var(--white);margin-bottom:.5rem;letter-spacing:-.01em}
   .wp p{color:var(--body)}
-  .wp .big{font-family:var(--display);font-size:clamp(1.9rem,1.3rem + 2vw,2.6rem);color:var(--cobalt);line-height:1;display:block;margin-bottom:.5rem}
+  .wp .big{font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,1.3rem + 2vw,2.6rem);color:var(--cobalt);line-height:1;display:block;margin-bottom:.5rem;letter-spacing:-.02em}
 
   /* lever */
   .caps{display:grid;grid-template-columns:1fr;gap:12px;margin-top:2.4rem;align-items:start}
@@ -174,11 +174,11 @@
   .step{padding:clamp(1.4rem,3vw,2rem)}
   .step+.step{border-top:.5px solid var(--border)}
   @media(min-width:820px){.step+.step{border-top:0;border-left:.5px solid var(--border)}}
-  .step .s{font-family:var(--display);color:var(--cobalt);font-style:italic;font-size:1rem;margin-bottom:.8rem}
+  .step .s{font-family:var(--sans);color:var(--cobalt);font-weight:500;font-size:.82rem;letter-spacing:.06em;margin-bottom:.8rem}
   .step h3{font-family:var(--sans);font-weight:500;font-size:1.1rem;color:var(--white);margin-bottom:.45rem}
   .step p{font-size:.9rem;color:var(--muted);line-height:1.55}
   .market{margin-top:2.6rem;padding-top:2rem;border-top:.5px solid var(--border);display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem 1.6rem}
-  .market .v{font-family:var(--display);font-size:clamp(2.4rem,1.6rem + 3vw,4rem);color:var(--white);line-height:1;letter-spacing:-.01em}
+  .market .v{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,1.6rem + 3vw,4rem);color:var(--white);line-height:1;letter-spacing:-.02em}
   .market .l{font-size:var(--body-size);color:var(--muted);max-width:34ch}
 
   /* moat */
@@ -197,7 +197,7 @@
   .member .rl{color:var(--cobalt);font-size:.88rem;margin-top:.25rem}
   .member .lo{color:var(--muted);font-size:.82rem;margin-top:.35rem}
   .quote{margin-top:clamp(2.6rem,5vw,4rem);border-left:2px solid var(--cobalt);padding:.4rem 0 .4rem 1.4rem;max-width:60ch}
-  .quote blockquote{font-family:var(--display);font-style:italic;font-size:clamp(1.4rem,1.1rem + 1.4vw,2rem);color:var(--white);line-height:1.35}
+  .quote blockquote{font-family:var(--display);font-weight:500;font-size:clamp(1.35rem,1.05rem + 1.3vw,1.9rem);color:var(--white);line-height:1.3;letter-spacing:-.01em}
   .quote cite{display:block;margin-top:1.1rem;font-style:normal;font-size:.88rem;color:var(--muted)}
   .quote cite b{color:var(--cobalt);font-weight:400}
 
@@ -207,7 +207,7 @@
   .timeline{max-width:760px}
   .timeline .row{display:grid;grid-template-columns:7rem 1fr;gap:clamp(1rem,3vw,2rem);padding:1.3rem 0;border-top:.5px solid var(--border-light);align-items:baseline}
   .timeline .row:first-child{border-top:0}
-  .timeline .when{font-family:var(--display);font-style:italic;color:var(--cobalt);font-size:1.05rem}
+  .timeline .when{font-family:var(--display);font-weight:600;color:var(--cobalt);font-size:1.05rem;letter-spacing:-.01em}
   .timeline .what{color:var(--body-light);font-size:var(--lede)}
   .fine{margin-top:2.6rem;font-size:.85rem;color:var(--muted-light)}
 
