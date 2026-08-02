@@ -193,7 +193,22 @@
   .caps{display:grid;gap:clamp(20px,3vw,40px)}
   @media(min-width:900px){.caps{grid-template-columns:.95fr 1.05fr;align-items:center}}
   .caps-art{position:relative;border:1px solid var(--line-2);border-radius:18px;background:linear-gradient(160deg,var(--panel),var(--well));aspect-ratio:5/4;overflow:hidden;display:flex;align-items:center;justify-content:center}
-  #stack{width:100%;height:100%;display:block}
+  .console{position:absolute;inset:0;padding:clamp(16px,2.4vw,28px);display:flex;flex-direction:column;font-family:var(--mono);text-align:left}
+  .con-head{display:flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-bottom:12px;border-bottom:1px solid var(--line-2);margin-bottom:2px}
+  .con-head .con-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:blip 2.4s infinite}
+  .con-list{list-style:none;flex:1;display:flex;flex-direction:column;justify-content:center}
+  .con-list li{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:clamp(9px,1.5vw,15px) 0;border-bottom:1px solid rgba(255,255,255,.06)}
+  .con-list li:last-child{border-bottom:none}
+  .con-list .ag{color:var(--green-2);font-size:.78rem;min-width:76px}
+  .con-list .act{color:var(--ink-2);font-size:.78rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .con-list li.run .act{color:var(--ink)}
+  .con-list .st{font-size:.74rem;justify-self:end;white-space:nowrap}
+  .con-list .st.done{color:var(--green)}
+  .con-list .st.hold{color:var(--muted)}
+  .con-list .dots{display:inline-flex;gap:3px}
+  .con-list .dots i{width:4px;height:4px;border-radius:50%;background:var(--green);animation:proc 1.4s infinite}
+  .con-list .dots i:nth-child(2){animation-delay:.18s}.con-list .dots i:nth-child(3){animation-delay:.36s}
+  @keyframes proc{0%,100%{opacity:.25}50%{opacity:1}}
   .caps-list{display:grid;gap:2px}
   .caps-list .cap{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:22px 4px;border-top:1px solid var(--line);align-items:start}
   .caps-list .cap:first-child{border-top:0}
@@ -396,7 +411,17 @@
 
     <div class="caps">
       <div class="caps-art r r-scale">
-        <canvas id="stack" aria-hidden="true"></canvas>
+        <div class="console" aria-hidden="true">
+          <div class="con-head"><span class="con-dot"></span> TrafiFlow · agents live</div>
+          <ul class="con-list">
+            <li><span class="ag">Media</span><span class="act">reallocated $12k to top-ROAS set</span><span class="st done">✓</span></li>
+            <li><span class="ag">Pricing</span><span class="act">repriced 214 SKUs to margin target</span><span class="st done">✓</span></li>
+            <li><span class="ag">Creative</span><span class="act">rotated 3 fatigued ads</span><span class="st done">✓</span></li>
+            <li><span class="ag">Retention</span><span class="act">recovered 1,340 carts</span><span class="st done">✓</span></li>
+            <li><span class="ag">Loyalty</span><span class="act">win-back sent to 8.2k members</span><span class="st done">✓</span></li>
+            <li><span class="ag">Guardrails</span><span class="act">1 change held for approval</span><span class="st hold">hold</span></li>
+          </ul>
+        </div>
       </div>
       <div class="caps-list">
         <div class="cap r" data-delay="1">
@@ -651,7 +676,17 @@
   }
 
   var hero = document.getElementById('net'); if(hero) agentNetwork(hero,{link:140});
-  var stack = document.getElementById('stack'); if(stack) orchestrator(stack);
+  /* ── lever: live agent console (agents executing real actions) ── */
+  (function(){
+    var list=document.querySelector('.con-list'); if(!list||reduce) return;
+    var rows=[].slice.call(list.querySelectorAll('li')), i=0;
+    function cycle(){
+      var li=rows[i], st=li.querySelector('.st'), html=st.innerHTML, cls=st.className;
+      li.classList.add('run'); st.className='st'; st.innerHTML='<span class="dots"><i></i><i></i><i></i></span>';
+      setTimeout(function(){ li.classList.remove('run'); st.className=cls; st.innerHTML=html; i=(i+1)%rows.length; setTimeout(cycle,800); },1500);
+    }
+    setTimeout(cycle,700);
+  })();
 })();
 </script>
 </body>
