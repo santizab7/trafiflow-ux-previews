@@ -67,9 +67,9 @@
   .ring{width:26px;height:26px}
   .ring circle,.ring path{fill:none;stroke:var(--green);stroke-width:2.6;stroke-linecap:round}
   .logo b{font-family:var(--display);font-weight:700;font-size:1.05rem;color:var(--ink);letter-spacing:-.02em}
-  /* Trafilea wordmark — placeholder recreation, swap for official SVG when available */
-  .logo .wm{font-family:var(--display);font-weight:800;font-style:italic;font-size:1.36rem;letter-spacing:-.05em;color:var(--ink);line-height:1;white-space:nowrap;display:inline-block}
-  .logo .wm i{font-style:inherit;color:var(--green)}
+  /* Trafilea official logo — all-white on dark */
+  .logo .mark{height:27px;width:auto;display:block}
+  footer .logo .mark{height:22px}
   .bar-status{margin-left:auto;display:flex;align-items:center;gap:14px;font-family:var(--mono);font-size:.72rem;color:var(--muted);letter-spacing:.02em}
   .bar-status .live{display:inline-flex;align-items:center;gap:7px;color:var(--green)}
   .blip{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(0,195,137,.6);animation:blip 2.4s infinite}
@@ -306,7 +306,7 @@
 <header class="bar">
   <div class="bar-in">
     <a class="logo" href="#top" aria-label="Trafilea">
-      <span class="wm">Trafilea</span>
+      <img class="mark" src="trafilea-logo-white.png" alt="Trafilea" width="981" height="263">
     </a>
     <div class="bar-status data">
       <span class="bar-conf">CONFIDENTIAL · 2026</span>
@@ -321,7 +321,7 @@
   <div class="shell hero-in">
     <p class="kicker">Trafilea Tech Consumer Group</p>
     <h1>A profitable <em>$405M</em> consumer platform — now opening its engine to the industry.</h1>
-    <p class="lede">Trafilea is a next-generation AI-consumer tech platform that builds and scales category-defining brands in women's intimates, beauty, and wellness. In 2025 we reached <strong>$405M in revenue</strong> — profitably, free-cashflow positive, with 12M+ customers. This year we productize the engine behind it into a <strong>B2B Agentic Commerce OS</strong>.</p>
+    <p class="lede">Trafilea is a next-generation AI-consumer tech platform that builds and scales category-defining brands in women's intimates, beauty, and wellness. In 2025 the company reached <strong>$405M in revenue</strong> — profitably, free-cashflow positive, with 12M+ customers. This year that engine is being productized into a <strong>B2B Agentic Commerce OS</strong>.</p>
 
     <div class="readout data" role="group" aria-label="Fiscal year 2025 key metrics">
       <div class="seg hero-rev"><span class="k">FY2025 Revenue</span><span class="v"><span data-count="405" data-prefix="$" data-suffix="M">$0M</span></span></div>
@@ -341,7 +341,7 @@
   <div class="shell split">
     <div>
       <h2 class="lead-h r">An end-to-end platform that builds consumer brands as software.</h2>
-      <p class="lead-p r" data-delay="2">Trafilea is vertically integrated. We design, develop, manufacture, market, sell, and deliver our own products on proprietary technology, serving the unmet needs of middle-class women over 35.</p>
+      <p class="lead-p r" data-delay="2">Trafilea is vertically integrated — designing, developing, manufacturing, marketing, selling, and delivering its own products on proprietary technology, serving the unmet needs of middle-class women over 35.</p>
       <ul class="who-points">
         <li class="r" data-delay="2"><span class="n">→</span><span class="t"><b>Vertically integrated.</b> Every brand runs on one shared data, tech, and growth engine, so each launch inherits the playbooks of the last.</span></li>
         <li class="r" data-delay="3"><span class="n">→</span><span class="t"><b>98% owned-brand sales</b>, profitable customer acquisition within 90 days, 80% U.S. with the rest in tier-1 markets.</span></li>
@@ -398,7 +398,7 @@
       </div>
       <div class="why-points">
         <div class="wp r" data-delay="2"><h3>Commerce is going agentic</h3><p>AI is moving from answering questions to doing the work: acquiring customers, pricing, retaining. Winning takes agents that execute with real operating expertise and guardrails, not another dashboard.</p></div>
-        <div class="wp r" data-delay="3"><span class="big data">10 yrs</span><h3>We've already learned to operate</h3><p>Everyone else is training models. We've spent a decade running the playbooks, the head start that makes the agents actually work.</p></div>
+        <div class="wp r" data-delay="3"><span class="big data">10 yrs</span><h3>A decade of operating</h3><p>Everyone else is training models. Trafilea has spent a decade running the playbooks, the head start that makes the agents actually work.</p></div>
       </div>
     </div>
   </div>
@@ -409,7 +409,7 @@
   <div class="shell" style="position:relative;z-index:1">
     <span class="reveal-badge data"><span class="blip"></span> The 2026 lever · launching this year</span>
     <h2>TrafiFlow, the B2B AI Agentic Commerce OS.</h2>
-    <p class="lede">Our <b>10x growth lever</b>. TrafiFlow (our internal name for Trafilea's AI Agentic Commerce OS) will let other consumer brands run on the same expert-trained, well-orchestrated agents we use to operate Trafilea, governed by human guardrails. <b>Agents that really do the work and compound industry expertise for an unparalleled moat.</b></p>
+    <p class="lede">Trafilea's <b>10x growth lever</b>. TrafiFlow (the internal name for Trafilea's AI Agentic Commerce OS) will let other consumer brands run on the same expert-trained, well-orchestrated agents that operate Trafilea, governed by human guardrails. <b>Agents that really do the work and compound industry expertise for an unparalleled moat.</b></p>
 
     <div class="caps">
       <div class="caps-art r r-scale">
@@ -446,9 +446,9 @@
     </div>
 
     <div class="wedge">
-      <div class="step r" data-delay="1"><h3>We run on it</h3><p>The platform already powers a $405M, profitable business, validated by our own P&amp;L before a single external customer.</p><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="step r" data-delay="2"><h3>We sell what works</h3><p>Open it to vertical consumer brands facing the same fragmented stack, with playbooks proven across our portfolio.</p><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
-      <div class="step r" data-delay="3"><h3>Expertise, productized</h3><p>We package a decade of operator playbooks into governed agents other brands can run: a high-margin, recurring SaaS layer.</p></div>
+      <div class="step r" data-delay="1"><h3>It runs the business</h3><p>The platform already powers a $405M, profitable business, validated by Trafilea's own P&amp;L before a single external customer.</p><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="step r" data-delay="2"><h3>Sell what works</h3><p>Open it to vertical consumer brands facing the same fragmented stack, with playbooks proven across the portfolio.</p><svg class="arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+      <div class="step r" data-delay="3"><h3>Expertise, productized</h3><p>A decade of operator playbooks, packaged into governed agents other brands can run: a high-margin, recurring SaaS layer.</p></div>
     </div>
 
     <div class="lever-tam r">
@@ -461,12 +461,12 @@
 <!-- ═══ MOAT ═══ -->
 <section data-sec id="moat">
   <div class="shell">
-    <h2 class="lead-h r">Most AI-commerce startups have a model. We have the business that proves it.</h2>
+    <h2 class="lead-h r">Most AI-commerce startups have a model. Trafilea has the business that proves it.</h2>
     <div class="moat" style="margin-top:30px">
       <div class="m r"><span class="lab data">CRAFT</span><div><h3>Operating expertise</h3><p>A decade building and scaling DTC brands from zero: creative, media, pricing, retention, supply chain. The hard-won domain knowledge most teams never get, and what actually makes the difference at scale.</p></div></div>
-      <div class="m r"><span class="lab data">AGENTS</span><div><h3>Agentic execution, governed</h3><p>We encode that expertise into expert-trained, well-orchestrated agents run with human guardrails, so the system does the work, not just reports on it.</p></div></div>
-      <div class="m r"><span class="lab data">P&amp;L</span><div><h3>Profitable foundation</h3><p>Free-cashflow positive at scale on just $10M of external capital. We can build a category platform without betting the company on it.</p></div></div>
-      <div class="m r"><span class="lab data">PROOF</span><div><h3>Proven in production</h3><p>We run the entire stack on this ourselves before selling it. The product is shaped by daily operation, sharpened by real customer feedback at scale.</p></div></div>
+      <div class="m r"><span class="lab data">AGENTS</span><div><h3>Agentic execution, governed</h3><p>That expertise is encoded into expert-trained, well-orchestrated agents run with human guardrails, so the system does the work, not just reports on it.</p></div></div>
+      <div class="m r"><span class="lab data">P&amp;L</span><div><h3>Profitable foundation</h3><p>Free-cashflow positive at scale on just $10M of external capital — enough to build a category platform without betting the company on it.</p></div></div>
+      <div class="m r"><span class="lab data">PROOF</span><div><h3>Proven in production</h3><p>The entire stack runs on this in-house before it's sold. The product is shaped by daily operation, sharpened by real customer feedback at scale.</p></div></div>
     </div>
   </div>
 </section>
@@ -493,7 +493,7 @@
 <section data-sec class="close" id="close">
   <div class="shell" style="position:relative;z-index:1">
     <h2 class="r">Back a profitable operator at the moment it becomes a platform.</h2>
-    <p class="sub r" data-delay="1">We're building toward the top of consumer tech, and opening the engine that got us here to the whole industry.</p>
+    <p class="sub r" data-delay="1">Trafilea is building toward the top of consumer tech, and opening the engine that got it here to the whole industry.</p>
     <div class="horizon">
       <div class="h r" data-delay="1"><div class="yr data">3 years</div><div class="tx">Leading Agentic OS for e-commerce in America.</div></div>
       <div class="h r" data-delay="2"><div class="yr data">5 years</div><div class="tx">Top 10 most valuable AI platforms.</div></div>
@@ -505,7 +505,7 @@
 
 <footer>
   <div class="shell foot">
-    <a class="logo" href="#top" aria-label="Trafilea"><span class="wm" style="font-size:1.22rem">Trafilea</span></a>
+    <a class="logo" href="#top" aria-label="Trafilea"><img class="mark" src="trafilea-logo-white.png" alt="Trafilea" width="981" height="263"></a>
     <div class="c">© 2026 Trafilea Tech Consumer Group · Strictly confidential investor teaser</div>
   </div>
 </footer>
