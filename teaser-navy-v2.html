@@ -144,6 +144,13 @@
   .folio .brandcard.flag{grid-column:span 2;background:linear-gradient(140deg,rgba(0,195,137,.14),var(--panel));border-color:rgba(0,195,137,.3)}
   .folio .brandcard.flag .nm{font-size:1.6rem}
   .folio .brandcard.flag .cat{color:var(--green)}
+  .folio .brandcard .rank{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--green-2);border:1px solid rgba(0,195,137,.35);border-radius:999px;padding:4px 10px}
+  .folio .brandcard .stat{margin-top:12px;font-size:.82rem;color:var(--ink-2)}
+  .folio .brandcard .stat b{color:var(--ink);font-weight:600}
+  .folio-cats{margin-top:16px}
+  .folio-cats .k{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+  .folio-cats .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .folio-cats .chip{font-size:.82rem;color:var(--ink-2);border:1px solid var(--line-2);border-radius:999px;padding:6px 13px;background:var(--panel)}
 
   /* ════ TRAJECTORY (real timeline → numbers earn their place) ════ */
   .traj-wrap{margin-top:14px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,var(--navy-2),var(--well));padding:clamp(20px,3vw,34px);position:relative;overflow:hidden}
@@ -179,7 +186,7 @@
   .why-points{display:flex;flex-direction:column;gap:22px}
   .why-points .wp{border-left:0;padding:0}
   .why-points .wp h3{font-family:var(--display);font-size:var(--step-1);color:var(--ink);margin-bottom:8px;letter-spacing:-.02em}
-  .why-points .wp p{color:var(--ink-2);font-size:var(--step-0)}
+  .why-points .wp p{color:var(--ink-2);font-size:clamp(1.1rem,1rem + .5vw,1.3rem);line-height:1.6}
   .why-points .wp .big{font-family:var(--display);font-weight:800;color:var(--green);font-size:clamp(1.8rem,1.3rem + 2vw,2.6rem);letter-spacing:-.03em;line-height:1;display:block;margin-bottom:6px}
 
   /* ════ THE LEVER (product reveal panel) ════ */
@@ -345,19 +352,29 @@
     <div>
       <h2 class="lead-h r">An end-to-end platform that builds consumer brands as software.</h2>
       <p class="lead-p r" data-delay="2">Trafilea is vertically integrated — designing, developing, manufacturing, marketing, selling, and delivering its own products on proprietary technology, serving the unmet needs of middle-class women over 35.</p>
-      <ul class="who-points">
-        <li class="r" data-delay="2"><span class="n">→</span><span class="t"><b>Vertically integrated.</b> Every brand runs on one shared data, tech, and growth engine, so each launch inherits the playbooks of the last.</span></li>
-        <li class="r" data-delay="3"><span class="n">→</span><span class="t"><b>98% owned-brand sales</b>, profitable customer acquisition, 80% U.S. with the rest in tier-1 markets.</span></li>
-        <li class="r" data-delay="3"><span class="n">→</span><span class="t"><b>Evergreen categories</b> across intimates, beauty, and wellness that compound rather than chase trends.</span></li>
-      </ul>
     </div>
     <div class="r r-rise" data-delay="2">
       <div class="folio">
-        <div class="brandcard flag"><div class="nm">Shapermint</div><div class="cat">Flagship · size-inclusive shapewear &amp; intimates</div></div>
-        <div class="brandcard"><div class="nm">Truekind</div><div class="cat">Comfort-first wireless bras &amp; shapewear</div></div>
-        <div class="brandcard"><div class="nm">The Spa Doctor</div><div class="cat">Clean, doctor-formulated skincare</div></div>
-        <div class="brandcard"><div class="nm">Revel Beauty</div><div class="cat">Adaptogen skincare for every age</div></div>
-        <div class="brandcard"><div class="nm">The Bodcon</div><div class="cat">Body-confidence community &amp; podcast</div></div>
+        <div class="brandcard flag">
+          <div class="nm">Shapermint</div>
+          <div class="cat">Flagship · size-inclusive shapewear &amp; intimates apparel</div>
+          <div class="rank">#1 best-selling shapewear in the US</div>
+          <div class="stat data"><b>$350M+</b> annual sales · <b>12M</b> customers</div>
+        </div>
+        <div class="brandcard" style="grid-column:span 2">
+          <div class="nm">Truekind</div>
+          <div class="cat">Comfort-first wireless bras &amp; underwear</div>
+          <div class="rank">#2 best-selling wirefree bra in the US</div>
+        </div>
+      </div>
+      <div class="folio-cats">
+        <div class="k">Category focus · women's everyday essentials</div>
+        <div class="chips">
+          <span class="chip">Shapewear</span>
+          <span class="chip">Wireless bras</span>
+          <span class="chip">Intimates &amp; underwear</span>
+          <span class="chip">Everyday essentials</span>
+        </div>
       </div>
     </div>
   </div>
@@ -381,6 +398,14 @@
         <div class="col"><div class="track"><span class="stem" style="height:60%"></span><span class="bv data" style="bottom:60%">$243M</span></div><span class="yr data">'23</span></div>
         <div class="col"><div class="track"><span class="stem" style="height:80%"></span><span class="bv data" style="bottom:80%">$323M</span></div><span class="yr data">'24</span></div>
         <div class="col peak"><div class="track"><span class="stem" style="height:100%"></span><span class="bv data" style="bottom:100%">$405M</span></div><span class="yr data">'25</span></div>
+      </div>
+    </div>
+    <div class="why" style="margin-top:44px">
+      <div class="r r-left" data-delay="2" style="display:flex;align-items:center">
+        <p style="font-size:clamp(1.1rem,1rem + .5vw,1.3rem);color:var(--ink-2);line-height:1.6"><b style="color:var(--ink)">Evergreen, female-first mass-market categories.</b> Everyday essentials bought for fit and comfort, not seasonal trends — the opposite of fast fashion. Demand is steady and replenishment-driven, so growth compounds rather than spikes.</p>
+      </div>
+      <div class="why-points">
+        <div class="wp r" data-delay="2"><h3>Execution is the constraint</h3><p>In direct-to-consumer, results come from how well consumer insight, product, creative, media, conversion, and CRM are connected — not from any single channel. Trafilea operates that full loop on one system.</p></div>
       </div>
     </div>
   </div>
