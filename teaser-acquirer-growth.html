@@ -144,6 +144,9 @@
   .folio .brandcard.flag{grid-column:span 2;background:linear-gradient(140deg,rgba(0,195,137,.14),var(--panel));border-color:rgba(0,195,137,.3)}
   .folio .brandcard.flag .nm{font-size:1.6rem}
   .folio .brandcard.flag .cat{color:var(--green)}
+  .folio .brandcard .rank{display:inline-block;margin-top:14px;font-family:var(--mono);font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--green-2);border:1px solid rgba(0,195,137,.35);border-radius:999px;padding:4px 10px}
+  .folio .brandcard .stat{margin-top:12px;font-size:.82rem;color:var(--ink-2)}
+  .folio .brandcard .stat b{color:var(--ink);font-weight:600}
 
   /* ════ TRAJECTORY (real timeline → numbers earn their place) ════ */
   .traj-wrap{margin-top:14px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,var(--navy-2),var(--well));padding:clamp(20px,3vw,34px);position:relative;overflow:hidden}
@@ -353,8 +356,18 @@
     </div>
     <div class="r r-rise" data-delay="2">
       <div class="folio">
-        <div class="brandcard flag"><div class="nm">Shapermint</div><div class="cat">Flagship · size-inclusive shapewear &amp; intimates</div></div>
-        <div class="brandcard" style="grid-column:span 2"><div class="nm">Truekind</div><div class="cat">Comfort-first wireless bras &amp; shapewear</div></div>
+        <div class="brandcard flag">
+          <div class="nm">Shapermint</div>
+          <div class="cat">Flagship · size-inclusive shapewear &amp; intimates apparel</div>
+          <div class="rank">#1 best-selling shapewear in the US</div>
+          <div class="stat data"><b>$350M+</b> annual sales · <b>12M</b> customers</div>
+        </div>
+        <div class="brandcard" style="grid-column:span 2">
+          <div class="nm">Truekind</div>
+          <div class="cat">Comfort-first wireless bras &amp; underwear</div>
+          <div class="rank">#2 best-selling wirefree bra in the US</div>
+          <div class="stat data"><b>$100M+</b> annual sales</div>
+        </div>
       </div>
     </div>
   </div>
