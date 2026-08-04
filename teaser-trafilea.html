@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trafilea Investor teaser</title>
+<meta name="description" content="Trafilea, a profitable $405M AI-consumer platform, now opening its engine to the industry as a B2B Agentic Commerce OS.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+  :root{
+    --deep:#00000a;
+    --midnight:#11113a;
+    --cobalt:#3b5bff;
+    --coral:#e8614d;
+    --white:#ffffff;
+    --body:#ebebeb;
+    --muted:#a0a0b0;
+    --border:rgba(255,255,255,.18);
+    --border-strong:rgba(255,255,255,.28);
+    --rail:rgba(128,128,128,.18);
+
+    --canvas-light:#f7f5f0;
+    --surface-light:#ffffff;
+    --title-light:#11113a;
+    --body-light:#3a3a5c;
+    --muted-light:#6b6b7e;
+    --border-light:rgba(17,17,58,.18);
+
+    --display:'Montserrat',system-ui,sans-serif;
+    --sans:'DM Sans',system-ui,sans-serif;
+
+    --h1:clamp(2.1rem,1.45rem + 2.8vw,3.7rem);
+    --h2:clamp(1.7rem,1.3rem + 1.9vw,2.8rem);
+    --stat:clamp(2rem,1.4rem + 2.4vw,3.1rem);
+    --lede:clamp(1.05rem,.98rem + .5vw,1.3rem);
+    --body-size:clamp(1rem,.96rem + .2vw,1.06rem);
+    --sm:.9rem;
+    --eyebrow:.82rem;
+    --page:1240px;
+    --gut:clamp(1.4rem,4vw,2.5rem);
+  }
+
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{background:var(--deep);color:var(--body);font-family:var(--sans);font-size:var(--body-size);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+  ::selection{background:var(--cobalt);color:#fff}
+  ::-webkit-scrollbar{width:5px;height:8px}
+  ::-webkit-scrollbar-track{background:var(--deep)}
+  ::-webkit-scrollbar-thumb{background:var(--cobalt)}
+  a{color:inherit;text-decoration:none}
+
+  .page{max-width:var(--page);margin:0 auto;padding-inline:var(--gut)}
+
+  /* surfaces */
+  .deep{background:var(--deep)}
+  .midnight{background:var(--midnight)}
+  .light{background:var(--canvas-light);color:var(--body-light)}
+  section{border-top:.5px solid var(--rail)}
+  section:first-of-type{border-top:0}
+  .pad{padding-block:clamp(3.4rem,7vw,6.5rem)}
+
+  /* type */
+  h1,h2{font-family:var(--display);font-weight:600;letter-spacing:-.02em;line-height:1.08;color:var(--white)}
+  .light h1,.light h2{color:var(--title-light)}
+  h1 em,h2 em{font-style:normal;color:inherit}
+  h1{font-size:var(--h1)}
+  h2{font-size:var(--h2)}
+  .eyebrow{font-family:var(--sans);font-weight:500;font-size:var(--eyebrow);letter-spacing:.09em;color:var(--cobalt);margin-bottom:1.2rem;display:block}
+  .lede{font-size:var(--lede);line-height:1.55;max-width:60ch;color:var(--body)}
+  .light .lede{color:var(--body-light)}
+  .lede strong{color:var(--white);font-weight:500}
+  .light .lede strong{color:var(--title-light)}
+  .muted{color:var(--muted)}
+  .light .muted{color:var(--muted-light)}
+  .stat{font-family:var(--display);font-weight:600;font-size:var(--stat);line-height:1;color:var(--white);letter-spacing:-.02em}
+  .light .stat{color:var(--title-light)}
+  .coral{color:var(--coral)}
+
+  /* reveal */
+  .rv{opacity:0;transform:translateY(20px);transition:opacity 1.1s cubic-bezier(.25,.1,.25,1),transform 1.1s cubic-bezier(.25,.1,.25,1)}
+  .rv.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+  /* hairline card */
+  .card{border:.5px solid var(--border);border-radius:10px;padding:1.4rem 1.5rem;background:transparent;align-self:start}
+  .light .card{border-color:var(--border-light);background:var(--surface-light)}
+
+  /* tag */
+  .tag{display:inline-block;border:.5px solid var(--cobalt);color:var(--cobalt);border-radius:3px;padding:4px 10px;font-size:13px;font-weight:500;font-family:var(--sans)}
+
+  /* topbar */
+  .bar{position:sticky;top:0;z-index:40;background:var(--deep);border-bottom:.5px solid var(--border)}
+  .bar-in{max-width:var(--page);margin:0 auto;padding:.85rem var(--gut);display:flex;align-items:center;justify-content:space-between;gap:1rem}
+  .brand{display:flex;align-items:center;gap:.55rem;color:var(--white)}
+  .ring{width:22px;height:22px}
+  .ring circle,.ring path{fill:none;stroke:var(--cobalt);stroke-width:2.6;stroke-linecap:round}
+  .brand b{font-family:var(--sans);font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
+  .bar-meta{font-family:var(--sans);font-size:.8rem;color:var(--muted);letter-spacing:.04em}
+
+  /* hero */
+  #hero{padding-top:clamp(3rem,6vw,5rem)}
+  #hero h1{max-width:16ch;margin-bottom:1.6rem}
+  #hero .lede{margin-bottom:2.6rem}
+
+  /* kpis */
+  .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-items:start}
+  @media(min-width:720px){.kpis{grid-template-columns:repeat(4,1fr)}}
+  .kpi .v{font-family:var(--display);font-weight:600;font-size:clamp(1.7rem,1.2rem + 1.6vw,2.3rem);line-height:1;color:var(--white);letter-spacing:-.02em}
+  .kpi.accent .v{color:var(--coral)}
+  .kpi .k{font-size:.85rem;color:var(--muted);margin-top:.6rem;line-height:1.4}
+
+  /* split (who) */
+  .split{display:grid;gap:clamp(2rem,5vw,4rem)}
+  @media(min-width:900px){.split{grid-template-columns:1.05fr .95fr;align-items:start}}
+  .points{margin-top:1.8rem;list-style:none}
+  .points li{display:grid;grid-template-columns:auto 1fr;gap:.9rem;padding:1rem 0;border-top:.5px solid var(--border);align-items:baseline}
+  .light .points li{border-color:var(--border-light)}
+  .points li:first-child{border-top:0}
+  .points .a{color:var(--cobalt)}
+  .points b{color:var(--white);font-weight:500}
+  .light .points b{color:var(--title-light)}
+  .folio{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;align-items:start}
+  .folio .nm{font-weight:500;color:var(--white)}
+  .light .folio .nm{color:var(--title-light)}
+  .folio .cat{font-size:.85rem;color:var(--muted);margin-top:.25rem;line-height:1.4}
+  .folio .flag{grid-column:span 2}
+
+  /* chart */
+  .chart-wrap{margin-top:2rem;border:.5px solid var(--border);border-radius:10px;padding:clamp(1.2rem,3vw,2rem)}
+  .light .chart-wrap{border-color:var(--border-light);background:var(--surface-light)}
+  .chart{display:grid;grid-template-columns:repeat(10,1fr);gap:clamp(4px,1vw,10px);align-items:end;height:clamp(200px,30vh,300px);padding-top:26px}
+  .col{display:flex;flex-direction:column;height:100%;min-height:0}
+  .col .track{flex:1;min-height:0;position:relative;display:flex;align-items:flex-end;justify-content:center}
+  .col .bar-el{width:100%;max-width:54px;height:0;background:rgba(59,91,255,.28);border-radius:2px 2px 0 0;transform:scaleY(0);transform-origin:bottom;transition:transform 1.1s cubic-bezier(.25,.1,.25,1)}
+  .col.peak .bar-el{background:var(--cobalt)}
+  .col .bar-el.grown{transform:scaleY(1)}
+  .col .bv{position:absolute;left:0;right:0;text-align:center;transform:translateY(-6px);font-family:var(--sans);font-size:clamp(.56rem,.46rem + .3vw,.74rem);color:var(--muted)}
+  .col.peak .bv{color:var(--white);font-weight:500}
+  .col .yr{flex:0 0 auto;text-align:center;margin-top:.5rem;font-family:var(--sans);font-size:.68rem;color:var(--muted)}
+  .chart-note{margin-top:1.1rem;font-size:.85rem;color:var(--muted)}
+
+  /* why-now */
+  .why{display:grid;gap:clamp(2rem,4vw,3.4rem);margin-top:2.2rem}
+  @media(min-width:900px){.why{grid-template-columns:1fr 1fr;align-items:start}}
+  .tam{display:flex;align-items:flex-end;gap:clamp(2rem,6vw,4.5rem);height:200px;padding-top:30px}
+  .tam .tb{flex:1;display:flex;flex-direction:column;min-height:0;height:100%}
+  .tam .tb .trk{flex:1;position:relative;min-height:0;display:flex;align-items:flex-end}
+  .tam .tb .fill{width:100%;height:0;transform:scaleY(0);transform-origin:bottom;transition:transform 1.1s cubic-bezier(.25,.1,.25,1);border-radius:2px 2px 0 0}
+  .tam .tb .fill.grown{transform:scaleY(1)}
+  .tam .tb.now .fill{background:rgba(255,255,255,.16)}
+  .tam .tb.future .fill{background:var(--cobalt)}
+  .tam .tb .amt{position:absolute;left:0;right:0;text-align:center;transform:translateY(-8px);font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,1rem + 1.2vw,1.9rem);color:var(--white);letter-spacing:-.02em}
+  .midnight .tam .tb .amt{color:var(--white)}
+  .tam .tb .yl{flex:0 0 auto;text-align:center;margin-top:.7rem;font-size:.75rem;color:var(--muted)}
+  .tam-cap{font-size:.9rem;color:var(--muted);margin-top:1.2rem;border-top:.5px solid var(--border);padding-top:1rem}
+  .tam-cap b{color:var(--cobalt);font-weight:500}
+  .wp+.wp{margin-top:1.6rem}
+  .wp h3{font-family:var(--display);font-size:clamp(1.3rem,1rem + 1.2vw,1.7rem);color:var(--white);margin-bottom:.5rem;letter-spacing:-.01em}
+  .wp p{color:var(--body)}
+  .wp .big{font-family:var(--display);font-weight:600;font-size:clamp(1.9rem,1.3rem + 2vw,2.6rem);color:var(--cobalt);line-height:1;display:block;margin-bottom:.5rem;letter-spacing:-.02em}
+
+  /* lever */
+  .caps{display:grid;grid-template-columns:1fr;gap:12px;margin-top:2.4rem;align-items:start}
+  @media(min-width:680px){.caps{grid-template-columns:repeat(2,1fr)}}
+  @media(min-width:1040px){.caps{grid-template-columns:repeat(4,1fr)}}
+  .caps h3{font-family:var(--sans);font-weight:500;font-size:1.05rem;color:var(--white);margin-bottom:.5rem}
+  .caps p{font-size:.9rem;color:var(--muted);line-height:1.55}
+  .caps .idx{font-family:var(--display);color:var(--cobalt);font-size:1rem;margin-bottom:.9rem}
+  .wedge{margin-top:2.4rem;display:grid;grid-template-columns:1fr;border:.5px solid var(--border);border-radius:10px;overflow:hidden}
+  @media(min-width:820px){.wedge{grid-template-columns:repeat(3,1fr)}}
+  .step{padding:clamp(1.4rem,3vw,2rem)}
+  .step+.step{border-top:.5px solid var(--border)}
+  @media(min-width:820px){.step+.step{border-top:0;border-left:.5px solid var(--border)}}
+  .step .s{font-family:var(--sans);color:var(--cobalt);font-weight:500;font-size:.82rem;letter-spacing:.06em;margin-bottom:.8rem}
+  .step h3{font-family:var(--sans);font-weight:500;font-size:1.1rem;color:var(--white);margin-bottom:.45rem}
+  .step p{font-size:.9rem;color:var(--muted);line-height:1.55}
+  .market{margin-top:2.6rem;padding-top:2rem;border-top:.5px solid var(--border);display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem 1.6rem}
+  .market .v{font-family:var(--display);font-weight:600;font-size:clamp(2.4rem,1.6rem + 3vw,4rem);color:var(--white);line-height:1;letter-spacing:-.02em}
+  .market .l{font-size:var(--body-size);color:var(--muted);max-width:34ch}
+
+  /* moat */
+  .moat{margin-top:1.4rem;max-width:960px}
+  .moat .m{display:grid;grid-template-columns:auto 1fr;gap:clamp(1rem,3vw,2.4rem);padding:clamp(1.4rem,3vw,2rem) 0;border-top:.5px solid var(--border);align-items:baseline}
+  .midnight .moat .m{border-color:var(--border)}
+  .moat .lab{color:var(--cobalt);font-size:.85rem;white-space:nowrap}
+  .moat h3{font-family:var(--display);font-size:clamp(1.4rem,1.1rem + 1.4vw,2rem);color:var(--white);margin-bottom:.5rem;letter-spacing:-.01em}
+  .moat p{color:var(--body);max-width:62ch}
+
+  /* team */
+  .team{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:2.2rem;align-items:start}
+  @media(min-width:900px){.team{grid-template-columns:repeat(4,1fr)}}
+  .member .av{width:46px;height:46px;border-radius:50%;border:.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-weight:500;color:var(--cobalt);margin-bottom:1rem}
+  .member .nm{font-weight:500;color:var(--white)}
+  .member .rl{color:var(--cobalt);font-size:.88rem;margin-top:.25rem}
+  .member .lo{color:var(--muted);font-size:.82rem;margin-top:.35rem}
+  .quote{margin-top:clamp(2.6rem,5vw,4rem);border-left:2px solid var(--cobalt);padding:.4rem 0 .4rem 1.4rem;max-width:60ch}
+  .quote blockquote{font-family:var(--display);font-weight:500;font-size:clamp(1.35rem,1.05rem + 1.3vw,1.9rem);color:var(--white);line-height:1.3;letter-spacing:-.01em}
+  .quote cite{display:block;margin-top:1.1rem;font-style:normal;font-size:.88rem;color:var(--muted)}
+  .quote cite b{color:var(--cobalt);font-weight:400}
+
+  /* close (light) + timeline */
+  #close h2{max-width:18ch;margin-bottom:1.2rem}
+  #close .lede{margin-bottom:2.6rem}
+  .timeline{max-width:760px}
+  .timeline .row{display:grid;grid-template-columns:7rem 1fr;gap:clamp(1rem,3vw,2rem);padding:1.3rem 0;border-top:.5px solid var(--border-light);align-items:baseline}
+  .timeline .row:first-child{border-top:0}
+  .timeline .when{font-family:var(--display);font-weight:600;color:var(--cobalt);font-size:1.05rem;letter-spacing:-.01em}
+  .timeline .what{color:var(--body-light);font-size:var(--lede)}
+  .fine{margin-top:2.6rem;font-size:.85rem;color:var(--muted-light)}
+
+  footer{background:var(--deep);border-top:.5px solid var(--rail);padding-block:2.2rem}
+  .foot{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+  .foot .c{font-size:.82rem;color:var(--muted)}
+
+  @media print{
+    :root{--gut:14mm}
+    *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+    .bar{position:static}
+    .rv{opacity:1!important;transform:none!important}
+    .bar-el,.fill{transform:none!important;transition:none!important}
+    .pad{padding-block:1.6rem}
+    #who,#lever,#whynow,#moat,#team,#close{break-before:page;page-break-before:always}
+    .card,.step,.member,.moat .m{break-inside:avoid}
+    @page{margin:0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .rv{transition:none}.bar-el,.fill{transition:none!important;transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<!-- topbar -->
+<header class="bar">
+  <div class="bar-in">
+    <a class="brand" href="#hero">
+      <svg class="ring" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 8a8 8 0 0 1 0 16"/></svg>
+      <b>Trafilea</b>
+    </a>
+    <span class="bar-meta">Confidential · 2026</span>
+  </div>
+</header>
+
+<!-- hero -->
+<section id="hero" class="deep pad">
+  <div class="page">
+    <span class="eyebrow rv">Trafilea Tech Consumer Group</span>
+    <h1 class="rv d1">A profitable $405M consumer platform, now opening its engine to the <em>industry</em>.</h1>
+    <p class="lede rv d2">Trafilea is a next-generation AI-consumer tech platform that builds and scales category-defining brands in women's intimates, beauty, and wellness. In 2025 we reached <strong>$405M in revenue</strong>, profitably, free-cashflow positive, with 12M+ customers. This year we productize the engine behind it into a <strong>B2B Agentic Commerce OS</strong>.</p>
+    <div class="kpis rv d3">
+      <div class="kpi accent"><div class="v"><span data-count="405" data-prefix="$" data-suffix="M">$0M</span></div><div class="k">FY2025 revenue</div></div>
+      <div class="kpi"><div class="v">+25%</div><div class="k">Year-over-year growth</div></div>
+      <div class="kpi"><div class="v">82%</div><div class="k">Revenue CAGR, 2015 to 2024</div></div>
+      <div class="kpi"><div class="v">FCF+</div><div class="k">Profitable, free-cashflow positive</div></div>
+      <div class="kpi"><div class="v">12M+</div><div class="k">Customers served</div></div>
+      <div class="kpi"><div class="v">98%</div><div class="k">Sales from owned brands</div></div>
+      <div class="kpi"><div class="v">200K+</div><div class="k">Subscribers, $12M ARR</div></div>
+      <div class="kpi"><div class="v">500+</div><div class="k">Team across 24 countries</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- who (light) -->
+<section id="who" class="light pad">
+  <div class="page split">
+    <div>
+      <span class="eyebrow rv">The company</span>
+      <h2 class="rv d1">An end-to-end platform that builds consumer brands as <em>software</em>.</h2>
+      <p class="lede rv d2" style="margin-top:1.4rem">Trafilea is vertically integrated. We design, develop, manufacture, market, sell, and deliver our own products on proprietary technology, serving the unmet needs of middle-class women over 35.</p>
+      <ul class="points">
+        <li class="rv d2"><span class="a">→</span><span><b>Vertically integrated.</b> Every brand runs on one shared data, tech, and growth engine, so each launch inherits the playbooks of the last.</span></li>
+        <li class="rv d3"><span class="a">→</span><span><b>98% owned-brand sales</b>, profitable customer acquisition within 90 days, 80% U.S. with the rest in tier-1 markets.</span></li>
+        <li class="rv d3"><span class="a">→</span><span><b>Evergreen categories</b> across intimates, beauty, and wellness that compound rather than chase trends.</span></li>
+      </ul>
+    </div>
+    <div class="rv d2">
+      <div class="folio">
+        <div class="card flag"><div class="nm">Shapermint</div><div class="cat">Flagship, size-inclusive shapewear and intimates</div></div>
+        <div class="card"><div class="nm">Truekind</div><div class="cat">Comfort-first wireless bras and shapewear</div></div>
+        <div class="card"><div class="nm">Kenz Woman</div><div class="cat">Lingerie for the modern Arab woman</div></div>
+        <div class="card"><div class="nm">The Spa Doctor</div><div class="cat">Clean, doctor-formulated skincare</div></div>
+        <div class="card"><div class="nm">Revel Beauty</div><div class="cat">Adaptogen skincare for every age</div></div>
+        <div class="card"><div class="nm">The Bodcon</div><div class="cat">Body-confidence community and podcast</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- trajectory (deep) -->
+<section id="trajectory" class="deep pad">
+  <div class="page">
+    <span class="eyebrow rv">The trajectory</span>
+    <h2 class="rv d1">A decade of disciplined growth, not a spike.</h2>
+    <p class="lede rv d2" style="margin-top:1.4rem">From $7M in 2016 to $405M in 2025, bootstrapped on a single $10M SAFE, with no priced round to date.</p>
+    <div class="chart-wrap rv d2">
+      <div class="chart" role="img" aria-label="Revenue from 2016 to 2025 growing from $7M to $405M">
+        <div class="col"><div class="track"><span class="bar-el" style="height:2%"></span><span class="bv" style="bottom:2%">$7M</span></div><span class="yr">'16</span></div>
+        <div class="col"><div class="track"><span class="bar-el" style="height:5%"></span><span class="bv" style="bottom:5%">$22M</span></div><span class="yr">'17</span></div>
+        <div class="col"><div class="track"><span class="bar-el" style="height:14%"></span><span class="bv" style="bottom:14%">$58M</span></div><span class="yr">'18</span></div>
+        <div class="col"><div class="track"><span class="bar-el" style="height:26%"></span><span class="bv" style="bottom:26%">$104M</span></div><span class="yr">'19</span></div>
+        <div class="col"><div class="track"><span class="bar-el" style="height:34%"></span><span class="bv" style="bottom:34%">$136M</span></div><span class="yr">'20</span></div>
+        <div class="col"><div class="track"><span class="bar-el" style="height:39%"></span><span class="bv" style="bottom:39%">$157M</span></div><span class="yr">'21</span></div>
+        <div class="col"><div class="track"><span class="bar-el" style="height:43%"></span><span class="bv" style="bottom:43%">$173M</span></div><span class="yr">'22</span></div>
+        <div class="col"><div class="track"><span class="bar-el" style="height:60%"></span><span class="bv" style="bottom:60%">$243M</span></div><span class="yr">'23</span></div>
+        <div class="col"><div class="track"><span class="bar-el" style="height:80%"></span><span class="bv" style="bottom:80%">$323M</span></div><span class="yr">'24</span></div>
+        <div class="col peak"><div class="track"><span class="bar-el" style="height:100%"></span><span class="bv" style="bottom:100%">$405M</span></div><span class="yr">'25</span></div>
+      </div>
+    </div>
+    <p class="chart-note rv">Ten straight years of growth, at an 82% revenue CAGR from 2015 to 2024.</p>
+  </div>
+</section>
+
+<!-- why now (midnight) -->
+<section id="whynow" class="midnight pad">
+  <div class="page">
+    <span class="eyebrow rv">Why now</span>
+    <h2 class="rv d1">A large, growing market, and an AI shift that rewards whoever can <em>execute</em>.</h2>
+    <div class="why">
+      <div class="rv d2">
+        <div class="tam" role="img" aria-label="Total addressable market growing from $281B in 2024 to $430B in 2030">
+          <div class="tb now"><div class="trk"><span class="fill" style="height:65%"></span><span class="amt" style="bottom:65%">$281B</span></div><span class="yl">2024</span></div>
+          <div class="tb future"><div class="trk"><span class="fill" style="height:100%"></span><span class="amt" style="bottom:100%">$430B</span></div><span class="yl">2030</span></div>
+        </div>
+        <p class="tam-cap">Women's intimates, beauty, and wellness. Evergreen, underserved categories growing at a <b>5.5% CAGR</b> through 2030.</p>
+      </div>
+      <div>
+        <div class="wp rv d2"><h3>Commerce is going agentic</h3><p>AI is moving from answering questions to doing the work: acquiring customers, pricing, retaining. Winning takes agents that execute with real operating expertise and guardrails, not another dashboard.</p></div>
+        <div class="wp rv d3"><span class="big">10 yrs</span><h3>We have already learned to operate</h3><p>Everyone else is training models. We have spent a decade running the playbooks, the head start that makes the agents actually work.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- lever (deep) -->
+<section id="lever" class="deep pad">
+  <div class="page">
+    <span class="tag rv">The 2026 lever, launching this year</span>
+    <h2 class="rv d1" style="margin-top:1.3rem">TrafiFlow, the B2B AI <em>Agentic</em> Commerce OS.</h2>
+    <p class="lede rv d2" style="margin-top:1.4rem">Our 10x growth lever. TrafiFlow (our internal name for Trafilea's AI Agentic Commerce OS) will let other consumer brands run on the same expert-trained, well-orchestrated agents we use to operate Trafilea, governed by human guardrails. <strong>Agents that really do the work and compound industry expertise for an unparalleled moat.</strong></p>
+    <div class="caps">
+      <div class="card rv d1"><div class="idx">01</div><h3>Expert-trained agents</h3><p>Agents trained on real operator playbooks for media, pricing, creative, and retention, not generic AI wrappers.</p></div>
+      <div class="card rv d2"><div class="idx">02</div><h3>Well-orchestrated</h3><p>Specialized agents coordinated into one workflow that runs the full funnel, not a pile of disconnected copilots.</p></div>
+      <div class="card rv d3"><div class="idx">03</div><h3>Agentic execution</h3><p>Agents take real action: reallocate budget, rotate creative, adjust pricing, win back customers.</p></div>
+      <div class="card rv d4"><div class="idx">04</div><h3>Governance and guardrails</h3><p>Human-in-the-loop approvals, spend and brand limits, and full auditability, so autonomy stays safe.</p></div>
+    </div>
+    <div class="wedge rv">
+      <div class="step"><div class="s">We run on it</div><h3>Proven in our own P&amp;L</h3><p>The platform already powers a $405M, profitable business before a single external customer.</p></div>
+      <div class="step"><div class="s">We sell what works</div><h3>Open it to the industry</h3><p>Vertical consumer brands facing the same fragmented stack, with playbooks proven across our portfolio.</p></div>
+      <div class="step"><div class="s">Expertise, productized</div><h3>A recurring SaaS layer</h3><p>A decade of operator playbooks packaged into governed agents other brands can run.</p></div>
+    </div>
+    <div class="market rv">
+      <div class="v">$50B+</div>
+      <div class="l">Addressable market for B2B agentic commerce software, still early and largely unclaimed.</div>
+    </div>
+  </div>
+</section>
+
+<!-- moat (midnight) -->
+<section id="moat" class="midnight pad">
+  <div class="page">
+    <span class="eyebrow rv">Why we win</span>
+    <h2 class="rv d1">Most AI-commerce startups have a model. We have the business that proves it.</h2>
+    <div class="moat">
+      <div class="m rv"><span class="lab">Craft</span><div><h3>Operating expertise</h3><p>A decade building and scaling DTC brands from zero: creative, media, pricing, retention, supply chain. The hard-won domain knowledge most teams never get, and what actually makes the difference at scale.</p></div></div>
+      <div class="m rv"><span class="lab">Agents</span><div><h3>Agentic execution, governed</h3><p>We encode that expertise into expert-trained, well-orchestrated agents run with human guardrails, so the system does the work, it does not just report on it.</p></div></div>
+      <div class="m rv"><span class="lab">P&amp;L</span><div><h3>Profitable foundation</h3><p>Free-cashflow positive at scale on just $10M of external capital. We can build a category platform without betting the company on it.</p></div></div>
+      <div class="m rv"><span class="lab">Proof</span><div><h3>Proven in production</h3><p>We run the entire stack on this ourselves before selling it. The product is shaped by daily operation, sharpened by real customer feedback at scale.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- team (deep) -->
+<section id="team" class="deep pad">
+  <div class="page">
+    <span class="eyebrow rv">Leadership</span>
+    <h2 class="rv d1">Founder-led. Operator-built.</h2>
+    <p class="lede rv d2" style="margin-top:1.2rem">The four founders who have led the company from day one.</p>
+    <div class="team">
+      <div class="member card rv d1"><div class="av">SZ</div><div class="nm">Santiago Zabala</div><div class="rl">Founder and CEO</div><div class="lo">Uruguay</div></div>
+      <div class="member card rv d2"><div class="av">MT</div><div class="nm">Massimiliano Tirocchi</div><div class="rl">Founder and CMO</div><div class="lo">Italy</div></div>
+      <div class="member card rv d3"><div class="av">LV</div><div class="nm">Lucas Vera</div><div class="rl">Founder and R+D</div><div class="lo">Argentina</div></div>
+      <div class="member card rv d4"><div class="av">JS</div><div class="nm">Juan Pablo Silvera</div><div class="rl">Founder and VP Operations</div><div class="lo">Uruguay</div></div>
+    </div>
+    <div class="quote rv">
+      <blockquote>We are building the next iconic story in consumer tech, and giving every brand the execution power the best operators have.</blockquote>
+      <cite>Santiago Zabala, <b>Founder and CEO</b></cite>
+    </div>
+  </div>
+</section>
+
+<!-- close (light) -->
+<section id="close" class="light pad">
+  <div class="page">
+    <span class="eyebrow rv">The opportunity</span>
+    <h2 class="rv d1">Back a profitable operator at the moment it becomes a <em>platform</em>.</h2>
+    <p class="lede rv d2">We are building toward the top of consumer tech, and opening the engine that got us here to the whole industry.</p>
+    <div class="timeline rv d2">
+      <div class="row"><span class="when">3 years</span><span class="what">Leading Agentic OS for e-commerce in America.</span></div>
+      <div class="row"><span class="when">5 years</span><span class="what">Top 10 most valuable AI platforms.</span></div>
+      <div class="row"><span class="when">10-20 years</span><span class="what">Top 100 most influential companies.</span></div>
+    </div>
+    <p class="fine">Confidential, do not distribute.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="page foot">
+    <a class="brand" href="#hero"><svg class="ring" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M16 8a8 8 0 0 1 0 16"/></svg><b style="font-family:var(--sans);font-weight:600;color:var(--white)">Trafilea</b></a>
+    <span class="c">© 2026 Trafilea Tech Consumer Group. Confidential investor teaser.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+
+  function countUp(el){
+    var t=parseFloat(el.dataset.count),pre=el.dataset.prefix||'',suf=el.dataset.suffix||'';
+    if(reduce){el.textContent=pre+t+suf;return;}
+    var s=performance.now(),d=1500;
+    (function tick(n){var p=Math.min((n-s)/d,1),e=1-Math.pow(1-p,3);el.textContent=pre+Math.round(t*e)+suf;if(p<1)requestAnimationFrame(tick);})(performance.now());
+  }
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){cio.unobserve(e.target);countUp(e.target);}});},{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(el){cio.observe(el);});
+
+  var bio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('grown');bio.unobserve(e.target);}});},{threshold:.25});
+  document.querySelectorAll('.bar-el,.fill').forEach(function(el){bio.observe(el);});
+})();
+</script>
+</body>
+</html>
