@@ -393,7 +393,7 @@
   .wm-row .bridge{flex:1;margin-top:0}
   @media(max-width:760px){.wm-row{flex-direction:column;align-items:flex-start;gap:16px}.wm-row .wm-logo img{height:38px}}
   /* engine scale stats */
-  .eng-stats{display:grid;grid-template-columns:1fr;margin:26px 0 4px;border:1px solid var(--line-2);border-radius:16px;background:rgba(255,255,255,.02);overflow:hidden}
+  .eng-stats{display:grid;grid-template-columns:1fr;margin:26px 0 clamp(32px,5vw,52px);border:1px solid var(--line-2);border-radius:16px;background:rgba(255,255,255,.02);overflow:hidden}
   @media(min-width:620px){.eng-stats{grid-template-columns:1fr 1fr}}
   .eng-stats .es{padding:22px 26px;border-top:1px solid var(--line)}
   .eng-stats .es:first-child{border-top:0}
