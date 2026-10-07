@@ -330,8 +330,8 @@
   .fin-note{margin-top:14px;font-size:.76rem;color:var(--muted);max-width:82ch;line-height:1.5}
   .scope-tag{display:inline-block;margin-top:30px;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green-2);border:1px solid rgba(0,195,137,.35);border-radius:999px;padding:5px 12px}
   /* ── partnerships / retail ── */
-  .eco{display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-top:26px}
-  @media(min-width:760px){.eco{grid-template-columns:repeat(3,1fr)}}
+  .eco{display:grid;gap:12px;grid-template-columns:1fr;margin-top:26px}
+  @media(min-width:680px){.eco{grid-template-columns:repeat(2,1fr)}}
   .eco .ec{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s;display:flex;flex-direction:column}
   .eco .ec:hover{border-color:rgba(0,195,137,.3);transform:translateY(-3px)}
   .eco .ec .rl{font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--ink);letter-spacing:-.02em;line-height:1}
@@ -341,6 +341,19 @@
   .eco .ec ul{list-style:none;margin-top:14px;display:grid;gap:7px}
   .eco .ec ul li{font-size:.76rem;color:var(--ink-2);padding-left:15px;position:relative;line-height:1.4}
   .eco .ec ul li::before{content:"";position:absolute;left:0;top:.45em;width:5px;height:5px;border-radius:50%;background:var(--green)}
+  /* logo chips + store tooltip */
+  .logochip{display:inline-flex;align-items:center;justify-content:center;background:#fff;border-radius:9px;padding:8px 12px}
+  .logochip img{height:22px;width:auto;display:block}
+  .eco .ec .logochip{align-self:flex-start;margin-bottom:14px}
+  .retail-extra{margin-top:22px}
+  .storetip{position:relative;display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-size:.82rem;line-height:1.3;text-align:left;color:var(--ink-2);background:var(--green-soft);border:1px solid rgba(0,195,137,.35);border-radius:999px;padding:9px 16px;cursor:pointer;appearance:none;-webkit-appearance:none}
+  .storetip .dot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
+  .storetip b{color:var(--ink);font-weight:600}
+  .storetip .pop{position:absolute;bottom:calc(100% + 12px);left:0;width:min(560px,86vw);padding:8px;background:var(--panel);border:1px solid var(--line-2);border-radius:14px;box-shadow:0 24px 60px -20px rgba(0,0,0,.7);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s;z-index:40}
+  .storetip .pop img{width:100%;display:block;border-radius:9px}
+  .storetip .pop .cap{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 6px 3px}
+  .storetip:hover .pop,.storetip:focus .pop,.storetip:focus-within .pop{opacity:1;visibility:visible;transform:none}
+  @media print{.storetip .pop{position:static;opacity:1;visibility:visible;transform:none;width:100%;margin-top:10px;box-shadow:none}}
 </style>
 </head>
 <body>
@@ -364,16 +377,16 @@
   <div class="shell hero-in">
     <p class="kicker">Trafilea Tech Consumer Group</p>
     <h1>A vertically integrated <em>intimate-apparel</em> company, built on proprietary consumer technology.</h1>
-    <p class="lede">Trafilea designs, manufactures, and sells its own intimate-apparel brands directly to consumers, grown by a proprietary <strong>AI engine</strong> the company built in-house. In 2025 the company reached <strong>$401M in revenue</strong>, profitably and free-cashflow positive, with 12M+ customers. Shapermint and Truekind are the proof of the model.</p>
+    <p class="lede">Trafilea designs, develops, and sells its own intimate-apparel brands directly to consumers, grown by a proprietary <strong>AI engine</strong> the company built in-house. In 2025 the company reached <strong>$401M in revenue</strong>, EBITDA-positive, with 12M+ customers. Shapermint and Truekind are the proof of the model.</p>
 
     <div class="readout data" role="group" aria-label="Fiscal year 2025 key metrics">
       <div class="seg hero-rev"><span class="k">FY2025 Revenue</span><span class="v"><span data-count="401" data-prefix="$" data-suffix="M">$0M</span></span></div>
       <div class="seg"><span class="k">YoY Growth</span><span class="v">+25%</span></div>
       <div class="seg"><span class="k">CAGR '15–'24</span><span class="v">82%</span></div>
-      <div class="seg"><span class="k">Profitability</span><span class="v">FCF+</span></div>
+      <div class="seg"><span class="k">Profitability</span><span class="v">EBITDA+</span></div>
       <div class="seg"><span class="k">Customers</span><span class="v">12M+</span></div>
       <div class="seg"><span class="k">Owned-brand sales</span><span class="v">98%</span></div>
-      <div class="seg"><span class="k">Subscribers · $12M ARR</span><span class="v">200K+</span></div>
+      <div class="seg"><span class="k">Subscribers · $30M ARR</span><span class="v">200K+</span></div>
       <div class="seg"><span class="k">Team · 24 countries</span><span class="v">500+</span></div>
     </div>
   </div>
@@ -383,8 +396,8 @@
 <section data-sec id="who" style="background:var(--navy-2);border-block:1px solid var(--line)">
   <div class="shell split">
     <div>
-      <h2 class="lead-h r">Vertically integrated, from product to the customer relationship.</h2>
-      <p class="lead-p r" data-delay="2">Trafilea designs, develops, manufactures, markets, sells, and delivers its own intimate-apparel products on proprietary technology, serving the everyday needs of women underserved by traditional brands in size, fit, and comfort.</p>
+      <h2 class="lead-h r">Vertically integrated, asset-light by design.</h2>
+      <p class="lead-p r" data-delay="2">Trafilea owns design, product development, brand, demand generation, and the customer relationship — running on proprietary technology — while manufacturing and logistics are handled by integrated third-party partners. It serves the everyday needs of women underserved by traditional brands in size, fit, and comfort.</p>
     </div>
     <div class="r r-rise" data-delay="2">
       <div class="folio">
@@ -520,12 +533,16 @@
 <!-- ═══ MOAT ═══ -->
 <section data-sec id="moat">
   <div class="shell">
-    <h2 class="lead-h r">What the business is built on.</h2>
+    <span class="tag">Competitive advantage</span>
+    <h2 class="lead-h r">A rare combination, hard to replicate.</h2>
+    <p class="lead-p r" data-delay="2">The advantage is not any single capability, but the combination: a vertically integrated platform, proprietary AI, a decade of first-party data, and world-class growth expertise — with the financial and supply-chain infrastructure to run it profitably at global scale.</p>
     <div class="moat" style="margin-top:30px">
-      <div class="m r"><span class="lab data">BRANDS</span><div><h3>Brands &amp; customers</h3><p>Profitable, category-leading intimate-apparel brands — Shapermint and Truekind — and a base of 12M+ customers, including 200K+ subscribers.</p></div></div>
-      <div class="m r"><span class="lab data">ENGINE</span><div><h3>Proprietary AI growth engine</h3><p>An in-house system that runs acquisition, conversion, and retention end-to-end, built over a decade rather than assembled from off-the-shelf tools.</p></div></div>
-      <div class="m r"><span class="lab data">DATA</span><div><h3>Data &amp; playbooks</h3><p>Ten years of first-party consumer and performance data, and the codified processes that turn it into repeatable results.</p></div></div>
-      <div class="m r"><span class="lab data">TEAM</span><div><h3>Operating team</h3><p>500+ people across 24 countries, led by the four founders, with deep direct-to-consumer and performance-marketing expertise.</p></div></div>
+      <div class="m r"><span class="lab data">INTEGRATION</span><div><h3>Vertically integrated, asset-light</h3><p>Trafilea owns design, brand, demand generation, data, and the customer relationship; manufacturing and logistics run through integrated third-party (3P) partners — capital-efficient, scalable, and coordinated end-to-end on its own technology.</p></div></div>
+      <div class="m r"><span class="lab data">TECHNOLOGY</span><div><h3>Proprietary AI technology</h3><p>An in-house platform, built over a decade, that drives higher marketing ROI across acquisition, conversion, and retention.</p></div></div>
+      <div class="m r"><span class="lab data">DATA</span><div><h3>Advanced data analytics</h3><p>Ten years of first-party consumer and performance data turned into smarter decisions and repeatable outcomes.</p></div></div>
+      <div class="m r"><span class="lab data">GROWTH</span><div><h3>World-class growth expertise</h3><p>Performance-driven global growth — the proven ability to acquire profitably and scale brands across markets and channels.</p></div></div>
+      <div class="m r"><span class="lab data">CAPITAL</span><div><h3>Outlier financial infrastructure</h3><p>Disciplined capital allocation and real-time financial analytics — a profitable, free-cash-flow-positive engine that funds its own growth.</p></div></div>
+      <div class="m r"><span class="lab data">SUPPLY</span><div><h3>Smart, scalable supply chain</h3><p>A tech-enabled, lean network of integrated third-party (3P) supply and logistics partners — precise, flexible, and built to scale globally without heavy fixed assets.</p></div></div>
     </div>
   </div>
 </section>
@@ -537,7 +554,10 @@
     <h2 class="lead-h r">From ~680 to 5,500+ retail doors by 2027.</h2>
     <p class="lead-p r" data-delay="2">Shapermint is at national scale with Walmart and expanding across Kohl's and JCPenney, while Truekind adds further shelf space at Walmart and Belk. The combined engine behind 2026 wholesale growth — extending the owned brands far beyond direct-to-consumer.</p>
 
-    <div class="scope-tag data r" data-delay="2" style="color:var(--ink-2);border-color:var(--line-2)">Biggest driver · Shapermint at Walmart US &amp; Canada</div>
+    <div class="r" data-delay="2" style="margin-top:30px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <span class="logochip"><img src="logo-walmart.png" alt="Walmart" style="height:24px"></span>
+      <span class="data" style="font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)">Biggest driver · Shapermint at Walmart US &amp; Canada</span>
+    </div>
     <div class="bridge r" data-delay="2">
       <div class="bstep"><div class="bk">Doors · EOY 2025</div><div class="bv data">~680</div><div class="bs">launch base</div></div>
       <div class="bop">→</div>
@@ -547,9 +567,11 @@
     </div>
 
     <div class="eco">
-      <div class="ec r" data-delay="1"><div class="rl">Kohl's</div><div class="rsub">Shapermint</div><div class="rbig data">~1,200</div><div class="rbl">doors by Feb 2027</div><ul><li>Launched July 2026 · 200 doors</li><li>+450 doors added in 2026</li></ul></div>
-      <div class="ec r" data-delay="2"><div class="rl">JCPenney</div><div class="rsub">Test → rollout</div><div class="rbig data">~600</div><div class="rbl">store potential · 2027</div><ul><li>Launches Oct 2026</li><li>50-door test</li></ul></div>
-      <div class="ec r" data-delay="3"><div class="rl">Belk</div><div class="rsub">Truekind</div><div class="rbig data">+20%</div><div class="rbl">lift in Trafilea sales</div><ul><li>Launched March 2026</li></ul></div>
+      <div class="ec r" data-delay="1"><span class="logochip"><img src="logo-kohls.png" alt="Kohl's"></span><div class="rsub">Shapermint</div><div class="rbig data">~1,200</div><div class="rbl">doors by Feb 2027</div><ul><li>Launched July 2026 · 200 doors</li><li>+450 doors added in 2026</li></ul></div>
+      <div class="ec r" data-delay="2"><span class="logochip"><img src="logo-jcpenney.png" alt="JCPenney"></span><div class="rsub">Test → rollout</div><div class="rbig data">~600</div><div class="rbl">store potential · 2027</div><ul><li>Launches Oct 2026</li><li>50-door test</li></ul></div>
+    </div>
+    <div class="retail-extra r" data-delay="3">
+      <button type="button" class="storetip"><span class="dot"></span><span>First <b>Shapermint</b> store now open — expanding into owned physical retail<span class="pop"><img src="store-shapermint.webp" alt="First Shapermint physical store"><span class="cap">First Shapermint store · owned physical retail</span></span></span></button>
     </div>
     <p class="fin-note">Truekind is also gaining shelf space as a second owned brand — launched at Walmart (Sept 2026, ~280 doors) and at Belk.</p>
     <p class="fin-note">Retail door counts and launch dates are management figures; 2026–2027 are projections, rounded.</p>
