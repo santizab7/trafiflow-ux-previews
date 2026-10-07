@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trafilea — Company Profile 2026 · Confidential</title>
-<meta name="description" content="Trafilea Tech Consumer Group — a profitable, vertically integrated intimate-apparel company grown by a proprietary in-house AI engine. FY2025 revenue $401M, free-cashflow positive.">
+<meta name="description" content="Trafilea Tech Consumer Group — a vertically integrated, digital-first intimate-apparel company grown by a proprietary in-house AI engine. FY2025 revenue $401M, EBITDA-positive.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -354,6 +354,15 @@
   .storetip .pop .cap{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:8px 6px 3px}
   .storetip:hover .pop,.storetip:focus .pop,.storetip:focus-within .pop{opacity:1;visibility:visible;transform:none}
   @media print{.storetip .pop{position:static;opacity:1;visibility:visible;transform:none;width:100%;margin-top:10px;box-shadow:none}}
+  /* competitive-advantage cards */
+  .adv{display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-top:34px}
+  @media(min-width:820px){.adv{grid-template-columns:repeat(3,1fr)}}
+  .adv .a{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s}
+  .adv .a:hover{border-color:rgba(0,195,137,.3);transform:translateY(-3px)}
+  .adv .a .ic{width:40px;height:40px;border-radius:11px;background:var(--green-soft);border:1px solid rgba(0,195,137,.3);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+  .adv .a .ic svg{width:20px;height:20px;stroke:var(--green-2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .adv .a h3{font-family:var(--display);font-size:1.1rem;color:var(--ink);letter-spacing:-.01em;margin-bottom:6px;line-height:1.1}
+  .adv .a p{font-size:var(--step--1);color:var(--ink-2);line-height:1.5}
 </style>
 </head>
 <body>
@@ -377,13 +386,13 @@
   <div class="shell hero-in">
     <p class="kicker">Trafilea Tech Consumer Group</p>
     <h1>A vertically integrated <em>intimate-apparel</em> company, built on proprietary consumer technology.</h1>
-    <p class="lede">Trafilea designs, develops, and sells its own intimate-apparel brands directly to consumers, grown by a proprietary <strong>AI engine</strong> the company built in-house. In 2025 the company reached <strong>$401M in revenue</strong>, EBITDA-positive, with 12M+ customers. Shapermint and Truekind are the proof of the model.</p>
+    <p class="lede">Trafilea designs, develops, and sells its own intimate-apparel brands directly to consumers, grown by a proprietary <strong>AI engine</strong> the company built in-house. In 2025 the company reached <strong>$401M in revenue</strong>, profitably, with 12M+ customers. Shapermint and Truekind are the proof of the model.</p>
 
     <div class="readout data" role="group" aria-label="Fiscal year 2025 key metrics">
       <div class="seg hero-rev"><span class="k">FY2025 Revenue</span><span class="v"><span data-count="401" data-prefix="$" data-suffix="M">$0M</span></span></div>
       <div class="seg"><span class="k">YoY Growth</span><span class="v">+25%</span></div>
       <div class="seg"><span class="k">CAGR '15–'24</span><span class="v">82%</span></div>
-      <div class="seg"><span class="k">Profitability</span><span class="v">EBITDA+</span></div>
+      <div class="seg"><span class="k">Profitability</span><span class="v">Profitable</span></div>
       <div class="seg"><span class="k">Customers</span><span class="v">12M+</span></div>
       <div class="seg"><span class="k">Owned-brand sales</span><span class="v">98%</span></div>
       <div class="seg"><span class="k">Subscribers · $30M ARR</span><span class="v">200K+</span></div>
@@ -535,14 +544,14 @@
   <div class="shell">
     <span class="tag">Competitive advantage</span>
     <h2 class="lead-h r">A rare combination, hard to replicate.</h2>
-    <p class="lead-p r" data-delay="2">The advantage is not any single capability, but the combination: a vertically integrated platform, proprietary AI, a decade of first-party data, and world-class growth expertise — with the financial and supply-chain infrastructure to run it profitably at global scale.</p>
-    <div class="moat" style="margin-top:30px">
-      <div class="m r"><span class="lab data">INTEGRATION</span><div><h3>Vertically integrated, asset-light</h3><p>Trafilea owns design, brand, demand generation, data, and the customer relationship; manufacturing and logistics run through integrated third-party (3P) partners — capital-efficient, scalable, and coordinated end-to-end on its own technology.</p></div></div>
-      <div class="m r"><span class="lab data">TECHNOLOGY</span><div><h3>Proprietary AI technology</h3><p>An in-house platform, built over a decade, that drives higher marketing ROI across acquisition, conversion, and retention.</p></div></div>
-      <div class="m r"><span class="lab data">DATA</span><div><h3>Advanced data analytics</h3><p>Ten years of first-party consumer and performance data turned into smarter decisions and repeatable outcomes.</p></div></div>
-      <div class="m r"><span class="lab data">GROWTH</span><div><h3>World-class growth expertise</h3><p>Performance-driven global growth — the proven ability to acquire profitably and scale brands across markets and channels.</p></div></div>
-      <div class="m r"><span class="lab data">CAPITAL</span><div><h3>Outlier financial infrastructure</h3><p>Disciplined capital allocation and real-time financial analytics — a profitable, free-cash-flow-positive engine that funds its own growth.</p></div></div>
-      <div class="m r"><span class="lab data">SUPPLY</span><div><h3>Smart, scalable supply chain</h3><p>A tech-enabled, lean network of integrated third-party (3P) supply and logistics partners — precise, flexible, and built to scale globally without heavy fixed assets.</p></div></div>
+    <p class="lead-p r" data-delay="2">The advantage is not any single capability, but the combination: a digital-first direct-to-consumer model, proprietary AI, a decade of first-party data, and world-class online-growth expertise — run profitably at global scale. Physical retail is an additional channel on top of that proven online engine.</p>
+    <div class="adv">
+      <div class="a r" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 13l9 5 9-5"/></svg></span><h3>Vertically integrated, asset-light</h3><p>Own design, brand &amp; customer; manufacturing and logistics via integrated 3P partners.</p></div>
+      <div class="a r" data-delay="1"><span class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></span><h3>Proprietary AI technology</h3><p>In-house platform driving higher marketing ROI, built over a decade.</p></div>
+      <div class="a r" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></span><h3>Advanced data analytics</h3><p>A decade of first-party data turned into smarter, repeatable decisions.</p></div>
+      <div class="a r" data-delay="2"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 7-7"/><path d="M17 8h4v4"/></svg></span><h3>World-class online growth</h3><p>Elite DTC performance marketing — the core engine; retail is additive.</p></div>
+      <div class="a r" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M14.5 9.3C14.5 8 13.4 7.2 12 7.2s-2.5.8-2.5 2.1c0 1.2.9 1.8 2.5 2.2s2.5 1 2.5 2.2-1.1 2.1-2.5 2.1-2.5-.8-2.5-2.1"/></svg></span><h3>Outlier financial infrastructure</h3><p>Disciplined capital allocation; a profitable engine that self-funds growth.</p></div>
+      <div class="a r" data-delay="3"><span class="ic"><svg viewBox="0 0 24 24"><path d="M1 6h13v9H1z"/><path d="M14 9h4l3 3v3h-7z"/><circle cx="5.5" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg></span><h3>Smart, scalable supply chain</h3><p>A lean 3P supply &amp; logistics network, built to scale globally.</p></div>
     </div>
   </div>
 </section>
@@ -552,7 +561,7 @@
   <div class="shell">
     <span class="tag">Retail partnerships</span>
     <h2 class="lead-h r">From ~680 to 5,500+ retail doors by 2027.</h2>
-    <p class="lead-p r" data-delay="2">Shapermint is at national scale with Walmart and expanding across Kohl's and JCPenney, while Truekind adds further shelf space at Walmart and Belk. The combined engine behind 2026 wholesale growth — extending the owned brands far beyond direct-to-consumer.</p>
+    <p class="lead-p r" data-delay="2">Shapermint is at national scale with Walmart and expanding across Kohl's and JCPenney, while Truekind adds further shelf space at Walmart and Belk — a wholesale channel layered on top of a direct-to-consumer business that remains the core.</p>
 
     <div class="r" data-delay="2" style="margin-top:30px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
       <span class="logochip"><img src="logo-walmart.png" alt="Walmart" style="height:24px"></span>
