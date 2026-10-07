@@ -386,6 +386,14 @@
   .wm-row .wm-logo img{height:44px;width:auto;display:block;opacity:.92}
   .wm-row .bridge{flex:1;margin-top:0}
   @media(max-width:760px){.wm-row{flex-direction:column;align-items:flex-start;gap:16px}.wm-row .wm-logo img{height:38px}}
+  /* engine scale stats */
+  .eng-stats{display:grid;gap:14px;grid-template-columns:1fr;margin:28px 0 4px}
+  @media(min-width:680px){.eng-stats{grid-template-columns:repeat(2,1fr)}}
+  .eng-stats .es{border:1px solid var(--line-2);border-radius:14px;background:linear-gradient(150deg,var(--panel),var(--well));padding:22px 24px}
+  .eng-stats .es .v{font-family:var(--display);font-weight:800;font-size:clamp(2rem,1.5rem + 1.6vw,2.8rem);color:var(--green-2);letter-spacing:-.03em;line-height:1}
+  .eng-stats .es .v small{font-size:.44em;font-weight:700;color:var(--ink-2);letter-spacing:0}
+  .eng-stats .es .l{font-size:var(--step--1);color:var(--ink-2);margin-top:10px;line-height:1.5}
+  .eng-stats .es .l b{color:var(--ink);font-weight:600}
 </style>
 </head>
 <body>
@@ -512,6 +520,11 @@
     <span class="reveal-badge data"><span class="blip"></span> The engine behind the growth</span>
     <h2>An AI growth engine, built in-house.</h2>
     <p class="lede">Trafilea's growth runs on an AI engine built over a decade. It connects consumer insight, product, creative, media, conversion, and CRM into one loop, so a lean team makes faster, better-informed decisions across acquisition, conversion, and retention. It is how the team scaled to $401M profitably. Those capabilities are now being unified into a single operator workspace — every agent in one place — in development for 12+ months and launching in 2027.</p>
+
+    <div class="eng-stats r" data-delay="1">
+      <div class="es"><div class="v data">75%</div><div class="l">of sales through <b>owned online stores</b> (Shapermint.com, Truekind.com) — direct, not marketplaces.</div></div>
+      <div class="es"><div class="v data">$120M<small>/yr</small></div><div class="l"><b>media invested</b>, primarily Meta — a decade of compounding performance-marketing expertise.</div></div>
+    </div>
 
     <div class="caps">
       <div class="caps-art shot r r-scale">
