@@ -363,6 +363,23 @@
   .adv .a .ic svg{width:20px;height:20px;stroke:var(--green-2);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
   .adv .a h3{font-family:var(--display);font-size:1.1rem;color:var(--ink);letter-spacing:-.01em;margin-bottom:6px;line-height:1.1}
   .adv .a p{font-size:var(--step--1);color:var(--ink-2);line-height:1.5}
+  /* international / geo expansion */
+  .geo{display:grid;gap:clamp(24px,4vw,48px);margin-top:34px}
+  @media(min-width:860px){.geo{grid-template-columns:1.1fr .9fr;align-items:start}}
+  .geo-k{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+  .geo-bar{display:flex;height:48px;border-radius:12px;overflow:hidden;border:1px solid var(--line-2)}
+  .geo-bar span{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:.95rem;white-space:nowrap}
+  .geo-bar .us{background:rgba(124,147,171,.4);color:var(--ink)}
+  .geo-bar .intl{background:linear-gradient(180deg,var(--green-2),var(--green-deep));color:var(--navy)}
+  .geo-legend{margin-top:16px;display:flex;flex-direction:column;gap:9px;font-size:.84rem;color:var(--ink-2)}
+  .geo-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:9px;vertical-align:middle}
+  .geo-legend i.us{background:rgba(124,147,171,.65)}
+  .geo-legend i.intl{background:var(--green-2)}
+  .geo-prio ol{list-style:none;counter-reset:p}
+  .geo-prio li{counter-increment:p;display:flex;align-items:baseline;gap:12px;padding:12px 0;border-top:1px solid var(--line);color:var(--ink);font-weight:500}
+  .geo-prio li:first-child{border-top:0}
+  .geo-prio li::before{content:counter(p);font-family:var(--mono);font-size:.72rem;color:var(--green);flex:0 0 14px}
+  .geo-prio li em{color:var(--muted);font-style:normal;font-weight:400;font-size:.85rem}
 </style>
 </head>
 <body>
@@ -584,6 +601,35 @@
     </div>
     <p class="fin-note">Truekind is also gaining shelf space as a second owned brand — launched at Walmart (Sept 2026, ~280 doors) and at Belk.</p>
     <p class="fin-note">Retail door counts and launch dates are management figures; 2026–2027 are projections, rounded.</p>
+  </div>
+</section>
+
+<!-- ═══ INTERNATIONAL EXPANSION ═══ -->
+<section data-sec id="geo" style="background:var(--navy-2);border-block:1px solid var(--line)">
+  <div class="shell">
+    <span class="tag">Growth lever · International</span>
+    <h2 class="lead-h r">A large runway beyond the US.</h2>
+    <p class="lead-p r" data-delay="2">About 75% of revenue is US today, with ~25% international — a vast runway to keep expanding across tier-1 and tier-2 markets, through localized storefronts and payments, regional teams, and cross-border partnerships.</p>
+    <div class="geo r" data-delay="2">
+      <div class="geo-share">
+        <div class="geo-k">Revenue by geography · FY2025</div>
+        <div class="geo-bar"><span class="us" style="width:75%">US · 75%</span><span class="intl" style="width:25%">25%</span></div>
+        <div class="geo-legend">
+          <span><i class="us"></i>United States — ~75% of revenue</span>
+          <span><i class="intl"></i>International — ~25%: Canada, United Kingdom, Australia &amp; others</span>
+        </div>
+      </div>
+      <div class="geo-prio">
+        <div class="geo-k">Expansion priorities</div>
+        <ol>
+          <li>Canada</li>
+          <li>United Kingdom</li>
+          <li>Australia &amp; New Zealand</li>
+          <li>Europe <em>(Germany, Netherlands, Nordics)</em></li>
+          <li>LATAM</li>
+        </ol>
+      </div>
+    </div>
   </div>
 </section>
 
