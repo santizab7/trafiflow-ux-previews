@@ -387,12 +387,11 @@
   .wm-row .bridge{flex:1;margin-top:0}
   @media(max-width:760px){.wm-row{flex-direction:column;align-items:flex-start;gap:16px}.wm-row .wm-logo img{height:38px}}
   /* engine scale stats */
-  .eng-stats{display:grid;gap:14px;grid-template-columns:1fr;margin:28px 0 4px}
-  @media(min-width:680px){.eng-stats{grid-template-columns:repeat(2,1fr)}}
-  .eng-stats .es{border:1px solid var(--line-2);border-radius:14px;background:linear-gradient(150deg,var(--panel),var(--well));padding:22px 24px}
-  .eng-stats .es .v{font-family:var(--display);font-weight:800;font-size:clamp(2rem,1.5rem + 1.6vw,2.8rem);color:var(--green-2);letter-spacing:-.03em;line-height:1}
+  .eng-stats{display:grid;gap:clamp(18px,4vw,44px);grid-template-columns:1fr;margin:24px 0 2px;padding-top:20px;border-top:1px solid var(--line)}
+  @media(min-width:620px){.eng-stats{grid-template-columns:repeat(2,1fr)}}
+  .eng-stats .es .v{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,1.3rem + 1vw,2.2rem);color:var(--green-2);letter-spacing:-.03em;line-height:1}
   .eng-stats .es .v small{font-size:.44em;font-weight:700;color:var(--ink-2);letter-spacing:0}
-  .eng-stats .es .l{font-size:var(--step--1);color:var(--ink-2);margin-top:10px;line-height:1.5}
+  .eng-stats .es .l{font-size:var(--step--1);color:var(--ink-2);margin-top:8px;line-height:1.5;max-width:42ch}
   .eng-stats .es .l b{color:var(--ink);font-weight:600}
 </style>
 </head>
