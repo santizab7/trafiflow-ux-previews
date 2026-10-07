@@ -381,6 +381,11 @@
   .geo-prio li:first-child{border-top:0}
   .geo-prio li::before{content:counter(p);font-family:var(--mono);font-size:.72rem;color:var(--green);flex:0 0 14px}
   .geo-prio li em{color:var(--muted);font-style:normal;font-weight:400;font-size:.85rem}  .preview-badge{position:absolute;top:12px;left:12px;z-index:3;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#9af2d2;background:rgba(8,23,38,.72);border:1px solid rgba(0,195,137,.5);border-radius:999px;padding:5px 11px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+  .wm-row{display:flex;align-items:center;gap:clamp(18px,3vw,32px);margin-top:16px}
+  .wm-row .wm-logo{flex:0 0 auto;display:flex;align-items:center}
+  .wm-row .wm-logo img{height:44px;width:auto;display:block;opacity:.92}
+  .wm-row .bridge{flex:1;margin-top:0}
+  @media(max-width:760px){.wm-row{flex-direction:column;align-items:flex-start;gap:16px}.wm-row .wm-logo img{height:38px}}
 </style>
 </head>
 <body>
@@ -545,16 +550,16 @@
     <h2 class="lead-h r">From ~680 to 5,500+ retail doors by 2027.</h2>
     <p class="lead-p r" data-delay="2">Shapermint is at national scale with Walmart and expanding across Kohl's and JCPenney, while Truekind adds further shelf space at Walmart and Belk — a wholesale channel layered on top of a direct-to-consumer business that remains the core.</p>
 
-    <div class="r" data-delay="2" style="margin-top:30px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-      <span class="logochip"><img src="logo-walmart.png" alt="Walmart" style="height:24px"></span>
-      <span class="data" style="font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)">Biggest driver · Shapermint at Walmart US &amp; Canada</span>
-    </div>
-    <div class="bridge r" data-delay="2">
-      <div class="bstep"><div class="bk">Doors · EOY 2025</div><div class="bv data">~680</div><div class="bs">launch base</div></div>
-      <div class="bop">→</div>
-      <div class="bstep"><div class="bk">Doors · 2026</div><div class="bv data">~2,300</div><div class="bs">national rollout</div></div>
-      <div class="bop">→</div>
-      <div class="bstep hi"><div class="bk">All doors · 2027</div><div class="bv data">~4,000+</div><div class="bs">Shapermint · US &amp; Canada</div></div>
+    <div class="data r" data-delay="2" style="margin-top:30px;font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)">Biggest driver · Shapermint at Walmart US &amp; Canada</div>
+    <div class="wm-row r" data-delay="2">
+      <span class="wm-logo"><img src="logo-walmart.png" alt="Walmart"></span>
+      <div class="bridge">
+        <div class="bstep"><div class="bk">Doors · EOY 2025</div><div class="bv data">~680</div><div class="bs">launch base</div></div>
+        <div class="bop">→</div>
+        <div class="bstep"><div class="bk">Doors · 2026</div><div class="bv data">~2,300</div><div class="bs">national rollout</div></div>
+        <div class="bop">→</div>
+        <div class="bstep hi"><div class="bk">All doors · 2027</div><div class="bv data">~4,000+</div><div class="bs">Shapermint · US &amp; Canada</div></div>
+      </div>
     </div>
 
     <div class="eco">
