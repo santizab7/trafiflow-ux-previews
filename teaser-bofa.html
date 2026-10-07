@@ -329,6 +329,18 @@
   table.fin tr:last-child td{border-bottom:none}
   .fin-note{margin-top:14px;font-size:.76rem;color:var(--muted);max-width:82ch;line-height:1.5}
   .scope-tag{display:inline-block;margin-top:30px;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--green-2);border:1px solid rgba(0,195,137,.35);border-radius:999px;padding:5px 12px}
+  /* ── partnerships / retail ── */
+  .eco{display:grid;gap:12px;grid-template-columns:repeat(2,1fr);margin-top:26px}
+  @media(min-width:860px){.eco{grid-template-columns:repeat(4,1fr)}}
+  .eco .ec{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s;display:flex;flex-direction:column}
+  .eco .ec:hover{border-color:rgba(0,195,137,.3);transform:translateY(-3px)}
+  .eco .ec .rl{font-family:var(--display);font-weight:800;font-size:1.25rem;color:var(--ink);letter-spacing:-.02em;line-height:1}
+  .eco .ec .rsub{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .eco .ec .rbig{font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,1.3rem + 1vw,2.1rem);color:var(--green-2);letter-spacing:-.02em;line-height:1;margin-top:16px}
+  .eco .ec .rbl{font-size:.74rem;color:var(--ink-2);margin-top:5px}
+  .eco .ec ul{list-style:none;margin-top:14px;display:grid;gap:7px}
+  .eco .ec ul li{font-size:.76rem;color:var(--ink-2);padding-left:15px;position:relative;line-height:1.4}
+  .eco .ec ul li::before{content:"";position:absolute;left:0;top:.45em;width:5px;height:5px;border-radius:50%;background:var(--green)}
 </style>
 </head>
 <body>
@@ -515,6 +527,32 @@
       <div class="m r"><span class="lab data">DATA</span><div><h3>Data &amp; playbooks</h3><p>Ten years of first-party consumer and performance data, and the codified processes that turn it into repeatable results.</p></div></div>
       <div class="m r"><span class="lab data">TEAM</span><div><h3>Operating team</h3><p>500+ people across 24 countries, led by the four founders, with deep direct-to-consumer and performance-marketing expertise.</p></div></div>
     </div>
+  </div>
+</section>
+
+<!-- ═══ RETAIL PARTNERSHIPS ═══ -->
+<section data-sec id="partnerships" style="background:var(--well);border-block:1px solid var(--line)">
+  <div class="shell">
+    <span class="tag">Retail partnerships</span>
+    <h2 class="lead-h r">From ~680 to 5,500+ retail doors by 2027.</h2>
+    <p class="lead-p r" data-delay="2">National scale with Walmart — now carrying both Shapermint and Truekind — plus expansion across Kohl's, JCPenney and Belk. The combined engine behind 2026 wholesale growth, extending the owned brands far beyond direct-to-consumer.</p>
+
+    <div class="scope-tag data r" data-delay="2" style="color:var(--ink-2);border-color:var(--line-2)">Biggest driver · Walmart US &amp; Canada</div>
+    <div class="bridge r" data-delay="2">
+      <div class="bstep"><div class="bk">Doors · EOY 2025</div><div class="bv data">~680</div><div class="bs">launch base</div></div>
+      <div class="bop">→</div>
+      <div class="bstep"><div class="bk">Doors · 2026</div><div class="bv data">~2,300</div><div class="bs">national rollout</div></div>
+      <div class="bop">→</div>
+      <div class="bstep hi"><div class="bk">All doors · 2027</div><div class="bv data">~4,000+</div><div class="bs">Walmart US &amp; Canada</div></div>
+    </div>
+
+    <div class="eco">
+      <div class="ec r" data-delay="1"><div class="rl">Walmart</div><div class="rsub">US &amp; Canada · Truekind</div><div class="rbig data">280</div><div class="rbl">doors at launch</div><ul><li>Launched Sept 2026</li><li>New expansion runway for the brand</li></ul></div>
+      <div class="ec r" data-delay="2"><div class="rl">Kohl's</div><div class="rsub">Shapermint</div><div class="rbig data">~1,200</div><div class="rbl">doors by Feb 2027</div><ul><li>Launched July 2026 · 200 doors</li><li>+450 doors added in 2026</li></ul></div>
+      <div class="ec r" data-delay="3"><div class="rl">JCPenney</div><div class="rsub">Test → rollout</div><div class="rbig data">~600</div><div class="rbl">store potential · 2027</div><ul><li>Launches Oct 2026</li><li>50-door test</li></ul></div>
+      <div class="ec r" data-delay="4"><div class="rl">Belk</div><div class="rsub">Truekind</div><div class="rbig data">+20%</div><div class="rbl">lift in Trafilea sales</div><ul><li>Launched March 2026</li></ul></div>
+    </div>
+    <p class="fin-note">Retail door counts and launch dates are management figures; 2026–2027 are projections, rounded.</p>
   </div>
 </section>
 
