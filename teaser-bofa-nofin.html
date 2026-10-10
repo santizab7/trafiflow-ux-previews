@@ -83,11 +83,11 @@
   .hero-veil{position:absolute;inset:0;pointer-events:none;background:
     radial-gradient(120% 80% at 78% 18%,transparent 30%,rgba(8,23,38,.55) 78%,var(--navy) 100%),
     linear-gradient(180deg,rgba(8,23,38,.2),transparent 30%,transparent 70%,var(--navy))}
-  .hero-in{position:relative;z-index:2;padding-block:clamp(64px,12vh,120px)}
+  .hero-in{position:relative;z-index:2;padding-block:clamp(64px,12vh,120px);min-width:0}
   .kicker{font-family:var(--mono);font-size:.74rem;letter-spacing:.26em;text-transform:uppercase;color:var(--green);margin-bottom:26px;display:flex;align-items:center;gap:12px}
   .kicker::before{content:"";width:34px;height:1px;background:var(--green);opacity:.6}
-  .hero h1{font-size:var(--step-4);max-width:17ch;margin-bottom:30px}
-  .hero h1 em{font-style:normal;color:var(--green);position:relative;white-space:nowrap}
+  .hero h1{font-size:var(--step-4);max-width:17ch;margin-bottom:30px;overflow-wrap:break-word}
+  .hero h1 em{font-style:normal;color:var(--green);position:relative;overflow-wrap:break-word}
   .hero p.lede{font-size:var(--step-1);color:var(--ink-2);max-width:54ch;font-weight:400;line-height:1.45}
   .hero p.lede strong{color:var(--ink)}
 
